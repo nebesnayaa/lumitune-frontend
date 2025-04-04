@@ -1,105 +1,101 @@
-.header {
-  display: flex;
-  align-items: center; /* Вирівнює елементи по вертикалі */
-  justify-content: space-between; /* Рівномірний розподіл */
-  height: 45px;
-  padding: 0 27px;
-  background: rgba(0, 18, 33, 0.8);
-  border-bottom: 0.5px solid rgba(166, 218, 255, 1);
-}
+  .header {
+    display: flex;
+    align-items: center; /* Вирівнює елементи по вертикалі */
+    justify-content: space-between; /* Рівномірний розподіл */
+    height: 45px;
+    padding: 0 27px;
+    background: rgba(0, 18, 33, 0.8);
+    border-bottom: 0.5px solid rgba(166, 218, 255, 0.5);
+  }
 
-.logo {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-}
+/* Логотип */
+  .logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
 
-.logo .elipse{
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: rgba(0, 174, 255, 0.14);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  filter: blur(10px);
-}
+  .logo .elipse{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: rgba(0, 174, 255, 0.14);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(10px);
+  }
 
-.searchField {
-  /* flex: 1; Дозволяє займати весь доступний простір */
-  display: flex;
-  justify-content: center; /* Центруємо поле пошуку */
-}
+/* Поле пошуку */
+  .searchField {
+    /* flex: 1; Дозволяє займати весь доступний простір */
+    display: flex;
+    justify-content: center; /* Центруємо поле пошуку */
+  }
 
-.searchBar {
-  background-color: rgba(0, 28, 52, 1);
-  border: 0.5px solid rgba(166, 218, 255, 1);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-}
+  .searchBar {
+    background-color: rgba(0, 28, 52, 1);
+    border: 0.5px solid rgba(166, 218, 255, 0.6);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
 
-.searchBar input {
-  width: 300px;
-  padding: 8px;
-  border: 0;
-  border-right: 0.5px solid rgba(166, 218, 255, 1);
-  outline: none;
-  background: inherit;
-  color: rgba(170, 228, 255, 0.8);
-}
+  .searchBar input {
+    width: 300px;
+    padding: 8px;
+    border: 0;
+    border-right: 0.5px solid rgba(166, 218, 255, 0.5);
+    outline: none;
+    background: inherit;
+    color: rgba(170, 228, 255, 0.8);
+  }
 
-.searchBar input::placeholder {
-  color: rgba(170, 228, 255, 0.8);
-  opacity: 1;
-}
+  .searchBar input::placeholder {
+    color: rgba(170, 228, 255, 0.8);
+    opacity: 1;
+  }
 
-.searchIcon{
-  margin: 0 10px 0 18px ;
-}
+  .searchIcon{
+    margin: 0 10px 0 18px ;
+  }
 
-.microIcon{
-  margin: 0 18px;
-}
+  .microIcon{
+    margin: 0 18px;
+  }
 
-.userBlock {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+/* Акаунт користувача */
+  .userBlock {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 
-.userBlock svg, img {
-  cursor: pointer;
-}
+  .userBlock svg{
+    cursor: pointer;
+  }
 
-.notification{
-  width: 22px;
-  height: 22px;
-}
+  .notifIcon{
+    display: flex;
+    align-items: center;
+  }
 
-.avatar {
-  display: flex;
-  position: relative;
-  align-items: center; /* Вирівнює елементи по вертикалі */
-  justify-content: space-between; /* Рівномірний розподіл */
-}
+  .avatar {
+    display: flex;
+    position: relative;
+    align-items: center; /* Вирівнює елементи по вертикалі */
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgba(69, 96, 144, 0.19);
+  }
 
-.avatar svg{
-  width: 32px;
-  height: 32px;
-  border-radius: 40px;
-  object-fit: cover;
-  cursor: pointer;
-  justify-content: center;
-}
-
-.avatar .elipse{
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: rgba(69, 96, 144, 0.19);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .avatar svg{
+    width: 32px;
+    height: 32px;
+    border-radius: 40px;
+    object-fit: cover;
+    justify-content: center;
+  }

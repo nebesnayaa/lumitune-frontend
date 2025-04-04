@@ -1,36 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
-:root {
-  font-family: Inter;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  vertical-align: middle;
-  
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  :root {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    /* color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
-}
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
+  }
 
-body {
-  padding: 0;
-  margin: 0;
-  min-width: 320px;
-}
+  body {
+    padding: 0;
+    margin: 0;
+    min-width: 320px;
+    
+  }
 
-.appContainer {
+  .appContainer {
     display: flex;
     flex-direction: column;
     height: 100vh;
     background-color: rgba(0, 0, 0, 1);
-    background-image: url(/images/background.svg);
     color: white;
+    background-image: url(/images/background.svg);
   }
   
   .mainLayout {
@@ -49,6 +49,5 @@ body {
     bottom: 0;
     width: 100%;
     background: rgba(0, 14, 28, 1);
-    /* padding: 10px 0; */
     border-top: 2px solid rgba(64, 210, 255, 0.3);
   }

@@ -1,0 +1,55 @@
+.sidebar{
+  margin: 5px;
+  width: 200px;
+  border: 0.5px solid rgba(166, 218, 255, 0.5);
+  border-radius: 15px 4px;
+  background-color: rgba(12, 12, 12, 0.4);
+}
+
+.menuTitle, .sectionTitle{
+  margin-left: 15px;
+}
+
+.menuSection{
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 8px;
+  padding-left: 5px;
+  border: 0.5px solid rgba(166, 218, 255, 0);
+  text-decoration: none;
+}
+
+.active{
+  border-left: 0.5px solid rgba(166, 218, 255, 0.5);
+  border-top: 0.5px solid rgba(166, 218, 255, 0.5);
+  border-bottom: 0.5px solid rgba(166, 218, 255, 0.5);
+  border-radius: 25px 0 0 25px;
+  background-color: rgba(0, 0, 0, 1) !important;
+  background-image: url(/images/background.svg);
+}
+
+.itemName{
+  color: #fff;
+  font-size: 12px;
+}
+
+.homeIcon {
+  width: 20px;
+}
+
+.mediaIcon {
+  width: 16px;
+  padding-left: 2px;
+}
+
+.horizontalLine {
+  height: 0.8px;
+  margin: 20px 8px;
+  background-color: rgba(66, 109, 131, 1);
+}

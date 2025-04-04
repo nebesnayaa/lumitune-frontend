@@ -1,114 +1,132 @@
-.playerBar{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 46px;
-	position: relative;
-}
+	.playerBar{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 46px;
+		position: relative;
+	}
 
 /* Інфо треку */
-.trackInfo {
-	display: flex;
-	align-items: center;
-	margin: 0 15px;
-}
+	.trackInfo {
+		display: flex;
+		align-items: center;
+		margin: 0 15px;
+	}
 
-.trackPoster {
-	width: 43px;
-	height: 43px;
-}
+	.trackPoster {
+		width: 43px;
+		height: 43px;
+	}
 
-.trackText {
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	justify-content: center;
-	margin: 0 10px;
-	gap: 1px;
-	width: 10em;
-}
+	.trackText {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+		margin: 0 10px;
+		gap: 1px;
+		width: 10em;
+	}
 
-.trackName {
-	margin: 0;
-	font-size: 20px;
-}
+	.trackName {
+		margin: 0;
+		font-size: 20px;
+	}
 
-.trackAuthor {
-  margin: 0;
-	font-size: 10px;
-}
+	.trackAuthor {
+		margin: 0;
+		font-size: 10px;
+	}
 
-.icons{
-	display: flex;
-	gap: 5px;
-}
+	.icons{
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.heartIcon{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
 
 /* Панель програвання треку */
-.trackField{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 4px;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
+	.trackField{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 4px;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 
-.controlButtons{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 36px;
-}
+	.controlButtons{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 36px;
+	}
 
-.controlTrack{
-	display: flex;
-	align-items: center;
-	height: 10px;
-	gap: 4px;
-}
+	.controlTrack{
+		display: flex;
+		align-items: center;
+		height: 10px;
+		gap: 4px;
+	}
 
-.trackLine{
-	background-color: rgba(147, 211, 231, 0.3);
-	width: 350px;
-	height: 2px;
-	border-radius: 10px;
-}
+	.trackLine{
+		background-color: rgba(147, 211, 231, 0.3);
+		width: 350px;
+		height: 2px;
+		border-radius: 10px;
+	}
 
-.controlTrack p{
-	font-size: 10px;
-}
+	.controlTrack p{
+		font-size: 10px;
+	}
 
-.currentDuration{
-	color: rgba(147, 211, 231, 1);
-}
+	.currentDuration{
+		color: rgba(147, 211, 231, 1);
+	}
 
-.trackDuration{
-	color: 	rgba(89, 141, 157, 1)
-	;
-}
-
-
+	.trackDuration{
+		color: 	rgba(89, 141, 157, 1)
+		;
+	}
 
 /* Гучність треку та miniPlayer */
-.volumeBlock{
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	margin: 0 15px;
-}
+	.volumeBlock{
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin: 0 15px;
+	}
 
-.volumeBar{
-	display: flex;
-	align-items: center;
-	gap: 7.65px;
-}
+	.volumeBar{
+		display: flex;
+		align-items: center;
+		gap: 7.65px;
+		outline: none;
+	}
 
-.volumeLine{
-	background-color: rgba(147, 211, 231, 0.5);
-	width: 100px;
-	height: 2px;
-	border-radius: 10px;
-}
+	.volumeLine{
+		background-color: rgba(147, 211, 231, 0.5);
+		width: 100px;
+		height: 2px;
+		border-radius: 10px;
+		margins: 2px;
+		cursor: pointer;
+		position: relative;
+	}
+
+	.volumeFill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background-color: rgba(147, 211, 231, 1);
+		border-radius: 3px;
+	}
