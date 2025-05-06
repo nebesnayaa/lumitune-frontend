@@ -70,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
         </div>
         <div className={styles.notifIcon} onClick={handleToggle}>
           { isActive ? (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_1605_3166)">
             <path d="M12.2 17.1001C14 17.1001 15.4 18.5001 15.4 20.3001C15.4 22.0001 14 23.5001 12.2 23.5001C10.4 23.5001 9 22.1001 9 20.3001C9 18.6001 10.4 17.1001 12.2 17.1001Z" fill="url(#paint0_linear_1605_3166)" stroke="url(#paint1_linear_1605_3166)"/>
             <path d="M12 0.5C16 0.5 19.2999 3.8 19.2999 7.8V13.7C19.2999 14.5 19.9 15.1 20.7 15.1C21.9 15.1 22.9 16.1 22.9 17.3C22.9 18.5 21.9 19.5 20.7 19.5H3.39995C2.19995 19.5 1.19995 18.5 1.19995 17.3C1.19995 16.1 2.19995 15.1 3.39995 15.1C4.19995 15.1 4.79995 14.5 4.79995 13.7V7.8C4.69995 3.8 7.99995 0.5 12 0.5Z" fill="url(#paint2_linear_1605_3166)" stroke="url(#paint3_linear_1605_3166)"/>
@@ -98,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
             </defs>
             </svg>
           ) : (
-            <svg width="20" height="20" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="26" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.2368 18.4307C14.157 18.4307 15.7104 19.981 15.7104 21.8887C15.7103 23.7962 14.1569 25.3456 12.2368 25.3457C10.3167 25.3457 8.76336 23.7963 8.76318 21.8887C8.76318 19.9809 10.3166 18.4307 12.2368 18.4307Z" fill="url(#paint0_linear_1627_15636)" stroke="url(#paint1_linear_1627_15636)"/>
               <foreignObject x="-18" y="-18" width="60" height="57.4844">
                 <div 
