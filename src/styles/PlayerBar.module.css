@@ -1,21 +1,28 @@
 	.playerBar{
 		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 65px;
+		position: relative;
+	}
+
+	.wideScreen{
+		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		height: 46px;
-		position: relative;
 	}
 
 /* Інфо треку */
 	.trackInfo {
 		display: flex;
 		align-items: center;
-		margin: 0 15px;
+		margin: 0 2vw 0 20px;
 	}
 
 	.trackPoster {
-		width: 43px;
-		height: 43px;
+		width: 44px;
+		height: 44px;
+		border-radius: 7px;
 	}
 
 	.trackText {
@@ -25,7 +32,7 @@
 		justify-content: center;
 		margin: 0 10px;
 		gap: 1px;
-		width: 10em;
+		width: 8em;
 	}
 
 	.trackName {
@@ -36,10 +43,35 @@
 	.trackAuthor {
 		margin: 0;
 		font-size: 10px;
+		color: rgba(173, 173, 173, 1);
+	}
+
+	.icons_mobile{
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		margin-right: 20px;
+	}
+	
+	.trackLine_mobile{
+		background-color: rgba(116, 116, 116, 1);
+		height: 2px;
+		border-radius: 10px;
+		margin: 0 20px;
+		position: relative;
+	}
+
+	.trackLineActive_mobile{
+		position: absolute;
+		left: 0;
+		width: 40%;
+		background-color: rgba(64, 162, 255, 1);
+		height: 2px;
+		border-radius: 10px;
 	}
 
 	.icons{
-		display: flex;
+		display: none;
 		align-items: center;
 		gap: 10px;
 	}
@@ -53,21 +85,18 @@
 
 /* Панель програвання треку */
 	.trackField{
-		display: flex;
+		display: none;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		gap: 4px;
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
 	}
 
 	.controlButtons{
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 36px;
+		gap: 25px;
 	}
 
 	.controlTrack{
@@ -79,7 +108,17 @@
 
 	.trackLine{
 		background-color: rgba(147, 211, 231, 0.3);
-		width: 350px;
+		max-width: 350px;
+		width: 30vw;
+		height: 2px;
+		border-radius: 10px;
+		position: relative;
+	}
+	.trackLineActive{
+		position: absolute;
+		left: 0;
+		width: 40%;
+		background-color: rgba(147, 211, 231, 1);
 		height: 2px;
 		border-radius: 10px;
 	}
@@ -99,7 +138,7 @@
 
 /* Гучність треку та miniPlayer */
 	.volumeBlock{
-		display: flex;
+		display: none;
 		align-items: center;
 		gap: 10px;
 		margin: 0 15px;
@@ -117,7 +156,7 @@
 		width: 100px;
 		height: 2px;
 		border-radius: 10px;
-		margins: 2px;
+		margin: 2px;
 		cursor: pointer;
 		position: relative;
 	}
@@ -130,3 +169,35 @@
 		background-color: rgba(147, 211, 231, 1);
 		border-radius: 3px;
 	}
+
+	@media(min-width: 500px) {
+    
+  }
+  @media (min-width: 780px) {
+		.trackAuthor{
+			color: white;
+		}
+		.icons{
+			display: flex;
+		}
+		.icons_mobile, .trackLine_mobile, .trackLineActive_mobile{
+			display: none;
+		}
+		.trackField{
+			display: flex;
+		}
+		.volumeBlock{
+			display: flex;
+		}
+		
+  }
+  @media(min-width: 1000px) {
+		.trackField{
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+    .controlButtons{
+			gap: 36px;
+		}
+  }

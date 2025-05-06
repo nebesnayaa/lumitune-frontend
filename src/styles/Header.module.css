@@ -1,15 +1,16 @@
   .header {
     display: flex;
-    align-items: center; /* Вирівнює елементи по вертикалі */
-    justify-content: space-between; /* Рівномірний розподіл */
-    height: 45px;
-    padding: 0 27px;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    padding: 2px 3vw;
     background: rgba(0, 18, 33, 0.8);
     border-bottom: 0.5px solid rgba(166, 218, 255, 0.5);
   }
 
 /* Логотип */
   .logo {
+    width: 40px;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -29,7 +30,6 @@
 
 /* Поле пошуку */
   .searchField {
-    /* flex: 1; Дозволяє займати весь доступний простір */
     display: flex;
     justify-content: center; /* Центруємо поле пошуку */
   }
@@ -43,8 +43,9 @@
   }
 
   .searchBar input {
-    width: 300px;
-    padding: 8px;
+    width: 35vw;
+    min-width: 180px;
+    padding: 8px 2vw;
     border: 0;
     border-right: 0.5px solid rgba(166, 218, 255, 0.5);
     outline: none;
@@ -58,11 +59,11 @@
   }
 
   .searchIcon{
-    margin: 0 10px 0 18px ;
+    margin: 0 0 0 2vw ;
   }
 
   .microIcon{
-    margin: 0 18px;
+    margin: 0 2vw;
   }
 
 /* Акаунт користувача */
@@ -70,19 +71,26 @@
     display: flex;
     align-items: center;
     gap: 15px;
+    /* width: 55px; */
   }
-
+  
   .userBlock svg{
     cursor: pointer;
   }
 
-  .notifIcon{
+  .menuIcon{
     display: flex;
+    align-items: center;
+    /* margin: 0 2vw; */
+  }
+
+  .notifIcon{
+    display: none;
     align-items: center;
   }
 
   .avatar {
-    display: flex;
+    display: none;
     position: relative;
     align-items: center; /* Вирівнює елементи по вертикалі */
     justify-content: center;
@@ -98,4 +106,29 @@
     border-radius: 40px;
     object-fit: cover;
     justify-content: center;
+  }
+
+  @media(min-width: 500px) {
+    /* .userBlock{
+      width: 
+    } */
+  }
+  @media (min-width: 780px) {
+    .logo {
+      width: 45px;
+    }
+    .menuIcon{
+      display: none;
+    }
+    .notifIcon{
+      display: flex;
+    }
+    .avatar {
+      display: flex;
+    }
+  }
+  @media(min-width: 1000px) {
+    /* .userBlock{
+      width: 120px;
+    } */
   }

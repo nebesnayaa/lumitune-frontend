@@ -4,24 +4,17 @@
     font-family: Inter;
     font-weight: 400;
     font-size: 14px;
+    height: 100vh;
     line-height: 100%;
     letter-spacing: 0%;
     vertical-align: middle;
-    /* color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; */
+    min-width: 390px;
   }
 
   body {
     padding: 0;
     margin: 0;
-    min-width: 320px;
-    
+    min-width: 390px;
   }
 
   .appContainer {
@@ -48,6 +41,16 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: rgba(0, 14, 28, 1);
+
+    background: rgba(0, 14, 28, 0.8);
+    backdrop-filter: blur(96.8px);
+    -webkit-backdrop-filter: blur(96.8px); /* для Safari */
+
     border-top: 2px solid rgba(64, 210, 255, 0.3);
+  }
+
+  @media (min-width: 780px) {
+    .playerBar{
+      background: rgba(0, 14, 28, 1);
+    }
   }
