@@ -1,0 +1,76 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+h2{
+  font-size: 16px;
+  color: rgba(190, 244, 255, 1);
+}
+
+.mood{
+  display: inline-flex;
+  align-items: center;
+  color: rgba(64, 162, 255, 1);
+  margin-left: 5px;
+  gap: 5px;
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  background-color: rgba(35, 46, 54, 1);
+  border-radius: 8px;
+  padding: 8px 0;
+  z-index: 10;
+  min-width: 120px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.option {
+  padding: 8px 16px;
+  color: rgba(190, 244, 255, 1);
+  cursor: pointer;
+  /* transition: background 0.2s; */
+}
+
+.option:hover {
+  background-color: rgba(60, 82, 97, 1);
+}
+
+.active {
+  background-color: rgba(60, 82, 97, 1);
+}
+
+.slider{
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.emotion{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.emotion img{
+  width: 100px;
+}
+
+.emotion p{
+  color: rgba(148, 210, 255, 1);
+}
