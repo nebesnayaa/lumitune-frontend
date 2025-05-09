@@ -1,13 +1,15 @@
 .sidebar{
   display: none;
   margin: 5px;
-  width: 200px;
-  border: 0.5px solid rgba(166, 218, 255, 0.5);
-  border-radius: 15px 4px;
+  width: 20vw;
+  max-width: 380px;
+  border: 0.5px solid rgba(166, 218, 255, 0.8);
+  border-radius: 15px 4px 4px 15px;
   background-color: rgba(12, 12, 12, 0.4);
 }
 
 .menuTitle, .sectionTitle{
+  font: 700 1rem "Inter", sans-serif;
   margin-left: 15px;
 }
 
@@ -17,28 +19,24 @@
 }
 
 .menuItem{
+  font: 400 0.75rem "Inter", sans-serif;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: 8px;
+  margin: 0 8px;
   padding-left: 5px;
   border: 0.5px solid rgba(166, 218, 255, 0);
   text-decoration: none;
+  color: #fff;
 }
 
 .active{
-  border-left: 0.5px solid rgba(166, 218, 255, 0.5);
-  border-top: 0.5px solid rgba(166, 218, 255, 0.5);
-  border-bottom: 0.5px solid rgba(166, 218, 255, 0.5);
-  border-radius: 25px 0 0 25px;
-  background-color: rgba(0, 0, 0, 1) !important;
+  border: 0.5px solid rgba(166, 218, 255, 0.5);
+  border-radius: 25px;
+  background-color: rgba(120, 155, 176, 0.13);
   background-image: url(/images/background.svg);
 }
 
-.itemName{
-  color: #fff;
-  font-size: 12px;
-}
 
 .homeIcon {
   width: 20px;

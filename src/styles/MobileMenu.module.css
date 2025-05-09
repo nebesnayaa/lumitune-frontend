@@ -47,7 +47,8 @@
 }
 
 .username{
-  font-size: 20px;
+  font: 300 1.5rem "Inter", sans-serif;
+  letter-spacing: 0.5px;
 }
 
 .notifIcon{
@@ -59,6 +60,8 @@
 /* Меню */
 .menuTitle, .sectionTitle{
   margin: 25px 15px;
+  font: 700 1.5rem "Inter", sas-serif;
+  letter-spacing: 1px;
 }
 
 .menuSection{
@@ -69,6 +72,8 @@
 }
 
 .menuItem{
+  height: 40px;
+  font: 400 1rem "Inter", sans-serif;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -76,17 +81,13 @@
   padding-left: 5px;
   border: 0.5px solid rgba(166, 218, 255, 0);
   text-decoration: none;
+  color: #fff;
 }
 
 .active{
   border-radius: 25px;
   background-color: rgba(166, 218, 255, 0.1) !important;
   background-image: url(/images/background.svg);
-}
-
-.itemName{
-  color: #fff;
-  font-size: 12px;
 }
 
 .homeIcon {

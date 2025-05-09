@@ -1,12 +1,13 @@
 .container{
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin: 10px 20px;
   overflow: hidden;
+  font-size: 1rem;
 }
 
 h2{
-  font-size: 16px;
+  font: 700 1rem "Inter", sans-serif;
   color: rgba(190, 244, 255, 1);
 }
 
@@ -72,5 +73,13 @@ h2{
 }
 
 .emotion p{
+  font: 300 0.75rem "Inter", sans-serif;
   color: rgba(148, 210, 255, 1);
+  margin: 0;
+}
+
+@media (min-width: 780px){
+  .emotion img{
+    width: 130px;
+  }
 }

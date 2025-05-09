@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router";
 import Header from "./components/Header";
 import Sidebar from "./components/SideBar";
 import PlayerBar from "./components/PlayerBar";
+import SideInfoBox from "./components/SideInfoBox";
 import Home from "./pages/Home";
 import MobileMenu from "./components/MobileMenu";
 import styles from "./styles/App.module.css";
@@ -22,6 +23,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
             </Routes>
           </main>
+          <SideInfoBox/>
         </div>
         <div className={styles.playerBar}>
           <PlayerBar />

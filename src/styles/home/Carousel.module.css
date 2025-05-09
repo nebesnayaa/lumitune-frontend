@@ -1,12 +1,15 @@
 .container{
   display: flex;
   justify-content: center;
+  margin: 20px;
 }
 
 .carouselWrapper {
   position: relative;
   width: 100%;
+  max-width: 800px;
   height: 43vw;
+  max-height: 500px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
