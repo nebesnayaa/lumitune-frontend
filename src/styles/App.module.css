@@ -18,7 +18,7 @@
   .appContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     background-color: rgba(0, 0, 0, 1);
     color: white;
     background-image: url(/images/background.svg);
@@ -32,17 +32,18 @@
   
   .content {
     flex: 1;
-    margin: 5px;
     overflow-y: auto;
-    /* border: 0.5px solid rgba(166, 218, 255, 0.8); */
+    margin-top: 5px;
     border-radius: 15px;
+    padding-bottom: 65px;
   }
   
   .playerBar {
     position: fixed;
     bottom: 0;
     width: 100%;
-
+    z-index: 200;
+    
     background: rgba(0, 14, 28, 0.8);
     backdrop-filter: blur(96.8px);
     -webkit-backdrop-filter: blur(96.8px); /* для Safari */
@@ -56,6 +57,7 @@
     }
     .content{
       border: 0.5px solid rgba(166, 218, 255, 0.8);
+      margin-right: 5px;
     }
     .playerBar{
       background: rgba(0, 14, 28, 1);

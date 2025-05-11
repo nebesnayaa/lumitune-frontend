@@ -77,6 +77,7 @@ const MoodSelector: React.FC = () => {
         </span>
       </h2>
 
+      {/* Строка настроїв */}
       <div className={styles.slider}>
         {selected === "mood" ? 
           (moods.map((mood, index) => (

@@ -26,7 +26,13 @@
   margin-left: 10px;
   position: relative;
 }
-
+.profileLink{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
 .avatar {
   display: flex;
   position: relative;

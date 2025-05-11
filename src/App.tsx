@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
+import styles from "./styles/App.module.css";
+
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+
 import Header from "./components/Header";
 import Sidebar from "./components/SideBar";
+import MobileMenu from "./components/MobileMenu";
 import PlayerBar from "./components/PlayerBar";
 import SideInfoBox from "./components/SideInfoBox";
-import Home from "./pages/Home";
-import MobileMenu from "./components/MobileMenu";
-import styles from "./styles/App.module.css";
 
 const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,6 +24,7 @@ const App: React.FC = () => {
           <main className={styles.content}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </main>
           <SideInfoBox/>

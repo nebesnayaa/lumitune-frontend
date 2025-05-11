@@ -1,0 +1,101 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  border-radius: 15px 15px 0 0;
+  padding: 0 15px;
+  background-image: url(/images/profile-background.jpg);
+}
+
+.settings{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title{
+  font-size: 1rem;
+}
+
+.profileInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.avatarSection svg{
+  width: 150px;
+  height: 150px;
+  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.5));
+  max-width: 150px;
+}
+
+.nameSection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nameSection h2{
+  font: 700 1.75rem "Inter", sans-serif;
+  color: white;
+  margin: 0;
+}
+
+.statisctics{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.value{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.value p{
+  margin: 2px;
+  font: 200 1rem "Inter", sans-serif;
+  color: rgba(213, 238, 255, 1);
+}
+
+.textSection{
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.textSection p{
+  font: italic 200 0.8rem "Inter", sans-serif;
+  color: rgba(229, 249, 255, 1);
+  margin: 0;
+}
+
+@media (min-width: 780px) {
+  .container{
+    margin-top: 0;
+    padding: 0;
+  }
+  .settings{
+    margin: 0 15px;
+  }
+  .profileInfo{
+    flex-direction: row;
+  }
+  .avatarSection svg{
+    width: 15vw;
+    height: 15vw;
+  }
+  .nameSection h2{
+    font-size: 1.5rem;
+  }
+  .value p{
+    font-size: 0.75rem;
+  }
+  .textSection p{
+    font-size: 0.75rem;
+  }
+}

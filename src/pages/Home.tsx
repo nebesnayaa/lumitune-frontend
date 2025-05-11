@@ -6,6 +6,8 @@ function Home() {
       <div>
         <Carousel />
         <MoodSelector />
+        <MoodSelector />
+        <MoodSelector />
       </div>
     );
   }

@@ -21,12 +21,14 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
       <div className={styles.menu} onClick={(e) => e.stopPropagation()}>
         {/* Account info */}
         <div className={styles.accountInfo}>
-          <div className={styles.avatar}>
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14c-2.5 0-4.71-1.28-6-3.22.03-2 4-3.08 6-3.08s5.97 1.08 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/>
-            </svg>
-          </div>
-          <div className={styles.username}>Нікнейм</div>
+          <NavLink to="/profile" className={styles.profileLink} onClick={onClose}>
+            <div className={styles.avatar}>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14c-2.5 0-4.71-1.28-6-3.22.03-2 4-3.08 6-3.08s5.97 1.08 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/>
+              </svg>
+            </div>
+            <div className={styles.username}>Нікнейм</div>
+          </NavLink>
           <div className={styles.notifIcon} onClick={handleToggle}>
           { isActive ? (
             <svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +104,8 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
         {/* Menu */}
         <h3 className={styles.menuTitle}>Меню</h3>
         <nav className={styles.menuSection}>
-          <NavLink to="/" className={({ isActive }) => isActive 
+          <NavLink to="/" onClick={onClose} 
+              className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>
             <svg className={styles.homeIcon} width="24" height="22" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +120,8 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
             </svg>
             <p>Головна</p>
           </NavLink>
-          <NavLink to="/library" className={({ isActive }) => isActive 
+          <NavLink to="/library" onClick={onClose} 
+              className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>
             <svg className={styles.mediaIcon} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +135,8 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
         {/* Playlists */}
         <h3 className={styles.menuTitle}>Плейлисти</h3>
         <nav className={styles.menuSection}>
-          <NavLink to="/fav-tracks" className={({ isActive }) => isActive 
+          <NavLink to="/fav-tracks" onClick={onClose}
+              className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +151,8 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
             </svg>
             <p>Улюблені треки</p>
           </NavLink>
-          <NavLink to="/create-playlist" className={({ isActive }) => isActive 
+          <NavLink to="/create-playlist" onClick={onClose}
+              className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +161,8 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
             </svg>
             <p>Створити плейлист</p>
           </NavLink>
-          <NavLink to="/playlists" className={({ isActive }) => isActive 
+          <NavLink to="/playlists" onClick={onClose}
+              className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
