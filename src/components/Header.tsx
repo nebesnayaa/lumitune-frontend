@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../styles/Header.module.css";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 interface HeaderProps {
   toggleMenu: () => void;
@@ -146,6 +146,7 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
           </div>
         </NavLink>
       </div>
+      <Link to="/register">Reg</Link>
     </header>
   );
 }
