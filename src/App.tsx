@@ -4,6 +4,7 @@ import styles from "./styles/App.module.css";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import RegistrationForm from "./pages/RegistrationForm";
 
 import Header from "./components/Header";
 import Sidebar from "./components/SideBar";
@@ -16,23 +17,35 @@ const App: React.FC = () => {
   
   return (
     <Router>
-      <div className={styles.appContainer}>
-        <Header toggleMenu={()=>setIsMobileMenuOpen(prev => !prev)}/>
-        <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
-        <div className={styles.mainLayout}>
-          <Sidebar />
-          <main className={styles.content}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
-          </main>
-          <SideInfoBox/>
-        </div>
-        <div className={styles.playerBar}>
-          <PlayerBar />
-        </div>
-      </div>
+      <Routes>
+        {/* Реєстрація — без layout */}
+        <Route path="/register" element={<RegistrationForm />} />
+
+        {/* Всі інші сторінки — з layout */}
+        <Route
+          path="*"
+          element={
+            <div className={styles.appContainer}>
+              <Header toggleMenu={() => setIsMobileMenuOpen(prev => !prev)} />
+              <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+              <div className={styles.mainLayout}>
+                <Sidebar />
+                <main className={styles.content}>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/profile" element={<Profile />} />
+                    {/* інші сторінки */}
+                  </Routes>
+                </main>
+                <SideInfoBox />
+              </div>
+              <div className={styles.playerBar}>
+                <PlayerBar />
+              </div>
+            </div>
+          }
+        />
+      </Routes>
     </Router>
   )
 }
