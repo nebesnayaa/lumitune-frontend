@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { RegistrationFormData } from "../../types/RegistrationFormData";
 import styles from "../../styles/registration/Registration.module.css";
 import { Link } from "react-router";
@@ -13,13 +13,13 @@ const StepEmail: React.FC<StepEmailProps> = ({ nextStep, formData, onChange }) =
   const [error, setError] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  useEffect(() => {
-    const email = formData.email.trim();
+  const validateEmail = (email: string) => {
+    const trimmedEmail = email.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValidFormat = emailRegex.test(email);
-    const isRussianDomain = /\.ru$/.test(email.split('@')[1] || "");
-    
-    if (!email) {
+    const isValidFormat = emailRegex.test(trimmedEmail);
+    const isRussianDomain = /\.ru$/.test(trimmedEmail.split('@')[1] || "");
+
+    if (!trimmedEmail) {
       setError("");
       setIsValid(false);
     } else if (!isValidFormat) {
@@ -32,8 +32,8 @@ const StepEmail: React.FC<StepEmailProps> = ({ nextStep, formData, onChange }) =
       setError("");
       setIsValid(true);
     }
-  }, [formData.email]);
-  
+  };
+
   return (
     <div className={styles.regPage}>
       <div className={styles.container}>
@@ -73,6 +73,7 @@ const StepEmail: React.FC<StepEmailProps> = ({ nextStep, formData, onChange }) =
               placeholder="@gmail.com"
               className={styles.formInput}
               onChange={(e) => onChange("email", e.target.value)}
+              onBlur={() => validateEmail(formData.email)}
             />
             {error && <p className={styles.errorText}>{error}</p>}
           </div>
@@ -95,7 +96,7 @@ const StepEmail: React.FC<StepEmailProps> = ({ nextStep, formData, onChange }) =
         <div className={styles.horizontalLine2}></div>
         <div className={styles.signInSection}>
           <p>Є акаунт?</p>
-          <Link to="/signin" className={styles.signInLink}>Увійдіть до нього</Link>
+          <Link to="/login" className={styles.signInLink}>Увійдіть до нього</Link>
         </div>
       </div>
     </div>

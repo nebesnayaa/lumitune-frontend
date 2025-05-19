@@ -15,8 +15,22 @@ export interface RegistrationPayload {
     email: string;
   };
 }
+export interface LoginPayload {
+  username: string;
+  password: string;
+}
 
 export const registerUser = async (data: RegistrationPayload) => {
   const response = await axiosInstance.post("/auth/sign-up", data);
+  return response.data;
+};
+
+export const loginUser = async (data: LoginPayload) => {
+  const response = await axiosInstance.post("/auth/login", data);
+  return response.data;
+};
+
+export const isUsernameUnique = async (username: string): Promise<boolean> => {
+  const response = await axiosInstance.get(`/auth/isunique/${encodeURIComponent(username)}`);
   return response.data;
 };

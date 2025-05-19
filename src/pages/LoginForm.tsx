@@ -1,28 +1,49 @@
 import React, { useState } from "react";
-import { RegistrationFormData } from "../../types/RegistrationFormData";
-import styles from "../../styles/registration/Registration.module.css";
+import { LoginFormData } from "../types/LoginFormData";
+import { loginUser } from "../api/userService";
+import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router";
+import styles from "../styles/registration/Login.module.css";
 
-interface StepEmailProps {
-  nextStep: () => void;
-  prevStep: () => void;
-  formData: RegistrationFormData;
-  onChange: (field: keyof RegistrationFormData, value: string) => void;
-}
+const LoginForm: React.FC = () => {
+  const [formData, setFormData] = useState<LoginFormData>({
+    username: "",
+    password: "",
+  });
 
-const StepPassword: React.FC<StepEmailProps> = ({ nextStep, prevStep, formData, onChange }) => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const { setUsername } = useAuth();
+
+  const navigate = useNavigate();
   
-  const password = formData.password;
+  const onChange = (field: keyof LoginFormData, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
-  const hasLetter = /[A-Za-zА-Яа-яЁёЇїІіЄєҐґ]/.test(password);
-  const hasDigitOrSpecial = /[0-9_!?&#]/.test(password);
-  const hasMinLength = password.length >= 8;
-  const isValid = hasLetter && hasDigitOrSpecial && hasMinLength;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
+    try {
+      const data = await loginUser(formData);
+      setUsername(data.user.username);  // Глобальний стан контексту (setUsername)
+      localStorage.setItem("username", data.user.username); // Збереження в localStorage
+      // console.log("Користувач увійшов: ", data.user.username);
+
+      // alert("Успішний вхід");
+      navigate("/");
+    } catch (error) {
+      console.error("Помилка входу:", error);
+      alert("Невірне ім’я користувача або пароль.");
+    }
+  };
+  
   return (
-    <div className={styles.regPage}>
+    <div className={styles.logPage}>
       <div className={styles.container}>
-        <button className={styles.prevBtn} onClick={prevStep}>Назад</button>
         <div className={styles.logo}>
           <div className={styles.elipse}></div>
           <svg width="200" height="80" viewBox="0 0 73 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,14 +69,19 @@ const StepPassword: React.FC<StepEmailProps> = ({ nextStep, prevStep, formData, 
             <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7823 27.8923L11.4382 21.0099L17.245 25.2341L17.5228 29.2254L13.7823 27.8923Z" fill="#40CCFF"/>
           </svg>
         </div>
-        <h2 className={styles.title}>Створіть профіль</h2>
-        <div className={styles.stepSection}>
-          <p>Крок 1 із 2</p>
-          <div className={styles.stepLine}>
-            <div className={styles.active1}></div>
-          </div>
-        </div>
+        <h2 className={styles.title}>Пориньте у LumiTune</h2>
+
         <div className={styles.inputSection}>
+          <div className={styles.usernameSection}>
+            <p className={styles.label}>Ім'я користувача</p>
+            <input
+              type="text"
+              value={formData.username}
+              placeholder="username"
+              className={styles.formInput}
+              onChange={(e) => onChange("username", e.target.value)}
+            />
+          </div>
           <div className={styles.passwordSection}>
             <p className={styles.label}>Пароль</p>
             <input
@@ -79,38 +105,34 @@ const StepPassword: React.FC<StepEmailProps> = ({ nextStep, prevStep, formData, 
             }
           </div>
         </div>
-        <div className={styles.validationPassword}>
-          <p className={styles.label}>Пароль має містити принаймні:</p>
+        <button className={styles.submitBtn} onClick={handleSubmit}>Увійти</button>
 
-          <div className={`${styles.helpLabel} ${hasLetter ? styles.valid : ""}`}>
-            <div className={styles.icon}>
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="7" cy="7.18945" r="6" stroke="#A6A6A6" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <span>1 літеру</span>
-          </div>
-          <div className={`${styles.helpLabel} ${hasDigitOrSpecial ? styles.valid : ""}`}>
-            <div>
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="7" cy="7.18945" r="6" stroke="#A6A6A6" stroke-width="1.5"/>
-              </svg>
-            </div> 
-            <span>1 число або 1 спеціальний символ (наприклад:_!?&#)</span>
-          </div>
-          <div className={`${styles.helpLabel} ${hasMinLength ? styles.valid : ""}`}>
-            <div>
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="7" cy="7.18945" r="6" stroke="#A6A6A6" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <span>8 символів</span>
-          </div>
+        <div className={styles.horizontalLine}></div>
+        <button className={styles.googgleBtn}>
+          <svg width="28" height="28" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30.9999 16.0331C30.9999 14.7587 30.8943 13.8287 30.666 12.8643H15.8162V18.6164H24.5327C24.357 20.0459 23.408 22.1987 21.2991 23.6453L21.2696 23.8379L25.9648 27.4025L26.2901 27.4343C29.2776 24.7304 30.9999 20.752 30.9999 16.0331Z" fill="#00AEFF"/>
+            <path d="M15.8161 31.1884C20.0864 31.1884 23.6714 29.8106 26.29 27.434L21.299 23.645C19.9635 24.5577 18.1709 25.195 15.8161 25.195C11.6336 25.195 8.0837 22.4911 6.81827 18.7539L6.63279 18.7693L1.75061 22.4721L1.68677 22.6461C4.28765 27.7094 9.63008 31.1884 15.8161 31.1884Z" fill="#35FFA7"/>
+            <path d="M6.81854 18.7541C6.48464 17.7897 6.29141 16.7563 6.29141 15.6885C6.29141 14.6207 6.48464 13.5874 6.80097 12.623L6.79213 12.4176L1.84878 8.65527L1.68704 8.73067C0.615087 10.8318 0 13.1913 0 15.6885C0 18.1858 0.615087 20.5452 1.68704 22.6463L6.81854 18.7541Z" fill="#FBF305"/>
+            <path d="M15.8161 6.1818C18.786 6.1818 20.7894 7.43903 21.9317 8.48966L26.3954 4.2185C23.654 1.72127 20.0864 0.188477 15.8161 0.188477C9.63008 0.188477 4.28765 3.66736 1.68677 8.73068L6.8007 12.623C8.0837 8.88574 11.6336 6.1818 15.8161 6.1818Z" fill="#FF286C"/>
+          </svg>
+          <p className={styles.googgleLabel}>Увійти з Google</p>
+        </button>
+
+        <div className={styles.horizontalLine2}>
+          <div className={styles.line}></div>
         </div>
-        <button className={styles.submitBtn} onClick={nextStep} disabled={!isValid}>Далі</button>
+
+        
+        
+       
+        
+        <div className={styles.registerSection}>
+          <p>Немає акаунта?</p>
+          <Link to="/register" className={styles.registerLink}>Зареєструватись</Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default StepPassword;
+export default LoginForm;

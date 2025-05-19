@@ -28,22 +28,6 @@ const RegistrationForm: React.FC = () => {
     }));
   };
 
-  // const requestBody = {
-  //   username: formData.username,
-  //   password: formData.password,
-  //   avatarId: "", // або null, або дефолтний ID, якщо є
-  //   role: "USER",
-  //   accSubscribers: 0,
-  //   accFollowings: 0,
-  //   userData: {
-  //     id: "", // або не передавати, якщо бекенд сам генерує
-  //     birthDate: formData.birthDate,
-  //     regionId: formData.regionId,
-  //     isArtist: formData.isArtist,
-  //     email: formData.email,
-  //   }
-  // };
-
   switch (step) {
     case 1:
       return <StepEmail nextStep={nextStep} formData={formData} onChange={handleChange} />;

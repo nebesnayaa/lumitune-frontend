@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RegistrationFormData } from "../../types/RegistrationFormData";
 import styles from "../../styles/registration/Registration.module.css";
 import { Region, fetchCountries, fetchCitiesByCountryId, fetchRegionById } from "../../api/regionService";
-import { registerUser } from "../../api/userService";
+import { registerUser, isUsernameUnique } from "../../api/userService";
 import { useNavigate } from "react-router";
 
 interface StepPersonalInfoProps {
@@ -30,30 +30,58 @@ const MONTH_OPTIONS = [
 ];
 
 const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData, onChange }) => {
+  const [birthDay, setBirthDay] = useState<string>("");
+  const [birthMonth, setBirthMonth] = useState<string>("");
+  const [birthYear, setBirthYear] = useState<string>("");
+
   const [countries, setCountries] = useState<Region[]>([]);
   const [cities, setCities] = useState<Region[]>([]);
 
   const [selectedCountryId, setSelectedCountryId] = useState<string>("");
   const [selectedCityId, setSelectedCityId] = useState<string>(formData.regionId || "");
 
-  const [birthDay, setBirthDay] = useState<string>("");
-  const [birthMonth, setBirthMonth] = useState<string>("");
-  const [birthYear, setBirthYear] = useState<string>("");
-
-  const [error, setError] = useState<string>("");
+  const [errorUserName, setErrorUserName] = useState<string>();
+  const [errorDate, setErrorDate] = useState<string>("");
 
   const navigate = useNavigate();
   
-  // 1. Завантаження країн
+  // 1. Завантаження країн та дати народження з formData.birthDate
   useEffect(() => {
     if(countries.length === 0){
       fetchCountries()
         .then(setCountries)
         .catch((error) => console.error("Помилка при завантаженні країн", error));
     }
+    if (formData.birthDate) {
+      const [year, month, day] = formData.birthDate.split("-");
+      setBirthDay(day);
+      setBirthMonth(month);
+      setBirthYear(year);
+    }
   }, []);
-  
-  // 2. Завантаження міст при виборі країни
+
+  // 2. Завантаження регіону з formData.regionId
+  useEffect(() => {
+    const loadRegions = async () => {
+      try {
+        const cityRegion = await fetchRegionById(formData.regionId);
+        setSelectedCityId(cityRegion.id);
+
+        if (cityRegion.parentId) {
+          const countryRegion = await fetchRegionById(cityRegion.parentId);
+          setSelectedCountryId(countryRegion.id);
+        }
+      } catch (error) {
+        console.error("Помилка завантаження регіонів:", error);
+      }
+    };
+
+    if (formData.regionId) {
+      loadRegions();
+    }
+  }, []);
+
+  // 3. Завантаження міст при виборі країни
   useEffect(() => {
     if (selectedCountryId && cities.length === 0) {
       fetchCitiesByCountryId(selectedCountryId)
@@ -62,12 +90,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
     }
   }, [selectedCountryId]);
 
-  // 3. Записати вибране місто в formData
-  useEffect(() => {
-    onChange("regionId", selectedCityId);
-  }, [selectedCityId]);
-
-  // 4. Записати дату народження
+  // 4. Записати вибрану дату народження + валідація
   useEffect(() => {
     if (birthYear && birthMonth && birthDay) {
       const paddedDay = birthDay.padStart(2, "0");
@@ -87,50 +110,39 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
       const isValidYear = Number(birthYear) >= minYear && Number(birthYear) <= maxYear;
       
       if (isValidDate && isValidYear) {
-        setError("");
+        setErrorDate("");
         onChange("birthDate", formattedDate);
       } else if (!isValidYear) {
-        setError(`Рік має бути між ${minYear} і ${maxYear}.`);
+        setErrorDate(`Рік має бути між ${minYear} і ${maxYear}.`);
         onChange("birthDate", "");
       } else {
-        setError("Невірна дата. Перевірте правильність введення");
+        setErrorDate("Невірна дата. Перевірте правильність введення");
         onChange("birthDate", "");
       }
     } else {
-    setError("");
+    setErrorDate("");
   }
   }, [birthDay, birthMonth, birthYear]);
-
-  // 5. Відновлюємо дату народження з formData.birthDate
+  
+  // 5. Записати вибране місто в formData
   useEffect(() => {
-    if (formData.birthDate) {   // Відновлюємо дату народження з formData
-      const [year, month, day] = formData.birthDate.split("-");
-      setBirthDay(day);
-      setBirthMonth(month);
-      setBirthYear(year);
+    onChange("regionId", selectedCityId);
+  }, [selectedCityId]);
+  
+  const handleUsernameBlur = async () => {
+    if (!formData.username.trim()) {
+      setErrorUserName("");
+      return;
     }
-  }, []);
 
-  // 6. Відновлення країни/міста по formData.regionId
-  useEffect(() => {
-    const loadRegions = async () => {
-      try {
-        const cityRegion = await fetchRegionById(formData.regionId);
-        setSelectedCityId(cityRegion.id);
-
-        if (cityRegion.parentId) {
-          const countryRegion = await fetchRegionById(cityRegion.parentId);
-          setSelectedCountryId(countryRegion.id);
-        }
-      } catch (error) {
-        console.error("Помилка завантаження регіонів:", error);
-      }
-    };
-
-    if (formData.regionId) {
-      loadRegions();
+    try {
+      const isUnique = await isUsernameUnique(formData.username.trim());
+      setErrorUserName(isUnique ? "" : "Ім’я вже зайняте. Спробуйте інше.");
+    } catch (error) {
+      console.error(error);
+      setErrorUserName("Помилка перевірки імені. Спробуйте пізніше.");
     }
-  }, [formData.regionId]);
+  };
 
   const handleSubmit = async () => {
     const userPayload = {
@@ -205,8 +217,15 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
               value={formData.username}
               className={styles.formInput}
               placeholder="Ім'я"
-              onChange={(e) => onChange("username", e.target.value)}
+              onChange={(e) => {
+                onChange("username", e.target.value);
+                setErrorUserName("");
+              }}
+              onBlur={handleUsernameBlur}
             />
+            {errorUserName && (
+              <p className={styles.errorText}>{errorUserName}</p>
+            )}
           </div>
           
           <p className={styles.label}>Дата народження</p>
@@ -241,7 +260,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
               onChange={(e) => setBirthYear(e.target.value.replace(/\D/g, '').slice(0, 4))}
             />
           </div>
-          {error && <p className={styles.errorText}>{error}</p>}
+          {errorDate && <p className={styles.errorText}>{errorDate}</p>}
 
           <p className={styles.label}>Регіон проживання</p>
           {/* <p className={styles.helpLabel}>Для чого нам ваш регіон ?</p> */}

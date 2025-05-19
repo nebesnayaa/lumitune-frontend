@@ -5,6 +5,7 @@ import styles from "./styles/App.module.css";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import RegistrationForm from "./pages/RegistrationForm";
+import LoginForm from "./pages/LoginForm";
 
 import Header from "./components/Header";
 import Sidebar from "./components/SideBar";
@@ -20,6 +21,7 @@ const App: React.FC = () => {
       <Routes>
         {/* Реєстрація — без layout */}
         <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/login" element={<LoginForm />} />
 
         {/* Всі інші сторінки — з layout */}
         <Route
