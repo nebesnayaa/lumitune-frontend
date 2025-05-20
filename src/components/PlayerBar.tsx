@@ -1,7 +1,11 @@
 import React, { useRef, useState } from "react";
 import styles from "../styles/PlayerBar.module.css";
 
-const Header: React.FC = () => {
+interface PlayerBarProps {
+  onOpenSide: () => void;
+}
+
+const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLikeToggle = () => {
@@ -41,7 +45,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className={styles.playerBar}>
+    <div className={styles.playerBar}  onClick={onOpenSide}>
       <div className={styles.wideScreen}>
         {/* Блок ліворуч */}
         <div className={styles.trackInfo}>
@@ -142,4 +146,4 @@ const Header: React.FC = () => {
   );
   }
   
-  export default Header;
+  export default PlayerBar;

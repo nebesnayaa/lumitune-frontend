@@ -34,3 +34,13 @@ export const isUsernameUnique = async (username: string): Promise<boolean> => {
   const response = await axiosInstance.get(`/auth/isunique/${encodeURIComponent(username)}`);
   return response.data;
 };
+
+export const getUserByUsername = async (username: string) => {
+  try {
+    const response = await axiosInstance.get(`/api/users/username/${username}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні користувача:", error);
+    throw error;
+  }
+};

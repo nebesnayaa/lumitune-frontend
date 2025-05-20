@@ -54,6 +54,7 @@ const Carousel: React.FC = () => {
                 src={poster}
                 alt={`Poster ${index + 1}`}
                 className={`${styles.poster} ${position}`}
+                draggable={false}
               />
             );
           })}

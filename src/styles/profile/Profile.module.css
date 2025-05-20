@@ -1,16 +1,42 @@
 .container{
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   margin: 10px 0;
   border-radius: 15px 15px 0 0;
   padding: 0 15px;
   background-image: url(/images/profile-background.jpg);
+  background-repeat: no-repeat;
+  background-position: center ;
+  background-size: auto 100%;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    rgba(5, 16, 60, 0.1),
+    rgba(16, 146, 163, 0.2)
+  );
+
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+/* Контент поверх */
+.container > * {
+  position: relative;
+  z-index: 1;
 }
 
 .settings{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 }
 
 .title{
@@ -60,11 +86,11 @@
 .value p{
   margin: 2px;
   font: 200 1rem "Inter", sans-serif;
-  color: rgba(213, 238, 255, 1);
+  color: rgb(225, 243, 255);
 }
 
 .textSection{
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
   padding: 10px;
 }
 
@@ -74,13 +100,20 @@
   margin: 0;
 }
 
+@media(min-width: 600px){
+  .container{
+    background-size: 100% auto; /* ширина 100%, висота автоматично */
+    background-position: center center;
+  }
+}
+
 @media (min-width: 780px) {
   .container{
     margin-top: 0;
     padding: 0;
   }
   .settings{
-    margin: 0 15px;
+    margin: 10px 15px 0;
   }
   .profileInfo{
     flex-direction: row;

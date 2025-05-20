@@ -1,0 +1,185 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  border-radius: 15px 15px 0 0;
+  padding: 0 15px;
+  align-items: center;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Загальні налаштування */
+.content div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  margin-bottom: 5px;
+}
+
+p{
+  font: 400 0.8rem "Inter", sans-serif;
+  margin: 0;
+}
+
+.title{
+  font: 700 1.5rem "Inter", sans-serif;
+  margin: 10px 0 20px;
+}
+
+.topic{
+  font: 700 1rem "Inter", sans-serif;
+  margin: 15px 0;
+}
+
+.helpLabel{
+  color: rgba(147, 167, 196, 1);
+  /* margin-bottom: 10px; */
+  white-space: pre-line;
+}
+
+/* Блок акаунт */
+.accountBlock .buttons{
+  display: flex;
+  gap: 15px;
+  margin: 0;
+}
+
+.logoutBtn, .changeAccBtn{
+  font: 700 0.8rem "Inter", sans-serif;
+  padding: 3px 12px;
+  background-color: rgba(58, 69, 76, 0.2);
+  border: 1px solid rgba(166, 218, 255, 0.3);
+  border-radius: 6px;
+  color: rgba(190, 244, 255, 1);
+}
+
+.changeAccBtn{
+  background-color: rgba(58, 69, 76, 0.5);
+}
+
+/* checkBox */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: rgba(63, 71, 78, 0.35);
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 3px;
+  background-color: rgba(37, 98, 115, 1);
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+
+/* checkBox активний */
+.switch input:checked + .slider {
+  background-color: rgba(82, 139, 172, 0.64);
+}
+
+.switch input:checked + .slider::before {
+  background-color: rgba(89, 211, 255, 1);
+  transform: translateX(24px);
+}
+
+/* Блок мови та кольору системи */
+.languageBlock, .colourBlock{
+  position: relative;
+}
+
+.languageSelect, .colourSelect{
+  appearance: none;
+  height: 26px;
+  width: 40vw;
+  max-width: 200px;
+  
+  padding: 0 25px 0 15px;
+  margin: 0;
+
+  font: 400 0.8rem "Inter", sans-serif;
+  color: rgba(86, 127, 141, 1);
+  background-color: rgba(0, 21, 39, 1);
+  border: 1px solid rgba(147, 232, 255, 0.5);
+  border-radius: 7px;
+  outline: none;
+}
+
+.languageSelect:focus, .colourSelect:focus{
+  border: 1px solid rgba(102, 230, 255, 0.5);
+}
+
+.languageBlock::after, .colourBlock::after{
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  width: 15px;
+  height: 15px;
+  background-image: url('/images/icons/arrow-down.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+@media( min-width: 500px){
+  .content{
+    width: 90%;
+  }
+}
+
+@media( min-width: 780px){
+  .container{
+    margin-top: 20px;
+  }
+  .content{
+    width: 80%;
+  }
+}
+
+@media( min-width: 1000px){
+  .container{
+    margin-top: 40px;
+  }
+  p{
+    font: 400 0.7rem "Inter", sans-serif;
+  }
+  .title{
+    font: 700 1.2rem "Inter", sans-serif;
+  }
+  .topic{
+    font: 700 1rem "Inter", sans-serif;
+  }
+  .logoutBtn, .changeAccBtn{
+    font: 400 0.7rem "Inter", sans-serif;
+  }
+  .colourSelect, .languageSelect{
+    font: 400 0.7rem "Inter", sans-serif;
+
+  }
+}

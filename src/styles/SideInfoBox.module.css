@@ -7,6 +7,17 @@
   background-color: rgba(12, 12, 12, 0.4);
 }
 
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
 @media (min-width: 900px) and (max-width: 1399px){
   .container {
     display: block;

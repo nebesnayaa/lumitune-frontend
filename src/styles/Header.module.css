@@ -68,6 +68,15 @@
   }
 
 /* Акаунт користувача */
+  .regBtn{
+    text-decoration: none;
+    color: rgba(108, 206, 251, 0.8);
+  }
+
+  .regBtn:hover{
+    color: rgba(80, 183, 242, 0.8);
+  }
+
   .userBlock {
     display: flex;
     align-items: center;

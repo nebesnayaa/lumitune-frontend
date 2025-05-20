@@ -12,10 +12,12 @@ import Sidebar from "./components/SideBar";
 import MobileMenu from "./components/MobileMenu";
 import PlayerBar from "./components/PlayerBar";
 import SideInfoBox from "./components/SideInfoBox";
+import Settings from "./pages/Settings";
 
 const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+  const [isSideBoxOpen, setIsSideBoxOpen] = useState(true);
+
   return (
     <Router>
       <Routes>
@@ -36,13 +38,13 @@ const App: React.FC = () => {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/profile" element={<Profile />} />
-                    {/* інші сторінки */}
+                    <Route path="/settings" element={<Settings />} />
                   </Routes>
                 </main>
-                <SideInfoBox />
+                {isSideBoxOpen && <SideInfoBox onClose={() => setIsSideBoxOpen(false)} />}
               </div>
               <div className={styles.playerBar}>
-                <PlayerBar />
+                <PlayerBar onOpenSide={() => setIsSideBoxOpen(true)}/>
               </div>
             </div>
           }

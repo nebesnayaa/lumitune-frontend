@@ -24,6 +24,7 @@ const MoodSelector: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLSpanElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => setShowDropdown((prev) => !prev);
 
@@ -49,6 +50,55 @@ const MoodSelector: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   
+  // Drag-to-scroll логіка
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      isDown = true;
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+      slider.style.cursor = "grabbing";
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      slider.style.cursor = "grab";
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      slider.style.cursor = "grab";
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      slider.scrollLeft = scrollLeft - walk;
+    };
+
+    slider.addEventListener("mousedown", handleMouseDown);
+    slider.addEventListener("mouseleave", handleMouseLeave);
+    slider.addEventListener("mouseup", handleMouseUp);
+    slider.addEventListener("mousemove", handleMouseMove);
+
+    slider.style.cursor = "grab";
+
+    return () => {
+      slider.removeEventListener("mousedown", handleMouseDown);
+      slider.removeEventListener("mouseleave", handleMouseLeave);
+      slider.removeEventListener("mouseup", handleMouseUp);
+      slider.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return(
     <div className={styles.container}>
       <h2 className={styles.title}>
@@ -78,11 +128,11 @@ const MoodSelector: React.FC = () => {
       </h2>
 
       {/* Строка настроїв */}
-      <div className={styles.slider}>
+      <div className={styles.slider} ref={sliderRef}>
         {selected === "mood" ? 
           (moods.map((mood, index) => (
             <div key={index} className={styles.emotion}>
-              <img src={mood.img} alt={mood.label} />
+              <img src={mood.img} alt={mood.label} draggable={false}/>
               <p>{mood.label}</p>
             </div>
           ))) :
