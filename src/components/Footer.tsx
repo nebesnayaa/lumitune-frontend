@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import React from "react";
 import styles from "../styles/Footer.module.css";
 
 const Footer: React.FC = () => {
