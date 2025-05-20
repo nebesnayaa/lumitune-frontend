@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 1200px;
 }
 
 /* Загальні налаштування */
@@ -180,6 +181,5 @@ p{
   }
   .colourSelect, .languageSelect{
     font: 400 0.7rem "Inter", sans-serif;
-
   }
 }

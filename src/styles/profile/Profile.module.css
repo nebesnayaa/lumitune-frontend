@@ -3,6 +3,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 10px 0;
   border-radius: 15px 15px 0 0;
   padding: 0 15px;
@@ -33,6 +34,7 @@
 }
 
 .settings{
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -110,8 +112,7 @@
 @media (min-width: 780px) {
   .container{
     margin-top: 0;
-    padding: 0;
-  }
+  } 
   .settings{
     margin: 10px 15px 0;
   }
@@ -130,5 +131,16 @@
   }
   .textSection p{
     font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .settings{
+    width: 90%;
+    margin-top: 20px;
+  }
+  .profileInfo{
+    width: 90%;
+    gap: 2vw;
   }
 }

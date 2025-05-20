@@ -1,0 +1,110 @@
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0 65px;
+    border: 1px solid rgba(166, 218, 255, 0.8);
+    border-radius: 15px 15px 0 0;
+  }
+
+  p{
+    font: 500 0.75rem "Inter", sans-serif;
+  }
+
+  .mainBlock{
+    display: flex;
+    flex-direction: column;
+  }
+
+ /* Логотип */
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    margin: 20px 0 30px;
+  }
+
+  .logo .elipse{
+    width: 130px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(0, 174, 255, 0.14);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(15px);
+  }
+
+/* Контактна інформація */
+  .info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .adress, .email, .phone{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .contacts{
+    display: flex;
+    gap: 20px;
+  }
+
+  .socialMedia{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 20px 0;
+  }
+
+/* Додаткова інформація */
+  .supportBlock{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 50px;
+  }
+
+  .supportBlock p{
+    font: 300 0.75rem "Inter", sans-serif;
+  }
+
+  @media (min-width: 780px) {
+    .mainBlock{
+      flex-direction: row;
+      align-items: center;
+      margin: 40px 0 20px;
+      gap: 15vw;
+    }
+    .info{
+      margin: 0;
+    }
+    .adress, .contacts{
+      width: 100%
+    }
+    .adress svg{
+      height: 23px;
+    }
+    p{
+      font: 500 0.7rem "Inter", sans-serif;
+    }
+  }
+
+  @media(min-width: 1000px) {
+    .mainBlock{
+      margin: 40px 0 20px;
+      gap: 20vw;
+    }
+    p{
+      font: 500 0.6rem "Inter", sans-serif;
+    }
+  }

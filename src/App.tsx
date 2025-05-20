@@ -13,6 +13,7 @@ import MobileMenu from "./components/MobileMenu";
 import PlayerBar from "./components/PlayerBar";
 import SideInfoBox from "./components/SideInfoBox";
 import Settings from "./pages/Settings";
+import Footer from "./components/Footer";
 
 const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,6 +44,7 @@ const App: React.FC = () => {
                 </main>
                 {isSideBoxOpen && <SideInfoBox onClose={() => setIsSideBoxOpen(false)} />}
               </div>
+              <Footer/>
               <div className={styles.playerBar}>
                 <PlayerBar onOpenSide={() => setIsSideBoxOpen(true)}/>
               </div>
