@@ -37,6 +37,8 @@
     border-radius: 15px;
     padding-bottom: 65px;
   }
+
+  
   
   .playerBar {
     position: fixed;
@@ -67,5 +69,13 @@
   @media (min-width: 1000px) {
     :root {
       font-size: 20px;
+    }
+  }
+
+  @media (min-width: 1850px) {
+    .home{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }

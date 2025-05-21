@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDragScroll } from "../../hooks/useDragScroll";
 import styles from "../../styles/home/MoodSelector.module.css";
 
 import happyImg from "../../assets/mood/happy.svg";
@@ -25,6 +26,7 @@ const MoodSelector: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLSpanElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
+  useDragScroll(sliderRef);
 
   const toggleDropdown = () => setShowDropdown((prev) => !prev);
 
@@ -49,96 +51,48 @@ const MoodSelector: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  
-  // Drag-to-scroll логіка
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    let isDown = false;
-    let startX = 0;
-    let scrollLeft = 0;
-
-    const handleMouseDown = (e: MouseEvent) => {
-      isDown = true;
-      startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
-      slider.style.cursor = "grabbing";
-    };
-
-    const handleMouseLeave = () => {
-      isDown = false;
-      slider.style.cursor = "grab";
-    };
-
-    const handleMouseUp = () => {
-      isDown = false;
-      slider.style.cursor = "grab";
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      slider.scrollLeft = scrollLeft - walk;
-    };
-
-    slider.addEventListener("mousedown", handleMouseDown);
-    slider.addEventListener("mouseleave", handleMouseLeave);
-    slider.addEventListener("mouseup", handleMouseUp);
-    slider.addEventListener("mousemove", handleMouseMove);
-
-    slider.style.cursor = "grab";
-
-    return () => {
-      slider.removeEventListener("mousedown", handleMouseDown);
-      slider.removeEventListener("mouseleave", handleMouseLeave);
-      slider.removeEventListener("mouseup", handleMouseUp);
-      slider.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
 
   return(
     <div className={styles.container}>
-      <h2 className={styles.title}>
-        Саундтреки на основі твого
-        <span className={styles.mood} onClick={toggleDropdown} ref={toggleRef}>
-          {selected === "mood" ? "настрою" : "жанру"}
-          <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1.5L7 7.5L13 1.5" stroke="#40A2FF" stroke-width="2"/>
-          </svg>
-          {showDropdown && (
-            <div className={styles.dropdown} ref={dropdownRef}>
-              <div
-                className={`${styles.option} ${selected === "mood" ? styles.active : ""}`}
-                onClick={(e) => handleSelect("mood", e)}
-              >
-                Настрій
+      <div>
+        <h2 className={styles.title}>
+          Саундтреки на основі твого
+          <span className={styles.mood} onClick={toggleDropdown} ref={toggleRef}>
+            {selected === "mood" ? "настрою" : "жанру"}
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1.5L7 7.5L13 1.5" stroke="#40A2FF" stroke-width="2"/>
+            </svg>
+            {showDropdown && (
+              <div className={styles.dropdown} ref={dropdownRef}>
+                <div
+                  className={`${styles.option} ${selected === "mood" ? styles.active : ""}`}
+                  onClick={(e) => handleSelect("mood", e)}
+                >
+                  Настрій
+                </div>
+                <div
+                  className={`${styles.option} ${selected === "genre" ? styles.active : ""}`}
+                  onClick={(e) => handleSelect("genre", e)}
+                >
+                  Жанри
+                </div>
               </div>
-              <div
-                className={`${styles.option} ${selected === "genre" ? styles.active : ""}`}
-                onClick={(e) => handleSelect("genre", e)}
-              >
-                Жанри
-              </div>
-            </div>
-          )}
-        </span>
-      </h2>
+            )}
+          </span>
+        </h2>
 
-      {/* Строка настроїв */}
-      <div className={styles.slider} ref={sliderRef}>
-        {selected === "mood" ? 
-          (moods.map((mood, index) => (
-            <div key={index} className={styles.emotion}>
-              <img src={mood.img} alt={mood.label} draggable={false}/>
-              <p>{mood.label}</p>
-            </div>
-          ))) :
-          (<div>To be continued</div>)
-        }
-        
+        {/* Строка настроїв */}
+        <div className={styles.slider} ref={sliderRef}>
+          {selected === "mood" ? 
+            (moods.map((mood, index) => (
+              <div key={index} className={styles.emotion}>
+                <img src={mood.img} alt={mood.label} draggable={false}/>
+                <p>{mood.label}</p>
+              </div>
+            ))) :
+            (<div>To be continued</div>)
+          }
+        </div>
       </div>
     </div>
   );
