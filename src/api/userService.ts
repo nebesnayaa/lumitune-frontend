@@ -37,7 +37,7 @@ export const isUsernameUnique = async (username: string): Promise<boolean> => {
 
 export const getUserByUsername = async (username: string) => {
   try {
-    const response = await axiosInstance.get(`/api/users/username/${username}`);
+    const response = await axiosInstance.get(`/users/username/${username}`);
     return response.data;
   } catch (error) {
     console.error("Помилка при отриманні користувача:", error);

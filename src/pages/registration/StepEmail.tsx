@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RegistrationFormData } from "../../types/RegistrationFormData";
 import styles from "../../styles/registration/Registration.module.css";
 import { Link } from "react-router";
@@ -12,6 +12,13 @@ interface StepEmailProps {
 const StepEmail: React.FC<StepEmailProps> = ({ nextStep, formData, onChange }) => {
   const [error, setError] = useState("");
   const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    if(formData.email){
+      setIsValid(true);
+      return;
+    }
+  }, []);
 
   const validateEmail = (email: string) => {
     const trimmedEmail = email.trim();

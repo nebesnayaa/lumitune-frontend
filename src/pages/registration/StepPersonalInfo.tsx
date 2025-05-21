@@ -165,7 +165,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
       await registerUser(userPayload);
       // ✅ Успішна реєстрація
       alert("Успішна реєстрація");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Помилка під час реєстрації:", error);
       alert("Не вдалося зареєструватися. Спробуйте ще раз.");

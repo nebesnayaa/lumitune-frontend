@@ -70,13 +70,13 @@
   z-index: 2;
   opacity: 0.8;
   object-fit: cover;
-  transform: scale(0.8) translateX(15vw);
+  transform: scale(0.8) translateX(18%);
 }
 .prev {
   z-index: 2;
   opacity: 0.8;
   object-fit: cover;
-  transform: scale(0.8) translateX(-15vw);
+  transform: scale(0.8) translateX(-18%);
 }
 .hidden {
   opacity: 0;
@@ -107,10 +107,10 @@
     height: 80%;
   }
   .next {
-    transform: scale(0.8) translateX(11vw);
+    transform: scale(0.8) translateX(19%);
   }
   .prev {
-    transform: scale(0.8) translateX(-11vw);
+    transform: scale(0.8) translateX(-19%);
   }
 }
 
@@ -121,10 +121,14 @@
   .carousel{
     height: 80%;
   }
-  .next {
-    transform: scale(0.8) translateX(11vw);
+}
+
+@media(min-width: 1400px){
+  .container{
+    padding: 0 2vw;
   }
-  .prev {
-    transform: scale(0.8) translateX(-11vw);
+  .carousel{
+    height: 80%;
   }
 }
+
