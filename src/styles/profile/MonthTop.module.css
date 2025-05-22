@@ -1,0 +1,107 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 20px;
+  font-size: 1rem;
+}
+
+.titleBlock{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-right: 20px;
+  position: relative;
+}
+
+.title{
+  font: 700 1rem "Inter", sans-serif;
+  color: rgba(230, 251, 255, 1);
+}
+
+.list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trackItem{
+  display: flex;
+  align-items: center;
+  width: 95%;
+  height: 40px;
+  background-color: rgba(24, 43, 73, 0.3);
+  border-radius: 5px;
+  justify-content: space-between;
+}
+
+.trackItem img{
+  height: inherit;
+  border-radius: 5px 0 0 5px;
+}
+
+.trackImageBlock{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: inherit;
+}
+
+.trackName{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name{
+  font: 500 0.85rem "Inter", sans-serif;
+  color: rgba(239, 255, 243, 1);
+}
+.author{
+  font: 200 0.6rem "Inter", sans-serif;
+  color: rgba(126, 147, 161, 1);
+}
+.trackLengthBlock{
+  display: flex;
+  gap: 10px;
+}
+.duration{
+  margin-right: 10px;
+  font: 500 0.6rem "Inter", sans-serif;
+  color: rgba(239, 251, 255, 1);
+}
+
+@media(min-width: 780px){
+  .title{
+    margin: 25px 0 20px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .name{
+    font-size: 0.75rem;
+  }
+  .author{
+    font-size: 0.55rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .trackItem{
+    width: 680px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container{
+    align-items: center;
+  }
+  .list{
+    gap: 12px;
+  }
+}
+ 
+@media (min-width: 1850px){
+  .trackItem{
+    width: 730px;
+  }
+} 

@@ -1,10 +1,10 @@
-.container{
+.profileBlock{
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px 0;
+  margin: 10px 0 0;
   border-radius: 15px 15px 0 0;
   padding: 0 15px;
   background-image: url(/images/profile-background.jpg);
@@ -13,14 +13,14 @@
   background-size: auto 100%;
 }
 
-.container::before {
+.profileBlock::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   background: linear-gradient(
-    rgba(5, 16, 60, 0.1),
-    rgba(16, 146, 163, 0.2)
+    rgba(13, 0, 0, 0.6),
+    rgba(6, 154, 173, 0.4)
   );
 
   backdrop-filter: blur(1px);
@@ -28,7 +28,7 @@
 }
 
 /* Контент поверх */
-.container > * {
+.profileBlock > * {
   position: relative;
   z-index: 1;
 }
@@ -103,15 +103,16 @@
 }
 
 @media(min-width: 600px){
-  .container{
+  .profileBlock{
     background-size: 100% auto; /* ширина 100%, висота автоматично */
     background-position: center center;
   }
 }
 
 @media (min-width: 780px) {
-  .container{
+  .profileBlock{
     margin-top: 0;
+    border-bottom: 0.5px solid rgba(143, 251, 255, 0.5);
   } 
   .settings{
     margin: 10px 15px 0;
