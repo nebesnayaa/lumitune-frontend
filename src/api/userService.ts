@@ -1,3 +1,5 @@
+import { LoginFormData } from "../types/LoginFormData";
+import { User } from "../types/UserData";
 import axiosInstance from "./axiosInstance";
 
 export interface RegistrationPayload {
@@ -15,17 +17,13 @@ export interface RegistrationPayload {
     email: string;
   };
 }
-export interface LoginPayload {
-  username: string;
-  password: string;
-}
 
 export const registerUser = async (data: RegistrationPayload) => {
   const response = await axiosInstance.post("/auth/sign-up", data);
   return response.data;
 };
 
-export const loginUser = async (data: LoginPayload) => {
+export const loginUser = async (data: LoginFormData) => {
   const response = await axiosInstance.post("/auth/login", data);
   return response.data;
 };
@@ -41,6 +39,26 @@ export const getUserByUsername = async (username: string) => {
     return response.data;
   } catch (error) {
     console.error("Помилка при отриманні користувача:", error);
+    throw error;
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const response = await axiosInstance.get(`/users/current`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні поточного користувача:", error);
+    throw error;
+  }
+};
+
+export const editUser = async (data: User): Promise<User> => {
+  try {
+    const response = await axiosInstance.put(`/users/edit`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при редагуванні користувача:", error);
     throw error;
   }
 };

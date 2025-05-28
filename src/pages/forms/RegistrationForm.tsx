@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { RegistrationFormData } from "../types/RegistrationFormData";
-import StepEmail from "./registration/StepEmail";
-import StepPassword from "./registration/StepPassword";
-import StepPersonalInfo from "./registration/StepPersonalInfo";
+import { RegistrationFormData } from "../../types/RegistrationFormData";
+import StepEmail from "./registrationSteps/StepEmail";
+import StepPassword from "./registrationSteps/StepPassword";
+import StepPersonalInfo from "./registrationSteps/StepPersonalInfo";
 
 const RegistrationForm: React.FC = () => {
   const [step, setStep] = useState(1);

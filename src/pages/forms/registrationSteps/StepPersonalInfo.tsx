@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { RegistrationFormData } from "../../types/RegistrationFormData";
-import styles from "../../styles/registration/Registration.module.css";
-import { Region, fetchCountries, fetchCitiesByCountryId, fetchRegionById } from "../../api/regionService";
-import { registerUser, isUsernameUnique } from "../../api/userService";
 import { useNavigate } from "react-router";
+import { RegistrationFormData } from "../../../types/RegistrationFormData";
+import { Region, fetchCountries, fetchCitiesByCountryId, fetchRegionById } from "../../../api/regionService";
+import { registerUser, isUsernameUnique } from "../../../api/userService";
+import styles from "../../../styles/forms/Registration.module.css";
 
 interface StepPersonalInfoProps {
   prevStep: () => void;
@@ -42,6 +42,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
 
   const [errorUserName, setErrorUserName] = useState<string>();
   const [errorDate, setErrorDate] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
   
@@ -153,22 +154,20 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
       accSubscribers: 0,
       accFollowings: 0,
       userData: {
-        id: "string", // сервер має згенерувати свій id, або заміни на null
+        id: "string",
         birthDate: formData.birthDate,
         regionId: formData.regionId,
         isArtist: formData.isArtist,
         email: formData.email,
       },
     };
-
+    setError(null);
     try {
       await registerUser(userPayload);
       // ✅ Успішна реєстрація
-      alert("Успішна реєстрація");
       navigate("/login");
     } catch (error) {
-      console.error("Помилка під час реєстрації:", error);
-      alert("Не вдалося зареєструватися. Спробуйте ще раз.");
+      setError("Не вдалося зареєструватися. Спробуйте ще раз.");
     }
   };
 
@@ -325,6 +324,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
             <span>Я автор пісень</span>
           </label>
         </div>
+        {error && <p className={styles.errorText}>{error}</p>}
         <button className={styles.submitBtn} disabled={!formData.email} onClick={handleSubmit}>Зареєструватися</button>
       </div>
     </div>

@@ -41,10 +41,22 @@
     filter: blur(10px);
   }
 
+  .passHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .title{
     font: 700 1.25rem "Inter", sans-serif;
     color: rgba(240, 240, 240, 1);
     margin: 0;
+  }
+  .forgotPassLink{
+    font: 300 0.6rem "Inter", sans-serif;
+    color: rgba(147, 183, 255, 1);
+    text-decoration: none;
+    border-bottom: 0.5px solid rgba(147, 183, 255, 1);
+    height: 0.7rem;
   }
 
 /* Форма */

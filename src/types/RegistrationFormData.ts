@@ -2,7 +2,7 @@ export interface RegistrationFormData {
   email: string;
   password: string;
   username: string;
-  birthDate: string;       // у форматі YYYY-MM-DD
+  birthDate: string; 
   regionId: string;
   isArtist: boolean;
 }

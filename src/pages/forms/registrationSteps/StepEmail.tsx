@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { RegistrationFormData } from "../../types/RegistrationFormData";
-import styles from "../../styles/registration/Registration.module.css";
+import { RegistrationFormData } from "../../../types/RegistrationFormData";
+import styles from "../../../styles/forms/Registration.module.css";
 import { Link } from "react-router";
 
 interface StepEmailProps {
