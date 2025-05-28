@@ -4,8 +4,10 @@ import styles from "./styles/App.module.css";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import RegistrationForm from "./pages/RegistrationForm";
-import LoginForm from "./pages/LoginForm";
+import RegistrationForm from "./pages/forms/RegistrationForm";
+import LoginForm from "./pages/forms/LoginForm";
+import ForgotPassword from "./pages/forms/ForgotPassword";
+import NewPassword from "./pages/forms/NewPassword";
 
 import Header from "./components/Header";
 import Sidebar from "./components/SideBar";
@@ -25,6 +27,8 @@ const App: React.FC = () => {
         {/* Реєстрація — без layout */}
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/new-password" element={<NewPassword />} />
 
         {/* Всі інші сторінки — з layout */}
         <Route
