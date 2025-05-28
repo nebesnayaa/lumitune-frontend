@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import { User } from "../types/UserData";
 import { getCurrentUser, editUser } from "../api/userService";
+import { uploadImage } from "../api/contentService";
 import WeekLikes from "../components/profile/WeekLikes";
 import MonthTop from "../components/profile/MonthTop";
+
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/profile/Profile.module.css";
-import { uploadImage } from "../api/contentService";
-import { User } from "../types/UserData";
+
+
 
 const Profile: React.FC = () => {
   const { user, refreshUser } = useAuth();
