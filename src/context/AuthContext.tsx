@@ -1,31 +1,50 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getCurrentUser } from '../api/userService';
+
+// interface AuthContextType {
+//   username: string | null;
+//   setUsername: (username: string | null) => void;
+//   logout: () => void;
+// }
 
 interface AuthContextType {
-  username: string | null;
-  setUsername: (username: string | null) => void;
+  user: {
+    username: string;
+    avatarUrl: string | null;
+  } | null;
+  setUser: (user: AuthContextType["user"] | null) => void;
+  refreshUser: () => Promise<void>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);  // Ініціалізація контексту
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [username, setUsername] = useState<string | null>(null);
+  const [user, setUser] = useState<{ username: string; avatarUrl: string | null } | null>(null);
+
+  const refreshUser = async () => {
+    const currentUser = await getCurrentUser(); // тип User
+    setUser({
+      username: currentUser.username,
+      avatarUrl: currentUser.avatar.url || null
+    });
+  };
 
   // Відновлення з localStorage 
   useEffect(() => {
     const savedUsername = localStorage.getItem("username"); // (гарантує збереження стану при перезавантаженні)
     if (savedUsername) {
-      setUsername(savedUsername);
+      refreshUser();
     }
   }, []);
 
   const logout = () => {
-    setUsername(null);
+    setUser(null);
     localStorage.removeItem("username");
   };
 
   return (
-    <AuthContext.Provider value={{ username, setUsername, logout }}>
+    <AuthContext.Provider value={{ user, setUser, refreshUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

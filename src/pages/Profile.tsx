@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
-import { getUserByUsername } from "../api/userService";
+import { getCurrentUser, editUser } from "../api/userService";
 import WeekLikes from "../components/profile/WeekLikes";
-import styles from "../styles/profile/Profile.module.css";
 import MonthTop from "../components/profile/MonthTop";
-
+import defaultAvatar from "/images/defaultAvatar.png";
+import styles from "../styles/profile/Profile.module.css";
+import { uploadImage } from "../api/contentService";
+import { User } from "../types/UserData";
 
 const Profile: React.FC = () => {
-  const { username } = useAuth();
+  const { user, refreshUser } = useAuth();
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   const [subscribers, setSubscribers] = useState<number>(0);
   const [followings, setFollowings] = useState<number>(0);
   
   useEffect(() => {
-    if (username) {
-      getUserByUsername(username)
+    if (user) {
+      getCurrentUser()
         .then((data) => {
+          setAvatarUrl(data.avatar.url || null);
           setSubscribers(data.accSubscribers || 0);
           setFollowings(data.accFollowings || 0);
         })
@@ -25,7 +32,33 @@ const Profile: React.FC = () => {
           console.error("Не вдалося отримати дані користувача:", err);
         });
     }
-  }, [username]);
+  }, []);
+
+  const handleUpload = async () => {
+    if (!selectedFile) return;
+
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      const uploadedImage  = await uploadImage(formData);
+      if (!uploadedImage) throw new Error("Не вдалося завантажити зображення");
+
+      const currentUser = await getCurrentUser();
+
+      const updatedUser: User = {
+        ...currentUser,
+        avatar: uploadedImage,
+      };
+
+      await editUser(updatedUser);
+      await refreshUser();
+      setAvatarUrl(uploadedImage.url);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Помилка завантаження аватарки:", error);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -37,13 +70,35 @@ const Profile: React.FC = () => {
           </svg>
         </div>
         <div className={styles.profileInfo}>
-          <div className={styles.avatarSection}>
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14c-2.5 0-4.71-1.28-6-3.22.03-2 4-3.08 6-3.08s5.97 1.08 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/>
-            </svg>
+          <div className={styles.avatarSection} onClick={() => setIsModalOpen(true)}>
+            <img
+              src={avatarUrl || defaultAvatar}
+              alt=""
+              className={styles.avatar}
+              draggable="false"
+            />
+            
           </div>
+          {isModalOpen && (
+            <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+              <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+                <h3 className={styles.titleUpload}>Завантажити нову аватарку</h3>
+                <label htmlFor="upload" className={styles.inputUpload}>
+                  {selectedFile ? `Файл обрано: ${selectedFile.name}` : "Обрати зображення"}
+                </label>
+                <input
+                  id="upload"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                />
+                <button className={styles.btnUpload} onClick={handleUpload}>Завантажити</button>
+              </div>
+            </div>
+          )}
           <div className={styles.nameSection}>
-            <h2>{username || "Нікнейм"}</h2>
+            <h2>{user?.username || "Нікнейм"}</h2>
             <div className={styles.statisctics}>
               <div className={styles.value}>
                 <p>{followings}</p>

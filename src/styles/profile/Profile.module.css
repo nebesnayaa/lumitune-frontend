@@ -50,14 +50,81 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  margin-bottom: 15px;
+  margin: 15px 0;
+  position: relative;
 }
 
-.avatarSection svg{
-  width: 150px;
-  height: 150px;
-  filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.5));
-  max-width: 150px;
+.avatarSection {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0; /* важливо, якщо всередині flex-батька */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  background-color: rgb(43, 74, 80);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: rgb(17, 33, 41);
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 70vw;
+  max-width: 300px;
+  text-align: center;
+  position: absolute;
+  top: 250px;
+}
+
+.titleUpload{
+  font-size: 1rem;
+  margin: 0 0 15px;
+}
+
+.inputUpload {
+  display: inline-block;
+  width: 60vw;
+  max-width: 250px;
+  padding: 0.6rem 1rem;
+  font: 400 0.8rem "Inter", sans-serif;
+  color: #fff;
+  background-color: #083647;
+  border: 2px dashed #3f5e7a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  margin-bottom: 1.2rem;
+}
+
+.btnUpload {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  background-color: #1f6289;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font: 600 1rem "Inter", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .nameSection{

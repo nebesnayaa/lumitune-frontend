@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import styles from "../styles/MobileMenu.module.css";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
+import { useAuth } from "../context/AuthContext";
+import defaultAvatar from "/images/defaultAvatar.png";
+import styles from "../styles/MobileMenu.module.css";
+import { getCurrentUser } from "../api/userService";
+
 
 interface Props {
   isOpen: boolean;
@@ -9,28 +12,33 @@ interface Props {
 }
 
 const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { username } = useAuth();
-
-  if (!isOpen) return null;
-
   const [isActive, setIsActive] = useState(true);  // Логіка перемикання стану для сповіщень
+
+  const { user } = useAuth();
+  const avatarUrl = user?.avatarUrl || defaultAvatar;
+  
   
   const handleToggle = () => {
     setIsActive(prev => !prev);
   }
-    
+
+  if (!isOpen) return null;
+
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.menu} onClick={(e) => e.stopPropagation()}>
         {/* Account info */}
         <div className={styles.accountInfo}>
           <NavLink to="/profile" className={styles.profileLink} onClick={onClose}>
-            <div className={styles.avatar}>
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14c-2.5 0-4.71-1.28-6-3.22.03-2 4-3.08 6-3.08s5.97 1.08 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/>
-              </svg>
+            <div className={styles.avatarSection}>
+              <img
+                src={avatarUrl}
+                alt=""
+                className={styles.avatar}
+                draggable="false"
+              />
             </div>
-            <div className={styles.username}>{username || "Нікнейм"}</div>
+            <div className={styles.username}>{user?.username || "Нікнейм"}</div>
           </NavLink>
           <div className={styles.notifIcon} onClick={handleToggle}>
           { isActive ? (

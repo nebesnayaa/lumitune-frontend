@@ -99,30 +99,25 @@
     align-items: center;
   }
 
-  .avatar {
+  .avatarSection {
     display: none;
-    position: relative;
-    align-items: center; /* Вирівнює елементи по вертикалі */
+    align-items: center;
     justify-content: center;
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background-color: rgba(69, 96, 144, 0.19);
+    overflow: hidden;
   }
 
-  .avatar svg{
-    width: 32px;
-    height: 32px;
-    border-radius: 40px;
+  .avatar{
+    width: 85%;
+    height: 85%;
     object-fit: cover;
-    justify-content: center;
+    border-radius: 50%;
+    display: block;
+    border: 3px solid rgba(69, 96, 144, 0.19);
   }
 
-  @media(min-width: 500px) {
-    /* .userBlock{
-      width: 
-    } */
-  }
   @media (min-width: 780px) {
     .logo {
       width: 45px;
@@ -133,7 +128,7 @@
     .notifIcon{
       display: flex;
     }
-    .avatar {
+    .avatarSection {
       display: flex;
     }
   }

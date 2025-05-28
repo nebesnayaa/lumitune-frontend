@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/Header.module.css";
 
 interface HeaderProps {
@@ -9,8 +10,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
   const [isActive, setIsActive] = useState(false);  // Логіка перемикання стану для сповіщень
-
-  const { username } = useAuth();
+  const { user } = useAuth();
+  const avatarUrl = user?.avatarUrl || defaultAvatar;
 
   const handleToggle = () => {
     setIsActive(prev => !prev);
@@ -46,7 +47,6 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
           </svg>
         </div>
       </NavLink>
-      
 
       {/* Поле пошуку */}
       <div className={styles.searchField}>
@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
       </div>
 
       {/* Акаунт */}
-      { username ? (
+      { user ? (
         <div className={styles.userBlock}>
           <div className={styles.menuIcon} onClick={toggleMenu}>
             <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,10 +143,13 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
             
           </div>
           <NavLink to="/profile">
-            <div className={styles.avatar}>
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14c-2.5 0-4.71-1.28-6-3.22.03-2 4-3.08 6-3.08s5.97 1.08 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/>
-              </svg>
+            <div className={styles.avatarSection}>
+              <img
+                src={avatarUrl}
+                alt=""
+                className={styles.avatar}
+                draggable="false"
+              />
             </div>
           </NavLink>
         </div>
