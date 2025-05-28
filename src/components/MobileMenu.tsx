@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/MobileMenu.module.css";
-import { getCurrentUser } from "../api/userService";
 
 
 interface Props {
