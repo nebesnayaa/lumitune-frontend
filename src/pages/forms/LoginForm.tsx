@@ -13,7 +13,7 @@ const LoginForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { setUsername } = useAuth();
+  const { refreshUser } = useAuth();
 
   const navigate = useNavigate();
   
@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
 
     try {
       const data = await loginUser(formData);
-      setUsername(data.user.username);  // Глобальний стан контексту (setUsername)
+      await refreshUser(); // підтягує currentUser з сервера і викликає setUser
       localStorage.setItem("username", data.user.username); // Збереження в localStorage
       navigate("/");
     } catch (error) {
