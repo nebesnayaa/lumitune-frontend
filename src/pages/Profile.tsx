@@ -11,11 +11,11 @@ import { User } from "../types/UserData";
 
 const Profile: React.FC = () => {
   const { user, refreshUser } = useAuth();
+  const avatarUrl = user?.avatarUrl || defaultAvatar;
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   const [subscribers, setSubscribers] = useState<number>(0);
   const [followings, setFollowings] = useState<number>(0);
@@ -24,7 +24,6 @@ const Profile: React.FC = () => {
     if (user) {
       getCurrentUser()
         .then((data) => {
-          setAvatarUrl(data.avatar.url || null);
           setSubscribers(data.accSubscribers || 0);
           setFollowings(data.accFollowings || 0);
         })
@@ -53,7 +52,6 @@ const Profile: React.FC = () => {
 
       await editUser(updatedUser);
       await refreshUser();
-      setAvatarUrl(uploadedImage.url);
       setIsModalOpen(false);
     } catch (error) {
       console.error("Помилка завантаження аватарки:", error);
@@ -72,7 +70,7 @@ const Profile: React.FC = () => {
         <div className={styles.profileInfo}>
           <div className={styles.avatarSection} onClick={() => setIsModalOpen(true)}>
             <img
-              src={avatarUrl || defaultAvatar}
+              src={avatarUrl}
               alt=""
               className={styles.avatar}
               draggable="false"
