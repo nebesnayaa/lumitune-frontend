@@ -1,12 +1,23 @@
 import React, { useRef} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
-import styles from "../../styles/home/TopMusic.module.css";
-
+import { Album, Track } from "../../types/HomeContentData";
+import { usePlayer } from "../../context/PlayerContext";
 import posterTrack from "../../assets/topMusic/poster.png";
+import styles from "../../styles/home/MusicContent.module.css";
 
-const TopMusic: React.FC = () => {
+interface TopMusicProps {
+  songs: Album[];
+}
+
+const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
+  const { playTrack } = usePlayer();
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
+
+  const handleTrackClick = (track: Track[]) => {
+    console.log("Clicked track:", track[0]);
+    playTrack(track[0]);
+  };
 
   return(
     <div className={styles.container}>
@@ -20,41 +31,34 @@ const TopMusic: React.FC = () => {
           </svg>
         </div>
         <div className={styles.slider} ref={sliderRef}>
-          <div className={styles.card}>
-            <img src={posterTrack} alt="Photo" draggable="false"/>
-            <p className={styles.trackName}>Superman</p>
-            <p className={styles.authorName}>Eminem</p>
-          </div>
-          <div className={styles.card}>
-            <img src={posterTrack} alt="Photo" draggable="false"/>
-            <p className={styles.trackName}>Superman</p>
-            <p className={styles.authorName}>Eminem</p>
-          </div>
-          <div className={styles.card}>
-            <img src={posterTrack} alt="Photo" draggable="false"/>
-            <p className={styles.trackName}>Superman</p>
-            <p className={styles.authorName}>Eminem</p>
-          </div>
-          <div className={styles.card}>
-            <img src={posterTrack} alt="Photo" draggable="false"/>
-            <p className={styles.trackName}>Superman</p>
-            <p className={styles.authorName}>Eminem</p>
-          </div>
-          <div className={styles.card}>
-            <img src={posterTrack} alt="Photo" draggable="false"/>
-            <p className={styles.trackName}>Superman</p>
-            <p className={styles.authorName}>Eminem</p>
-          </div>
-          <div className={styles.card}>
-            <img src={posterTrack} alt="Photo" draggable="false"/>
-            <p className={styles.trackName}>Superman</p>
-            <p className={styles.authorName}>Eminem</p>
-          </div>
-          <div className={styles.card}>
-            <img src={posterTrack} alt="Photo" draggable="false"/>
-            <p className={styles.trackName}>Superman</p>
-            <p className={styles.authorName}>Eminem</p>
-          </div>
+          {songs.map((song, index) => (
+            <div className={styles.card} key={index} onClick={() => handleTrackClick(song.tracks)}>
+              <img 
+                src={song.imageLink || posterTrack}
+                alt={song.albumName}
+                draggable="false"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = posterTrack;
+                }}
+              />
+              
+              <div className={styles.trackNameWrapper}>
+                <div className={styles.scrollContainer}>
+                  { song.albumName.length > 9 ? (
+                    <span className={`${styles.scrollText} ${styles.animate}`}>
+                      {song.albumName}12345&nbsp;&nbsp;&nbsp;&nbsp;{song.albumName}12345
+                    </span>
+                  ) : (
+                    <span className={`${styles.scrollText}`}>
+                      {song.albumName}
+                    </span>
+                  )}
+                </div>
+              </div>
+              
+              <p className={styles.authorName}>{song.author}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

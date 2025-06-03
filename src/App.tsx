@@ -24,7 +24,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {/* Реєстрація — без layout */}
+        {/* Сторінки — без layout */}
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

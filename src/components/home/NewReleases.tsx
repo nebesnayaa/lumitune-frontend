@@ -1,10 +1,16 @@
 import React, { useRef} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
-import styles from "../../styles/home/NewReleases.module.css";
 
+import { Album } from "../../types/HomeContentData";
 import posterTrack from "../../assets/newRelease/poster.png";
 
-const NewReleases: React.FC = () => {
+import styles from "../../styles/home/MusicContent.module.css";
+
+interface NewReleasesProps {
+  albums: Album[];
+}
+
+const NewReleases: React.FC<NewReleasesProps> = ({albums}) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
 
@@ -19,50 +25,38 @@ const NewReleases: React.FC = () => {
         </svg>
       </div>
       <div className={styles.slider} ref={sliderRef}>
-        <div className={styles.card}>
-          <img src={posterTrack} alt="Photo" draggable="false"/>
-          <p className={styles.trackName}>On The Floor</p>
-          <p className={styles.authorName}>by JLO
-            {'\n'}19 tracks</p>
-        </div>
-        <div className={styles.card}>
-          <img src={posterTrack} alt="Photo" draggable="false"/>
-          <p className={styles.trackName}>On The Floor</p>
-          <p className={styles.authorName}>by JLO
-            {'\n'}19 tracks</p>
-        </div>
-        <div className={styles.card}>
-          <img src={posterTrack} alt="Photo" draggable="false"/>
-          <p className={styles.trackName}>On The Floor</p>
-          <p className={styles.authorName}>by JLO
-            {'\n'}19 tracks</p>
-        </div>
-        <div className={styles.card}>
-          <img src={posterTrack} alt="Photo" draggable="false"/>
-          <p className={styles.trackName}>On The Floor</p>
-          <p className={styles.authorName}>by JLO
-            {'\n'}19 tracks</p>
-        </div>
-        <div className={styles.card}>
-          <img src={posterTrack} alt="Photo" draggable="false"/>
-          <p className={styles.trackName}>On The Floor</p>
-          <p className={styles.authorName}>by JLO
-            {'\n'}19 tracks</p>
-        </div>
-        <div className={styles.card}>
-          <img src={posterTrack} alt="Photo" draggable="false"/>
-          <p className={styles.trackName}>On The Floor</p>
-          <p className={styles.authorName}>by JLO
-            {'\n'}19 tracks</p>
-        </div>
-        <div className={styles.card}>
-          <img src={posterTrack} alt="Photo" draggable="false"/>
-          <p className={styles.trackName}>On The Floor</p>
-          <p className={styles.authorName}>by JLO
-            {'\n'}19 tracks</p>
-        </div>
-      </div>
+        {albums.map((album, index) => (
+          <div className={styles.card} key={index}>
+            <img 
+              src={album.imageLink || posterTrack}
+              alt={album.albumName}
+              draggable="false"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = posterTrack;
+              }}
+            />
 
+            <div className={styles.trackNameWrapper}>
+              <div className={styles.scrollContainer}>
+                { album.albumName.length > 13 ? (
+                  <span className={`${styles.scrollText} ${styles.animate}`}>
+                    {album.albumName}&nbsp;&nbsp;&nbsp;&nbsp;{album.albumName}
+                  </span>
+                ) : (
+                  <span className={`${styles.scrollText}`}>
+                    {album.albumName}
+                  </span>
+                )}
+              </div>
+            </div>
+            {/* <p className={styles.trackName}>{album.albumName}</p> */}
+            
+            <p className={styles.authorName}>
+              by {album.author}{'\n'}{album.tracksQnt} track(s)
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

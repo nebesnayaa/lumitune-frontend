@@ -1,29 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CarouselItem } from "../../types/HomeContentData";
 import styles from "../../styles/home/Carousel.module.css";
-import poster1 from "../../assets/carousel/poster1.svg";
-import poster2 from "../../assets/carousel/poster2.svg";
-import poster3 from "../../assets/carousel/poster3.svg";
 
-const posters = [poster1, poster2, poster3];
+interface CarouselProps {
+  images: CarouselItem[];
+}
 
-const Carousel: React.FC = () => {
+const Carousel:  React.FC<CarouselProps> = ({ images }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef<number | null>(null);
   
   const handleNext = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % posters.length);
+    setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   const handlePrev = () => {
     setActiveIndex((prevIndex) =>
-      (prevIndex - 1 + posters.length) % posters.length
+      (prevIndex - 1 + images.length) % images.length
     );
   };
 
   // Автоперемикання кожні 10 секунд
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % posters.length);
+      setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 10000);
 
     return () => {
@@ -38,20 +38,20 @@ const Carousel: React.FC = () => {
         <button className={`${styles.arrow} ${styles.right}`} onClick={handleNext}>→</button>
         
         <div className={styles.carousel}>
-          {posters.map((poster, index) => {
+          {images.map((poster, index) => {
             const position =
               index === activeIndex
                 ? styles.active
-                : index === (activeIndex + 1) % posters.length
+                : index === (activeIndex + 1) % images.length
                 ? styles.next
-                : index === (activeIndex - 1 + posters.length) % posters.length
+                : index === (activeIndex - 1 + images.length) % images.length
                 ? styles.prev
                 : styles.hidden;
-
+            const imageUrl = Object.values(poster)[0];
             return (
               <img
                 key={index}
-                src={poster}
+                src={imageUrl}
                 alt={`Poster ${index + 1}`}
                 className={`${styles.poster} ${position}`}
                 draggable={false}
@@ -61,7 +61,7 @@ const Carousel: React.FC = () => {
         </div>
 
         <div className={styles.dots}>
-          {posters.map((_, idx) => (
+          {images.map((_, idx) => (
             <span
               key={idx}
               className={`${styles.dot} ${
