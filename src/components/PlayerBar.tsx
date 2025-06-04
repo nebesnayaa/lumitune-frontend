@@ -1,21 +1,52 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles/PlayerBar.module.css";
+import { usePlayer } from "../context/PlayerContext";
+import posterTrack from "../assets/topMusic/poster.png";
 
 interface PlayerBarProps {
   onOpenSide: () => void;
 }
 
 const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
-  const [isLiked, setIsLiked] = useState(false);
-
-  const handleLikeToggle = () => {
-    setIsLiked(prev => !prev);
-  }
-
-  const [volume, setVolume] = useState(0.5); // Значення гучності від 0 до 1
+  const { currentTrack, isPlaying, togglePlayPause, audioRef, volume, setVolume } = usePlayer();
+  const audio = audioRef.current;
+  const [currentTime, setCurrentTime] = useState(0); // Секундомір поточного трека
   const volumeBarRef = useRef<HTMLDivElement>(null);
-  
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+
+  const [isLiked, setIsLiked] = useState(false);
+  const handleLikeToggle = () => setIsLiked(prev => !prev);
+
+  // === Програвання / пауза ===
+  useEffect(() => { 
+    if (!audio || !currentTrack) return;
+
+    if (isPlaying) {
+      // Спроба автозапуску треку (може бути заблоковано політиками браузера)
+      audio.play().catch((error) => {
+        console.warn("Автовідтворення не дозволене:", error);
+      });
+    } else {
+      audio.pause();
+    }
+    
+  }, [audio]);
+
+  // === Синхронізація часу ===
+  useEffect(() => {    
+    if (!audio) return;
+    // setCurrentTime(0);
+    const updateTime = () => {
+      setCurrentTime(audio.currentTime)
+    };
+    
+    audio.addEventListener('timeupdate', updateTime);
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime);
+    };
+  }, [audio]);
+
+  /* Управління звуком аудіо */
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => { /* Обробник натискання миші на слайдер гучності: встановлює нову гучність та слухає рух миші для динамічної зміни */
     updateVolume(e.clientX);
     const handleMouseMove = (e: MouseEvent) => updateVolume(e.clientX);
     const handleMouseUp = () => {
@@ -26,33 +57,72 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
     window.addEventListener('mouseup', handleMouseUp);
   };
 
-  const updateVolume = (clientX: number) => {
+  const updateVolume = (clientX: number) => { /* Обчислення нової гучності на основі позиції миші відносно слайдеру гучності */
     const bar = volumeBarRef.current;
     if (!bar) return;
 
     const rect = bar.getBoundingClientRect();
     let newVolume = (clientX - rect.left) / rect.width;
-    newVolume = Math.max(0, Math.min(1, newVolume)); // clamp between 0 and 1
+    newVolume = Math.max(0, Math.min(1, newVolume)); // обмежуємо між 0 і 1
     setVolume(newVolume);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => { /* Обробник клавіш вліво/вправо для зменшення/збільшення гучності */
     if (e.key === 'ArrowLeft') {
-      setVolume((v) => Math.max(0, v - 0.05));
+      setVolume(Math.max(0, volume - 0.05));
     } else if (e.key === 'ArrowRight') {
-      setVolume((v) => Math.min(1, v + 0.05));
+      setVolume(Math.min(1, volume + 0.05));
     }
   };
 
+  /* Управління програванням аудіо */
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audio || !currentTrack) return;
+
+    const trackLine = e.currentTarget;
+    const rect = trackLine.getBoundingClientRect();
+
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
+
+    const percent = clickX / width;
+    const newTime = percent * currentTrack.duration;
+    
+    if (audio.readyState >= 2) {
+      audio.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  if (!currentTrack) return null;
+
   return (
     <div className={styles.playerBar}  onClick={onOpenSide}>
+      <audio 
+        ref={audioRef} 
+        onCanPlay={() => {
+          if (isPlaying) {
+            audioRef.current?.play();
+          }
+        }}
+        style={{ display: "none" }}
+      >
+        {currentTrack && <source src={currentTrack.url} type="audio/mpeg" />}
+      </audio>
+
       <div className={styles.wideScreen}>
         {/* Блок ліворуч */}
         <div className={styles.trackInfo}>
-          <img className={styles.trackPoster} src="./images/Poster.svg" alt="" />
+          <img className={styles.trackPoster} src={currentTrack.imageLink || posterTrack} alt="" />
           <div className={styles.trackText}>
-            <p className={styles.trackName}>The Show</p>
-            <p className={styles.trackAuthor}>Blackpink</p>
+            <p className={styles.trackName}>{currentTrack.name}</p>
+            <p className={styles.trackAuthor}>{currentTrack.author}</p>
           </div>
           <div className={styles.icons}>
             <div className={styles.heartIcon} onClick={handleLikeToggle}>
@@ -77,6 +147,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
             </svg>
           </div>
         </div>
+        {/* Controls mobile */}
         <div className={styles.icons_mobile}>
           <div className={styles.iconPlus_mobile}>
           <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,14 +156,15 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
           </svg>
 
           </div>
-          <div className={styles.iconPlay_mobile}>
-            <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17 8.76795C18.3333 9.53775 18.3333 11.4623 17 12.2321L3.5 20.0263C2.16667 20.7961 0.500001 19.8338 0.500001 18.2942L0.500002 2.70577C0.500002 1.16617 2.16667 0.20392 3.5 0.97372L17 8.76795Z" fill="#40A2FF"/>
-            </svg>
+          <div className={styles.iconPlay_mobile} onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
+            { isPlaying ? (
+              <img src="/images/icons/pauseIcon_mobile.svg" alt="" />
+              ) : (
+              <img src="/images/icons/playIcon_mobile.svg" alt="" />)
+            }
           </div>
         </div>
         
-
         {/* Аудіо-строка */}
         <div className={styles.trackField}>
           <div className={styles.controlButtons}>
@@ -102,9 +174,13 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
             <svg width="12" height="12" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M2.52606 8.1547V14H0.526062V7V0H2.52606V5.8453L12.5261 0.0717964V13.9282L2.52606 8.1547Z" fill="#93D3E7"/>
             </svg>
-            <svg width="20" height="20" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.52606 6L0.526062 11.1962V0.803847L9.52606 6Z" fill="#A6DAFF"/>
-            </svg>
+            <div onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
+            {isPlaying ? (
+              <img src="/images/icons/pauseIcon.svg"/>
+            ) : (
+              <img src="/images/icons/playIcon.svg"/>
+            )}
+            </div>
             <svg width="12" height="12" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5261 8.1547V14H12.5261V7V0H10.5261V5.8453L0.526062 0.0717964V13.9282L10.5261 8.1547Z" fill="#93D3E7"/>
             </svg>
@@ -113,11 +189,17 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
             </svg>
           </div>
           <div className={styles.controlTrack}>
-            <p className={styles.currentDuration}>02:57</p>
-            <div className={styles.trackLine}>
-              <div className={styles.trackLineActive}></div>
+            <p className={styles.currentDuration}>{formatTime(currentTime)}</p>
+            <div className={styles.trackLine} onClick={handleProgressClick}>
+              <div className={styles.trackLineActive} 
+                  style={{ 
+                    width: `${(currentTime / currentTrack.duration) * 100}%` 
+                  }}>
+              </div>
             </div>
-            <p className={styles.trackDuration}>05:20</p>
+            <p className={styles.trackDuration}>
+              {formatTime(currentTrack.duration)}
+            </p>
           </div>
         </div>
 
@@ -139,7 +221,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
       
       <div className={styles.mobileScreen}>
         <div className={styles.trackLine_mobile}>
-          <div className={styles.trackLineActive_mobile}></div>
+          <div className={styles.trackLineActive_mobile} style={{ width: `${(currentTime / currentTrack.duration) * 100}%` }}></div>
         </div>
       </div>
     </div>

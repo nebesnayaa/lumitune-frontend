@@ -42,7 +42,7 @@ const App: React.FC = () => {
                 <main className={styles.content}>
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile" element={<Profile onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/settings" element={<Settings />} />
                   </Routes>
                 </main>

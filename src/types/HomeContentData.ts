@@ -25,6 +25,6 @@ export interface Album {
 
 export interface HomeContentResponse {
   carousel: CarouselItem[];
-  recommendations: Album[];
+  recommendations: Track[];
   newReleases: Album[];
 }

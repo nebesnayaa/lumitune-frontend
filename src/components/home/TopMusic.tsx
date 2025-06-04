@@ -1,12 +1,12 @@
 import React, { useRef} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
-import { Album, Track } from "../../types/HomeContentData";
+import { Track } from "../../types/HomeContentData";
 import { usePlayer } from "../../context/PlayerContext";
 import posterTrack from "../../assets/topMusic/poster.png";
 import styles from "../../styles/home/MusicContent.module.css";
 
 interface TopMusicProps {
-  songs: Album[];
+  songs: Track[];
 }
 
 const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
@@ -14,9 +14,9 @@ const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
 
-  const handleTrackClick = (track: Track[]) => {
-    console.log("Clicked track:", track[0]);
-    playTrack(track[0]);
+  const handleTrackClick = (track: Track) => {
+    console.log("Clicked track:", track);
+    playTrack(track);
   };
 
   return(
@@ -32,10 +32,10 @@ const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
         </div>
         <div className={styles.slider} ref={sliderRef}>
           {songs.map((song, index) => (
-            <div className={styles.card} key={index} onClick={() => handleTrackClick(song.tracks)}>
+            <div className={styles.card} key={index} onClick={() => handleTrackClick(song)}>
               <img 
                 src={song.imageLink || posterTrack}
-                alt={song.albumName}
+                alt={song.name}
                 draggable="false"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = posterTrack;
@@ -44,19 +44,19 @@ const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
               
               <div className={styles.trackNameWrapper}>
                 <div className={styles.scrollContainer}>
-                  { song.albumName.length > 9 ? (
+                  { song.name.length > 13 ? (
                     <span className={`${styles.scrollText} ${styles.animate}`}>
-                      {song.albumName}12345&nbsp;&nbsp;&nbsp;&nbsp;{song.albumName}12345
+                      {song.name}&nbsp;&nbsp;&nbsp;&nbsp;{song.name}
                     </span>
                   ) : (
                     <span className={`${styles.scrollText}`}>
-                      {song.albumName}
+                      {song.name}
                     </span>
                   )}
                 </div>
               </div>
               
-              <p className={styles.authorName}>{song.author}</p>
+              <p className={styles.authorName}>{song.author || "Author"}</p>
             </div>
           ))}
         </div>

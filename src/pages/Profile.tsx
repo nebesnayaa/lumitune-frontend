@@ -10,9 +10,11 @@ import MonthTop from "../components/profile/MonthTop";
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/profile/Profile.module.css";
 
+interface ProfileProps {
+  onOpen: () => void;
+}
 
-
-const Profile: React.FC = () => {
+const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
   const { user, refreshUser } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;
   const navigate = useNavigate();
@@ -22,8 +24,9 @@ const Profile: React.FC = () => {
 
   const [subscribers, setSubscribers] = useState<number>(0);
   const [followings, setFollowings] = useState<number>(0);
-  
+
   useEffect(() => {
+    onOpen(); // Закриття бічної панелі
     if (user) {
       getCurrentUser()
         .then((data) => {
