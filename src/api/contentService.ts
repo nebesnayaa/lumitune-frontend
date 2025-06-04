@@ -1,5 +1,5 @@
 import axiosInstance from "./axiosInstance";
-import { HomeContentResponse } from "../types/HomeContentData";
+import { HomeContentResponse, Track } from "../types/HomeContentData";
 import { Image } from "../types/UserData";
 
 export const getContentHome = async (): Promise<HomeContentResponse | null> => {
@@ -25,3 +25,13 @@ export const uploadImage = async (file: FormData): Promise<Image | null> => {
     return null;    
   }
 }
+
+export const getTrackById = async (id: string): Promise<Track | null> => {
+  try {
+    const response = await axiosInstance.get(`/tracks/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні треку за id:", error);
+    return null;    
+  }
+};

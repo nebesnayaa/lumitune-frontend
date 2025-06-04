@@ -47,13 +47,14 @@
   }
 
   .adress, .email, .phone{
-    width: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
   }
-
+  .adress{
+    width: 70%;
+  }
   .contacts{
     display: flex;
     gap: 20px;
@@ -88,8 +89,11 @@
     .info{
       margin: 0;
     }
-    .adress, .contacts{
-      width: 100%
+    .email, .phone, .adress, .contacts{
+      width: 100%;
+    }
+    .contacts{
+      gap: 0;
     }
     .adress svg{
       height: 23px;
