@@ -1,12 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getCurrentUser } from '../api/userService';
 
-// interface AuthContextType {
-//   username: string | null;
-//   setUsername: (username: string | null) => void;
-//   logout: () => void;
-// }
-
 interface AuthContextType {
   user: {
     username: string;
@@ -26,7 +20,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const currentUser = await getCurrentUser(); // тип User
     setUser({
       username: currentUser.username,
-      avatarUrl: currentUser.avatar.url || null
+      avatarUrl: currentUser.avatar || null
     });
   };
 
