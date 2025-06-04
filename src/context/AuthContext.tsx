@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { getCurrentUser } from '../api/userService';
+import defaultAvatar from "/images/defaultAvatar.png";
 
 interface AuthContextType {
   user: {
@@ -18,9 +19,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshUser = async () => {
     const currentUser = await getCurrentUser(); // тип User
+
     setUser({
       username: currentUser.username,
-      avatarUrl: currentUser.avatar || null
+      avatarUrl: currentUser.avatar?.url || defaultAvatar
     });
   };
 

@@ -1,7 +1,7 @@
 export interface Image {
   id: string;
   owner: string;
-  url: string;
+  url: string | null;
 }
 
 export interface UserData {
