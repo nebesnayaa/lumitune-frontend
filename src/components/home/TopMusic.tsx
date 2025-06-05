@@ -34,7 +34,7 @@ const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
           {songs.map((song, index) => (
             <div className={styles.card} key={index} onClick={() => handleTrackClick(song)}>
               <img 
-                src={song.imageLink || posterTrack}
+                src={song.coverUrl || posterTrack}
                 alt={song.name}
                 draggable="false"
                 onError={(e) => {
@@ -56,7 +56,7 @@ const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
                 </div>
               </div>
               
-              <p className={styles.authorName}>{song.author || "Author"}</p>
+              <p className={styles.authorName}>{song.artistName || "Author"}</p>
             </div>
           ))}
         </div>

@@ -33,14 +33,38 @@
 		justify-content: center;
 		margin: 0 10px;
 		gap: 1px;
-		width: 8em;
+		width: 50vw;
+		max-width: 200px;
+		align-items: flex-start;
+		overflow: hidden;
+		position: relative;	
 	}
 
 	.trackName {
 		font: 600 1rem "Inter", sans-serif;
 		margin: 0;
+
+		white-space: nowrap;
+		overflow: hidden;
+		width: 100%;
+		position: relative;
 	}
 
+	.scrollText {
+		display: inline-block;
+		white-space: nowrap;
+		padding-left: 100%;
+		animation: scroll 40s linear infinite;
+	}
+
+@keyframes scroll {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
 	.trackAuthor {
 		margin: 0;
 		font: 200 0.75rem "Inter", sans-serif;

@@ -119,10 +119,18 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
       <div className={styles.wideScreen}>
         {/* Блок ліворуч */}
         <div className={styles.trackInfo}>
-          <img className={styles.trackPoster} src={currentTrack.imageLink || posterTrack} alt="" />
+          <img className={styles.trackPoster} src={currentTrack.coverUrl || posterTrack} alt="" />
           <div className={styles.trackText}>
-            <p className={styles.trackName}>{currentTrack.name}</p>
-            <p className={styles.trackAuthor}>{currentTrack.author}</p>
+            <p className={styles.trackName}>
+              {currentTrack.name.length > 20 ? (
+                <span className={styles.scrollText}>
+                  {currentTrack.name}&nbsp;&nbsp;&nbsp;&nbsp;{currentTrack.name}
+                </span>
+              ) : (
+                currentTrack.name
+              )}
+            </p>
+            <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
           </div>
           <div className={styles.icons}>
             <div className={styles.heartIcon} onClick={handleLikeToggle}>

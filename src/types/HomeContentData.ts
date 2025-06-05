@@ -6,11 +6,11 @@ export interface Track {
   id: string;
   name: string;
   duration: number;
-  author: string;
+  artistName: string;
   albumName: string;
   segNumber: number;
   playsNumber: number;
-  imageLink: string;
+  coverUrl: string;
   url: string;
   explicit: false;
 }
