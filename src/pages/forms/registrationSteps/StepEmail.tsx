@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RegistrationFormData } from "../../../types/RegistrationFormData";
 import styles from "../../../styles/forms/Registration.module.css";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 interface StepEmailProps {
   nextStep: () => void;
@@ -13,6 +13,8 @@ const StepEmail: React.FC<StepEmailProps> = ({ nextStep, formData, onChange }) =
   const [error, setError] = useState("");
   const [isValid, setIsValid] = useState(false);
 
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if(formData.email){
       setIsValid(true);
@@ -44,6 +46,7 @@ const StepEmail: React.FC<StepEmailProps> = ({ nextStep, formData, onChange }) =
   return (
     <div className={styles.regPage}>
       <div className={styles.container}>
+        <button className={styles.prevBtn} onClick={() => navigate("/")}>Назад</button>
         <div className={styles.logo}>
           <div className={styles.elipse}></div>
           <svg width="200" height="80" viewBox="0 0 73 56" fill="none" xmlns="http://www.w3.org/2000/svg">

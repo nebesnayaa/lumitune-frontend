@@ -7,6 +7,21 @@
   align-items: center;
 }
 
+.prevBtn{
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  color: rgba(147, 183, 255, 1);
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  padding: 5px;
+  font: 700 0.8rem "Inter", sans-serif;
+}
+
+.prevBtn svg{
+  height: 15px;
+}
+  
 .content{
   display: flex;
   flex-direction: column;
@@ -30,7 +45,7 @@ p{
 
 .title{
   font: 700 1.5rem "Inter", sans-serif;
-  margin: 10px 0 20px;
+  margin: 25px 0 20px;
 }
 
 .topic{
@@ -157,16 +172,18 @@ p{
 @media( min-width: 780px){
   .container{
     margin-top: 20px;
+    position: relative;
   }
   .content{
     width: 80%;
   }
+  .prevBtn{
+    left: 3%;
+    top: 0px;
+  }
 }
 
 @media( min-width: 1000px){
-  .container{
-    margin-top: 40px;
-  }
   p{
     font: 400 0.7rem "Inter", sans-serif;
   }

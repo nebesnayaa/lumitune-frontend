@@ -31,7 +31,10 @@ const LoginForm: React.FC = () => {
 
     try {
       const data = await loginUser(formData);
+      console.log("Successful login");
       await refreshUser(); // підтягує currentUser з сервера і викликає setUser
+      console.log("Successful refreshUser");
+
       localStorage.setItem("username", data.user.username); // Збереження в localStorage
       navigate("/");
     } catch (error) {
@@ -43,6 +46,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className={styles.logPage}>
       <div className={styles.container}>
+        <button className={styles.prevBtn} onClick={() => navigate("/")}>Назад</button>
         <div className={styles.logo}>
           <div className={styles.elipse}></div>
           <svg width="200" height="80" viewBox="0 0 73 56" fill="none" xmlns="http://www.w3.org/2000/svg">

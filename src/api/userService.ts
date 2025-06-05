@@ -28,6 +28,11 @@ export const loginUser = async (data: LoginFormData) => {
   return response.data;
 };
 
+export const logoutUser = async () => {
+  const response = await axiosInstance.post("/users/logout");
+  return response.data;
+};
+
 export const isUsernameUnique = async (username: string): Promise<boolean> => {
   const response = await axiosInstance.get(`/auth/isunique/${encodeURIComponent(username)}`);
   return response.data;

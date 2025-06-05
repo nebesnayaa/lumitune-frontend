@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import styles from "../../styles/forms/Login.module.css";
 
 const ForgotPassword: React.FC = () => {
@@ -7,7 +7,7 @@ const ForgotPassword: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   // const [loading, setLoading] = useState<boolean>(false);
-
+  const navigate = useNavigate();
   
   const onChange = (value: string) => {
     setEmail(value);
@@ -46,6 +46,7 @@ const ForgotPassword: React.FC = () => {
   return (
     <div className={styles.logPage}>
       <div className={styles.container}>
+        <button className={styles.prevBtn} onClick={() => navigate(-1)}>Назад</button>
         <div className={styles.logo}>
           <div className={styles.elipse}></div>
           <svg width="200" height="80" viewBox="0 0 73 56" fill="none" xmlns="http://www.w3.org/2000/svg">
