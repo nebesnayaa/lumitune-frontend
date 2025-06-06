@@ -1,3 +1,5 @@
+import { Album } from "./HomeContentData";
+
 export interface Image {
   id: string;
   owner: string;
@@ -18,10 +20,19 @@ export interface User {
   id: string;
   username: string;
   password: string;
-  avatarId: Image | null;
+  avatar: Image | null;
   images: Image[];
   role: UserRole;
   accSubscribers: number;
   accFollowings: number;
   userData: UserData;
+}
+
+export interface Artist {
+  id: string;
+  user: User;
+  bio: string;
+  bioPics: Image[];
+  monthlyListeners: number;
+  albums: Album[];
 }

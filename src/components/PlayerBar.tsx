@@ -1,20 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../styles/PlayerBar.module.css";
+import { Link } from "react-router";
 import { usePlayer } from "../context/PlayerContext";
 import posterTrack from "../assets/topMusic/poster.png";
+import { getTrackById } from "../api/contentService";
 
+import styles from "../styles/PlayerBar.module.css";
 interface PlayerBarProps {
   onOpenSide: () => void;
 }
 
 const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   const { currentTrack, isPlaying, togglePlayPause, audioRef, volume, setVolume } = usePlayer();
+  const [ currentArtist, setCurrentArtist ] = useState<any>(null);
   const audio = audioRef.current;
   const [currentTime, setCurrentTime] = useState(0); // Секундомір поточного трека
   const volumeBarRef = useRef<HTMLDivElement>(null);
 
   const [isLiked, setIsLiked] = useState(false);
   const handleLikeToggle = () => setIsLiked(prev => !prev);
+
+  // === Артист ===
+  useEffect(()=> {
+    if(!currentTrack) return;
+    const fetchTrack = async () =>{
+      const currentArtist = await getTrackById(currentTrack.id);
+      setCurrentArtist(currentArtist);
+    }
+    fetchTrack();
+  }, [currentTrack]);
 
   // === Програвання / пауза ===
   useEffect(() => { 
@@ -130,7 +143,11 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
                 currentTrack.name
               )}
             </p>
-            <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
+            { currentArtist &&
+              <Link to={`/artist/${currentArtist.artist.id}`}>
+                <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
+              </Link>
+            }
           </div>
           <div className={styles.icons}>
             <div className={styles.heartIcon} onClick={handleLikeToggle}>

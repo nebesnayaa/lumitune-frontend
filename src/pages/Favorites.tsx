@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Track } from "../types/HomeContentData";
+// import { Track } from "../types/HomeContentData";
 
 import poster from "../assets/monthTop/image1.svg";
 import defaultAvatar from "/images/defaultAvatar.png";
@@ -14,7 +14,7 @@ interface FavoritesProps {
 const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
   const { user } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;
-  const [ songs, setSongs ] = useState<Track[]>();
+  // const [ songs, setSongs ] = useState<Track[]>();
   
   useEffect(() => {
     onOpen(); // Закриття бічної панелі
@@ -52,7 +52,7 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
           <p className={styles.durationHeader}>Час</p>
         </div>
 
-        { songs?.map((song, index)=> (
+        {/* { songs?.map((song, index)=> (
           <div className={styles.trackItem}>
             <p className={styles.numeration}>{index}</p>
 
@@ -69,7 +69,7 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
             <p className={styles.date}>Сьогодні</p>
             <p className={styles.duration}>{song.duration}</p>
           </div>
-        ))}
+        ))} */}
         <div className={styles.trackItem}>
           <p className={styles.numeration}>1</p>
 

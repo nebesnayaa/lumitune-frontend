@@ -1,0 +1,91 @@
+.headerBlock{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px 20px;
+}
+
+.artistImg{
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.nameSection{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.text{
+  color: rgba(147, 161, 184, 1);
+  font: 700 0.7rem "Inter", sans-serif;
+  margin-bottom: 10px;
+}
+
+.artistName{
+  font: 800 1.75rem "Inter", sans-serif;
+  margin-bottom: 10px;
+}
+
+.profileSection{
+  display: flex;
+  align-items: center;
+}
+
+.avatarFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar{
+  width: 85%;
+  height: 85%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  border: 3px solid rgba(69, 96, 144, 0.19);
+}
+
+.username{
+  margin: 0 5px;
+  font: 600 0.6rem "Inter", sans-serif;
+}
+
+.dot{
+  background-color: white;
+  height: 3px;
+  width: 3px;
+  border-radius: 25%;
+}
+
+.listenings{
+  margin-left: 5px;
+  font: 200 0.6rem "Inter", sans-serif;
+}
+
+@media(min-width: 780px){
+  .headerBlock{
+    flex-direction: row;
+    align-items: end;
+  }
+  .artistImg{
+    width: 150px;
+    border-radius: 10px;
+    margin: 0;
+  }
+  .nameSection{
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
+  .text{
+    font: 400 0.6rem "Inter", sans-serif;
+  }
+}

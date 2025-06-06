@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { usePlayer } from "../context/PlayerContext";
+import { Link } from "react-router";
+import { getTrackById } from "../api/contentService";
 
 import styles from "../styles/SideInfoBox.module.css";
-import { getTrackById } from "../api/contentService";
 
 interface SideInfoBoxProps {
   onClose: () => void;
@@ -10,9 +11,9 @@ interface SideInfoBoxProps {
 
 const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
   const { currentTrack } = usePlayer();
-  const [currentArtist, setCurrentArtist] = useState<any>(null);
+  const [ currentArtist, setCurrentArtist ] = useState<any>(null);
   const [ isSubscribed, setIsSubscribed ] = useState<any>(false);
-
+  
   useEffect(()=> {
     if(!currentTrack) return;
     const fetchTrack = async () =>{
@@ -40,7 +41,10 @@ const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
         <img src={currentTrack.coverUrl} alt="Album cover" className={styles.albumCover}/>
         <div className={styles.trackInfo}>
           <p className={styles.trackName}>{currentTrack.name}</p>
-          <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
+          {currentArtist &&
+          <Link to={`/artist/${currentArtist.artist.id}`}>
+            <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
+          </Link>}
           <svg className={styles.addTrackIcon} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_2573_35768)">
             <path d="M12 22.5C9.21523 22.5 6.54451 21.3938 4.57538 19.4246C2.60625 17.4555 1.5 14.7848 1.5 12C1.5 9.21523 2.60625 6.54451 4.57538 4.57538C6.54451 2.60625 9.21523 1.5 12 1.5C14.7848 1.5 17.4555 2.60625 19.4246 4.57538C21.3938 6.54451 22.5 9.21523 22.5 12C22.5 14.7848 21.3938 17.4555 19.4246 19.4246C17.4555 21.3938 14.7848 22.5 12 22.5ZM12 24C15.1826 24 18.2348 22.7357 20.4853 20.4853C22.7357 18.2348 24 15.1826 24 12C24 8.8174 22.7357 5.76516 20.4853 3.51472C18.2348 1.26428 15.1826 0 12 0C8.8174 0 5.76516 1.26428 3.51472 3.51472C1.26428 5.76516 0 8.8174 0 12C0 15.1826 1.26428 18.2348 3.51472 20.4853C5.76516 22.7357 8.8174 24 12 24Z" fill="#7BAFDF"/>
@@ -54,8 +58,12 @@ const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
           </svg>
         </div>
         <div className={styles.authorInfo}>
-          {currentArtist && <img src={currentArtist.artist.user.avatar?.url} alt="Album cover" className={styles.authorImg}/>}
-          <p className={styles.authorName}>{currentTrack.artistName}</p>
+          { currentArtist && 
+            <Link to={`/artist/${currentArtist.artist.id}`}>
+              <img src={currentArtist.artist.user.avatar?.url} alt="Album cover" className={styles.authorImg}/>
+              <p className={styles.authorName}>{currentTrack.artistName}</p>
+            </Link>
+          }
           <div className={styles.subscribeSection}>
             { currentArtist && 
               <p className={styles.followings}>
