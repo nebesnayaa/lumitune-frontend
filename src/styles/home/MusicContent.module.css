@@ -121,9 +121,10 @@
 @media (min-width: 1600px) and (max-width: 1849px) {
   .arrow{
     position: absolute;
-    left: 930px;
+    right: 10px;
   }
 }
+
 @media (min-width: 1850px){
   .container{
     width: 1050px;

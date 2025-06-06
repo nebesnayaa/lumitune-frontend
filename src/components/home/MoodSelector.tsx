@@ -1,22 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
+
+import happyImg from "/images/mood/happy.svg";
+import sadImg from "/images/mood/sad.svg";
+import romImg from "/images/mood/romantic.svg";
+import driveImg from "/images/mood/drive.svg";
+import partyImg from "/images/mood/party.svg";
+import chillImg from "/images/mood/chill.svg";
+import fanImg from "/images/mood/fan.svg";
+
+import fireImg from "/images/genres/fire.svg";
+import musicImg from "/images/genres/music.svg";
+import popImg from "/images/genres/spring.svg";
+import rockImg from "/images/genres/rocknroll.svg";
+import metalIMg from "/images/genres/party.svg";
+import rapIMg from "/images/genres/street.svg";
+import clasIMg from "/images/genres/classic.svg";
+
 import styles from "../../styles/home/MoodSelector.module.css";
-
-import happyImg from "../../assets/mood/happy.svg";
-import sadImg from "../../assets/mood/sad.svg";
-import romImg from "../../assets/mood/romantic.svg";
-import driveImg from "../../assets/mood/drive.svg";
-import partyImg from "../../assets/mood/party.svg";
-import chillImg from "../../assets/mood/chill.svg";
-import fanImg from "../../assets/mood/fan.svg";
-
-import fireImg from "../../assets/genres/fire.svg";
-import musicImg from "../../assets/genres/music.svg";
-import popImg from "../../assets/genres/spring.svg";
-import rockImg from "../../assets/genres/rocknroll.svg";
-import metalIMg from "../../assets/genres/party.svg";
-import rapIMg from "../../assets/genres/street.svg";
-import clasIMg from "../../assets/genres/classic.svg";
 
 const MoodSelector: React.FC = () => {
   const moods = [
@@ -28,7 +29,6 @@ const MoodSelector: React.FC = () => {
     { label: "Чілл", img: chillImg },
     { label: "Фан", img: fanImg },
   ];
-
   const genres = [
     { label: "Новинки", img: fireImg },
     { label: "Поп", img: musicImg },
@@ -54,8 +54,7 @@ const MoodSelector: React.FC = () => {
     setShowDropdown(false);
   };
 
-  // Закрити меню, якщо клік поза ним
-  useEffect(() => {
+  useEffect(() => {   // Закрити меню, якщо клік поза ним
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -74,7 +73,8 @@ const MoodSelector: React.FC = () => {
     <div className={styles.container}>
       <div>
         <h2 className={styles.title}>
-          Саундтреки на основі твого
+          Саундтреки на основі 
+          <span>{selected ==="mood" ? " твого" : ""}</span>
           <span className={styles.mood} onClick={toggleDropdown} ref={toggleRef}>
             {selected === "mood" ? "настрою" : "жанру"}
             <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">

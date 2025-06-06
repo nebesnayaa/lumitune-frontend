@@ -7,11 +7,11 @@ import NewReleases from "../components/home/NewReleases";
 import { CarouselItem, HomeContentResponse } from "../types/HomeContentData";
 import { getContentHome } from "../api/contentService";
 
-import styles from "../styles/App.module.css";
+import poster1 from "/images/carousel/poster1.svg";
+import poster2 from "/images/carousel/poster2.svg";
+import poster3 from "/images/carousel/poster3.svg";
 
-import poster1 from "../assets/carousel/poster1.svg";
-import poster2 from "../assets/carousel/poster2.svg";
-import poster3 from "../assets/carousel/poster3.svg";
+import styles from "../styles/App.module.css";
 
 const fallbackImages: CarouselItem[] = [
   { img: poster1 },

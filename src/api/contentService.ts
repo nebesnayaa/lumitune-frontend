@@ -26,8 +26,14 @@ export const uploadImage = async (file: FormData): Promise<Image | null> => {
   }
 }
 
-export const getTrackById = async (id: string): Promise<Track | null> => {
+export const deleteImage = async (id: string | null) => {
+  const response = await axiosInstance.post(`/images/delete/${id}`);
+  return response.data;
+}
+
+export const getTrackById = async (id: string) => {
   try {
+    console.log("track id ", id);
     const response = await axiosInstance.get(`/tracks/${id}`);
     return response.data;
   } catch (error) {
