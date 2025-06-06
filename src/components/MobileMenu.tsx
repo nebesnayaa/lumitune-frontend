@@ -145,7 +145,7 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
         {/* Playlists */}
         <h3 className={styles.menuTitle}>Плейлисти</h3>
         <nav className={styles.menuSection}>
-          <NavLink to="/fav-tracks" onClick={onClose}
+          <NavLink to="/favorite" onClick={onClose}
               className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>

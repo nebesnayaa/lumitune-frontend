@@ -1,5 +1,5 @@
 import axiosInstance from "./axiosInstance";
-import { HomeContentResponse, Track } from "../types/HomeContentData";
+import { HomeContentResponse } from "../types/HomeContentData";
 import { Image } from "../types/UserData";
 
 export const getContentHome = async (): Promise<HomeContentResponse | null> => {
@@ -33,7 +33,6 @@ export const deleteImage = async (id: string | null) => {
 
 export const getTrackById = async (id: string) => {
   try {
-    console.log("track id ", id);
     const response = await axiosInstance.get(`/tracks/${id}`);
     return response.data;
   } catch (error) {

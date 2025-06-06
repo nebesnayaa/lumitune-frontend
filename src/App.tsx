@@ -4,6 +4,7 @@ import styles from "./styles/App.module.css";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Favorites from "./pages/Favorites";
 import RegistrationForm from "./pages/forms/RegistrationForm";
 import LoginForm from "./pages/forms/LoginForm";
 import ForgotPassword from "./pages/forms/ForgotPassword";
@@ -16,6 +17,7 @@ import PlayerBar from "./components/PlayerBar";
 import SideInfoBox from "./components/SideInfoBox";
 import Settings from "./pages/Settings";
 import Footer from "./components/Footer";
+
 
 const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,6 +45,7 @@ const App: React.FC = () => {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/profile" element={<Profile onOpen={() => setIsSideBoxOpen(false)}/>} />
+                    <Route path="/favorite" element={<Favorites onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/settings" element={<Settings />} />
                   </Routes>
                 </main>

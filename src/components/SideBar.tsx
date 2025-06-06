@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
 
 			<h4 className={styles.sectionTitle}>Плейлисти</h4>
 			<nav className={styles.menuSection}>
-				<NavLink to="/fav-tracks" className={({ isActive }) => isActive 
+				<NavLink to="/favorite" className={({ isActive }) => isActive 
 						? `${styles.menuItem} ${styles.active}` 
 						: styles.menuItem}>
 					<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
