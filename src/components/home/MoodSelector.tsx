@@ -10,6 +10,14 @@ import partyImg from "../../assets/mood/party.svg";
 import chillImg from "../../assets/mood/chill.svg";
 import fanImg from "../../assets/mood/fan.svg";
 
+import fireImg from "../../assets/genres/fire.svg";
+import musicImg from "../../assets/genres/music.svg";
+import popImg from "../../assets/genres/spring.svg";
+import rockImg from "../../assets/genres/rocknroll.svg";
+import metalIMg from "../../assets/genres/party.svg";
+import rapIMg from "../../assets/genres/street.svg";
+import clasIMg from "../../assets/genres/classic.svg";
+
 const MoodSelector: React.FC = () => {
   const moods = [
     { label: "Хеппі", img: happyImg },
@@ -19,6 +27,16 @@ const MoodSelector: React.FC = () => {
     { label: "Туса", img: partyImg },
     { label: "Чілл", img: chillImg },
     { label: "Фан", img: fanImg },
+  ];
+
+  const genres = [
+    { label: "Новинки", img: fireImg },
+    { label: "Поп", img: musicImg },
+    { label: "K-pop", img: popImg },
+    { label: "Рок", img: rockImg },
+    { label: "Метал", img: metalIMg },
+    { label: "Реп", img: rapIMg },
+    { label: "Класика", img: clasIMg },
   ];
 
   const [selected, setSelected] = useState<"mood" | "genre">("mood");
@@ -90,7 +108,12 @@ const MoodSelector: React.FC = () => {
                 <p>{mood.label}</p>
               </div>
             ))) :
-            (<div>To be continued</div>)
+            (genres.map((genre, index) => (
+              <div key={index} className={styles.emotion}>
+                <img src={genre.img} alt={genre.label} draggable={false}/>
+                <p>{genre.label}</p>
+              </div>
+            )))
           }
         </div>
       </div>
