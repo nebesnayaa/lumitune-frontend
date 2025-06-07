@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { User } from "../types/UserData";
 import { getCurrentUser, editUser } from "../api/userService";
-import { uploadImage } from "../api/contentService";
+import { deleteImage, uploadImage } from "../api/contentService";
 import WeekLikes from "../components/profile/WeekLikes";
 import MonthTop from "../components/profile/MonthTop";
 
@@ -41,7 +41,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
 
   const handleUpload = async () => {
     if (!selectedFile) return;
-
+    
     try {
       const formData = new FormData();
       formData.append("file", selectedFile);
@@ -50,19 +50,32 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
       if (!uploadedImage) throw new Error("Не вдалося завантажити зображення");
 
       const currentUser = await getCurrentUser();
+      const oldAvatarId = currentUser.avatar?.id;
 
       const updatedUser: User = {
         ...currentUser,
         avatar: uploadedImage,
       };
-
+      
       await editUser(updatedUser);
       await refreshUser();
+
+      if(oldAvatarId)
+      {
+        await deleteImage(oldAvatarId);
+      }
       setIsModalOpen(false);
     } catch (error) {
       console.error("Помилка завантаження аватарки:", error);
     }
   };
+
+  // const extractId = (url: string) => {
+  //   const parts = url.split("/");
+  //   const filename = parts[parts.length - 1]; // "ce9b2913-0254-46e8-807b-a86f7f90bfe9.jpg"
+  //   const id = filename.replace(".jpg", "");  // "ce9b2913-0254-46e8-807b-a86f7f90bfe9"
+  //   return id;
+  // };
 
   return (
     <div className={styles.container}>
