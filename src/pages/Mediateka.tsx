@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Playlist, Track } from "../types/HomeContentData";
+// import { Playlist, Track } from "../types/HomeContentData";
+import { Playlist } from "../types/HomeContentData";
 import { getPlaylistsByUserId } from "../api/contentService";
 import { useAuth } from "../context/AuthContext";
 import { getUserByUsername } from "../api/userService";
