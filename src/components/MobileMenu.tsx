@@ -171,7 +171,7 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
             </svg>
             <p>Створити плейлист</p>
           </NavLink>
-          <NavLink to="/library#playlists" onClick={onClose} className={styles.menuItem}>
+          <NavLink to="/mediateka#playlists" onClick={onClose} className={styles.menuItem}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.25 7.06738H19.5M8.25 12.2236H19.5M8.25 17.3799H19.5M4.5 7.06738H5.4375M4.5 12.2236H5.4375M4.5 17.3799H5.4375" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>

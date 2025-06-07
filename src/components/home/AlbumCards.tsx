@@ -6,11 +6,11 @@ import posterTrack from "../../assets/newRelease/poster.png";
 
 import styles from "../../styles/home/MusicContent.module.css";
 
-interface NewReleasesProps {
+interface AlbumCardsProps {
   albums: Album[];
 }
 
-const NewReleases: React.FC<NewReleasesProps> = ({albums}) => {
+const AlbumCards: React.FC<AlbumCardsProps> = ({albums}) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
 
@@ -60,4 +60,4 @@ const NewReleases: React.FC<NewReleasesProps> = ({albums}) => {
     </div>
   );
 }
-export default NewReleases;
+export default AlbumCards;

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { usePlayer } from "../context/PlayerContext";
-import posterTrack from "../assets/topMusic/poster.png";
+import defaultCover from "/images/defaultPlaylist.png";
 import { getTrackById } from "../api/contentService";
 
 import styles from "../styles/PlayerBar.module.css";
@@ -132,7 +132,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
       <div className={styles.wideScreen}>
         {/* Блок ліворуч */}
         <div className={styles.trackInfo}>
-          <img className={styles.trackPoster} src={currentTrack.coverUrl || posterTrack} alt="" />
+          <img className={styles.trackPoster} src={currentTrack.coverUrl || defaultCover} alt="" />
           <div className={styles.trackText}>
             <p className={styles.trackName}>
               {currentTrack.name.length > 20 ? (

@@ -20,6 +20,7 @@
     flex-direction: column;
     min-height: 100vh;
     background-color: rgba(0, 0, 0, 1);
+    /* background-color:rgba(255, 255, 255, 1); */
     color: white;
     background-image: url(/images/background.svg);
   }
@@ -38,8 +39,6 @@
     padding-bottom: 65px;
   }
 
-  
-  
   .playerBar {
     position: fixed;
     bottom: 0;

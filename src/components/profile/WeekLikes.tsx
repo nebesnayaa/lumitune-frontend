@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import styles from "../../styles/profile/WeekLikes.module.css";
 
-import poster from "../../assets/topMusic/poster.png";
+import poster from "/images/defaultPlaylist.png";
 
 const WeekLikes: React.FC = () => {
   const sliderRef = useRef<HTMLDivElement>(null);

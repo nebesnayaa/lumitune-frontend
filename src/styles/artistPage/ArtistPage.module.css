@@ -84,6 +84,7 @@
   .nameSection{
     margin-left: 20px;
     margin-bottom: 5px;
+    max-width: 100%;
   }
   .text{
     font: 400 0.6rem "Inter", sans-serif;

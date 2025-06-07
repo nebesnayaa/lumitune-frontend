@@ -2,14 +2,15 @@ import React, { useRef} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import { Track } from "../../types/HomeContentData";
 import { usePlayer } from "../../context/PlayerContext";
-import posterTrack from "../../assets/topMusic/poster.png";
+
+import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/home/MusicContent.module.css";
 
-interface TopMusicProps {
+interface TrackCardsProps {
   songs: Track[];
 }
 
-const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
+const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
   const { playTrack } = usePlayer();
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
@@ -34,11 +35,11 @@ const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
           {songs.map((song, index) => (
             <div className={styles.card} key={index} onClick={() => handleTrackClick(song)}>
               <img 
-                src={song.coverUrl || posterTrack}
+                src={song.coverUrl || defaultCover}
                 alt={song.name}
                 draggable="false"
                 onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = posterTrack;
+                  (e.currentTarget as HTMLImageElement).src = defaultCover;
                 }}
               />
               
@@ -64,4 +65,4 @@ const TopMusic: React.FC<TopMusicProps> = ({ songs }) => {
     </div>
   );
 }
-export default TopMusic;
+export default TrackCards;

@@ -18,6 +18,7 @@ import MobileMenu from "./components/MobileMenu";
 import PlayerBar from "./components/PlayerBar";
 import SideInfoBox from "./components/SideInfoBox";
 import Footer from "./components/Footer";
+import Mediateka from "./pages/Mediateka";
 
 const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -44,6 +45,7 @@ const App: React.FC = () => {
                 <main className={styles.content}>
                   <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/mediateka" element={<Mediateka />} />
                     <Route path="/profile" element={<Profile onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/favorite" element={<Favorites onOpen={() => setIsSideBoxOpen(false)}/>} />

@@ -84,7 +84,7 @@ const Sidebar: React.FC = () => {
 					</svg>
 					<p className={styles.itemName}>Головна</p>
 				</NavLink>
-				<NavLink to="/library" className={({ isActive }) => isActive 
+				<NavLink to="/mediateka" className={({ isActive }) => isActive 
 						? `${styles.menuItem} ${styles.active}` 
 						: styles.menuItem}>
 					<svg className={styles.mediaIcon} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +123,7 @@ const Sidebar: React.FC = () => {
 					<p className={styles.itemName}>Створити плейлист</p>
 				</NavLink>
 				<div className={`${styles.menuItem} ${styles.myPlaylistsItem}`}>
-					<NavLink to="/library#playlists">
+					<NavLink to="/mediateka#playlists">
 						<p className={styles.itemNamePlaylists}>Ваші плейлисти</p>
 					</NavLink>
 					<svg onClick={toggleDropdown} width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,8 +146,8 @@ const Sidebar: React.FC = () => {
 						</div>
 					)}
 				</div>
-				{sortedPlaylists?.map((playlist) => (
-					<div className={styles.playlistItem}>
+				{sortedPlaylists?.map((playlist, index) => (
+					<div className={styles.playlistItem}  key={index}>
 						<img className={styles.playlistCover} src={playlist.coverUrl?.url || defaultCover} alt="playlistImg" />
 						<p className={styles.playlistName}>{playlist.name}</p>
 					</div>
