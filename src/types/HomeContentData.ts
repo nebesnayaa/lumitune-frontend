@@ -2,6 +2,18 @@ export interface CarouselItem {
   [key: string]: string;
 }
 
+export interface HomeContentResponse {
+  carousel: CarouselItem[];
+  recommendations: Track[];
+  newReleases: Album[];
+}
+
+export interface Image {
+  id: string;
+  owner: string;
+  url: string | null;
+}
+
 export interface Track {
   id: string;
   name: string;
@@ -23,8 +35,12 @@ export interface Album {
   tracks: Track[];
 }
 
-export interface HomeContentResponse {
-  carousel: CarouselItem[];
-  recommendations: Track[];
-  newReleases: Album[];
+export interface Playlist{
+  id: string;
+  name: string;
+  userName: string;
+  coverUrl: Image;
+  tracks: Track[];
+  private: boolean;
 }
+

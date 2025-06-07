@@ -1,10 +1,4 @@
-import { Album } from "./HomeContentData";
-
-export interface Image {
-  id: string;
-  owner: string;
-  url: string | null;
-}
+import { Album, Image } from "./HomeContentData";
 
 export interface UserData {
   id: string;

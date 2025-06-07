@@ -1,8 +1,70 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router";
+
+import { Playlist } from "../types/HomeContentData";
+import { useAuth } from "../context/AuthContext";
+import { getPlaylistsByUserId } from "../api/contentService";
+import { getUserByUsername } from "../api/userService";
+
+import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../styles/SideBar.module.css";
 
 const Sidebar: React.FC = () => {
+	const { user } = useAuth();
+	const [ playlists, setPlaylists ] = useState<Playlist[] | null>(null);
+	
+	const [sortedPlaylists, setSortedPlaylists] = useState<Playlist[] | null>(null);
+	const [ filterSelected, setFilterSelected] = useState<"default" | "alphabet">("default");
+	const [showDropdown, setShowDropdown] = useState(false);
+	const dropdownRef = useRef<HTMLDivElement>(null);
+	const toggleRef = useRef<HTMLSpanElement>(null);
+
+	const toggleDropdown = () => setShowDropdown((prev) => !prev);
+	
+	const handleSelect = (option: "default" | "alphabet", event: React.MouseEvent) => {
+		event.stopPropagation();
+		setFilterSelected(option);
+		setShowDropdown(false);
+	};
+
+	useEffect(() => {   // Закрити меню, якщо клік поза ним
+		const handleClickOutside = (event: MouseEvent) => {
+			if (
+				dropdownRef.current &&
+				!dropdownRef.current.contains(event.target as Node) &&
+				toggleRef.current &&
+				!toggleRef.current.contains(event.target as Node)
+			) {
+				setShowDropdown(false);
+			}
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
+	useEffect(()=> {
+		if(!user) return;
+		const fetchPlaylists = async() => {
+			const userId = await getUserByUsername(user.username);
+			const playlists = await getPlaylistsByUserId(userId.id);
+			setPlaylists(playlists);
+		}
+		fetchPlaylists();
+	}, [user]);
+
+	useEffect(() => {  // Сортування плейлістів
+		if (!playlists) return;
+
+		let sorted = [...playlists];
+
+		if (filterSelected === "alphabet") {
+			sorted.sort((a, b) => a.name.localeCompare(b.name));
+		}
+		// default — залишається порядок як є (останні додані)
+
+		setSortedPlaylists(sorted);
+	}, [filterSelected, playlists]);
+
 	return (
 		<aside className={styles.sidebar}>
 			<h3 className={styles.menuTitle}>Меню</h3>
@@ -60,14 +122,36 @@ const Sidebar: React.FC = () => {
 					</svg>
 					<p className={styles.itemName}>Створити плейлист</p>
 				</NavLink>
-				<NavLink to="/playlists" className={({ isActive }) => isActive 
-						? `${styles.menuItem} ${styles.active}` 
-						: styles.menuItem}>
-					<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M8.25 7.06738H19.5M8.25 12.2236H19.5M8.25 17.3799H19.5M4.5 7.06738H5.4375M4.5 12.2236H5.4375M4.5 17.3799H5.4375" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<div className={`${styles.menuItem} ${styles.myPlaylistsItem}`}>
+					<NavLink to="/library#playlists">
+						<p className={styles.itemNamePlaylists}>Ваші плейлисти</p>
+					</NavLink>
+					<svg onClick={toggleDropdown} width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4.75 1.84375H16M4.75 7H16M4.75 12.1562H16M1 1.84375H1.9375M1 7H1.9375M1 12.1562H1.9375" stroke="#86AECA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
-					<p className={styles.itemName}>Ваші плейлисти</p>
-				</NavLink>
+					{showDropdown && (
+						<div className={styles.dropdown} ref={dropdownRef}>
+							<div
+								className={`${styles.option} ${filterSelected === "default" ? styles.filterActive : ""}`}
+								onClick={(e) => handleSelect("default", e)}
+							>
+								Нещодавно слухали
+							</div>
+							<div
+								className={`${styles.option} ${filterSelected === "alphabet" ? styles.filterActive : ""}`}
+								onClick={(e) => handleSelect("alphabet", e)}
+							>
+								За алфавітом
+							</div>
+						</div>
+					)}
+				</div>
+				{sortedPlaylists?.map((playlist) => (
+					<div className={styles.playlistItem}>
+						<img className={styles.playlistCover} src={playlist.coverUrl?.url || defaultCover} alt="playlistImg" />
+						<p className={styles.playlistName}>{playlist.name}</p>
+					</div>
+				))}
 			</nav>
 		</aside>
 	);

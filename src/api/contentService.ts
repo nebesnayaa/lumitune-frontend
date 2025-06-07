@@ -1,6 +1,5 @@
 import axiosInstance from "./axiosInstance";
-import { HomeContentResponse } from "../types/HomeContentData";
-import { Image } from "../types/UserData";
+import { HomeContentResponse, Image, Playlist } from "../types/HomeContentData";
 
 export const getContentHome = async (): Promise<HomeContentResponse | null> => {
   try {
@@ -37,6 +36,16 @@ export const getTrackById = async (id: string) => {
     return response.data;
   } catch (error) {
     console.error("Помилка при отриманні треку за id:", error);
+    return null;    
+  }
+};
+
+export const getPlaylistsByUserId = async (id: string): Promise<Playlist[] | null> => {
+  try {
+    const response = await axiosInstance.get(`/playlists/user/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні головного контенту:", error);
     return null;    
   }
 };

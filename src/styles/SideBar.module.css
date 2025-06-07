@@ -8,11 +8,13 @@
   background-color: rgba(12, 12, 12, 0.4);
 }
 
+/* Заголовки */
 .menuTitle, .sectionTitle{
   font: 700 1rem "Inter", sans-serif;
   margin: 25px 0 25px 15px;
 }
 
+/* Пункти меню */
 .menuSection{
   display: flex;
   flex-direction: column;
@@ -30,6 +32,11 @@
   border: 0.5px solid rgba(166, 218, 255, 0);
   text-decoration: none;
   color: #fff;
+  position: relative;
+}
+
+.itemName, .itemNamePlaylists{
+  font-size: 0.9em;
 }
 
 .active{
@@ -38,7 +45,6 @@
   background-color: rgba(120, 155, 176, 0.13);
   background-image: url(/images/background.svg);
 }
-
 
 .homeIcon {
   width: 20px;
@@ -53,6 +59,64 @@
   height: 0.8px;
   margin: 20px 8px;
   background-color: rgba(66, 109, 131, 1);
+}
+
+/* Мої плейлісти */
+.myPlaylistsItem{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.itemNamePlaylists{
+  color: rgba(191, 237, 253, 1);
+}
+
+/* Фільтр */
+.dropdown{
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: rgba(35, 46, 54, 1);
+  font: 200 0.75rem "Inter", sans-serif;
+  padding: 5px 0;
+  border-radius: 6px;
+}
+
+.option{
+  height: 30px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+.filterActive{
+  background-color: rgba(60, 82, 97, 1);
+}
+
+/* Список плейлістів */
+.playlistItem{
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background-color: rgba(20, 26, 34, 1);
+}
+
+.playlistCover{
+  width: 40px;
+  height: 100%;
+  border-radius: 50%;
+  margin-left: 5px;
+  background-color: rgb(51, 9, 9);
+}
+
+.playlistName{
+  font: 200 0.8rem "Inter", sans-serif;
+  color: rgba(173, 207, 216, 1);
+  margin-left: 5px;
+  white-space: nowrap;        
+  overflow: hidden;            
+  text-overflow: ellipsis;
+  max-width: 70%;
 }
 
 @media (min-width: 780px) {
