@@ -1,0 +1,94 @@
+.trackList{
+  margin-top: 20px;
+  max-width: 1200px;
+}
+.trackItem{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(24, 43, 73, 0.3);
+  border-radius: 10px;
+  position: relative;
+}
+
+.numeration{
+  display: none;
+  position: absolute;
+  left: 10px;
+}
+
+.poster{
+  display: flex;
+  position: absolute;
+  left: 0;
+  height: 100%;
+}
+
+.trackName{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  left: 60px;
+}
+
+.name{
+  font: 600 1rem "Inter", sans-serif;
+}
+.author{
+  font: 200 0.65rem "Inter", sans-serif;
+}
+
+.album, .date, .duration, .dateHeader, .durationHeader{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font: 200 0.8rem "Inter", sans-serif;
+}
+
+.name, .author, .album{
+  white-space: nowrap;         /* не переносити */
+  overflow: hidden;            /* ховати переповнення */
+  text-overflow: ellipsis;     /* обрізати з ... */
+  width: 30vw;
+  max-width: 350px;
+}
+
+.album{
+  width: 70px;
+  max-width: 170px;
+  left: 50%;
+}
+.date{
+  left: 70%
+}
+.duration{
+  right: 5px;
+}
+
+@media(min-width: 780px){
+  .numeration{
+    display: flex;
+  }
+  .poster{
+    left: 30px;
+  }
+  .trackName{
+    left: 90px;
+  }
+  .name, .author{
+    width: 18vw;
+  }
+  .album{
+    left: 46%;
+    width: 10vw;
+  }
+  .date{
+    left: 70%
+  }
+  .duration{
+    right: 5px;
+  }
+}

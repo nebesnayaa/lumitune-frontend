@@ -35,6 +35,7 @@
 
 .settings{
   width: 100%;
+  max-width: 700px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,6 +50,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 700px;
   gap: 15px;
   margin: 15px 0;
   position: relative;
@@ -179,11 +182,9 @@
 @media (min-width: 780px) {
   .profileBlock{
     margin-top: 0;
+    align-items: start;
     border-bottom: 0.5px solid rgba(143, 251, 255, 0.5);
   } 
-  .settings{
-    margin: 10px 15px 0;
-  }
   .profileInfo{
     flex-direction: row;
   }
@@ -204,11 +205,17 @@
 
 @media (min-width: 1000px) {
   .settings{
-    width: 90%;
     margin-top: 20px;
   }
   .profileInfo{
-    width: 90%;
     gap: 2vw;
   }
 }
+
+@media (min-width: 1600px) {
+  .profileBlock{
+    align-items: center;
+  }
+}
+
+

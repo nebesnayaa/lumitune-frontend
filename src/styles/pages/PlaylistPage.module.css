@@ -63,121 +63,110 @@
   display: flex;
 }
 
-
 /* Список треків */
-.listBlock{
+.listBlock, .recommandationsBlock{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  justify-content: center;
-  gap: 10px;
-  max-width: 1200px;
+  margin: 0 5%;
 }
 
 .listHeader{
   display: none;
-  width: 90%;
+  width: 100%;
   position: relative;
   height: 50px;
+  max-width: 1200px;
 }
 
-.trackItem{
-  width: 90%;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: rgba(24, 43, 73, 0.3);
-  border-radius: 10px;
-  position: relative;
-}
-
-.numeration{
-  display: none;
-  position: absolute;
-  left: 10px;
-}
-
-.poster{
-  display: flex;
-  position: absolute;
-  left: 0;
-  height: 100%;
-}
-
-.trackName{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  left: 60px;
-}
-
-.name{
-  font: 600 1rem "Inter", sans-serif;
-}
-.author{
-  font: 200 0.65rem "Inter", sans-serif;
-}
-
-.album, .date, .duration, .dateHeader, .durationHeader{
+.albumHeader, .dateHeader, .durationHeader{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   font: 200 0.8rem "Inter", sans-serif;
 }
 
-.name, .author, .album{
+.albumHeader{
   white-space: nowrap;         /* не переносити */
   overflow: hidden;            /* ховати переповнення */
   text-overflow: ellipsis;     /* обрізати з ... */
-  width: 30vw;
-  max-width: 350px;
-}
-
-.album{
   width: 70px;
   max-width: 170px;
   left: 50%;
 }
-.date{
-  left: 70%
+
+/* Пошук */
+.searchBlock{
+  display: flex;
+  margin: 40px 5% 20px;
 }
-.duration{
-  right: 5px;
+
+.searchBar {
+  background-color: rgba(41, 46, 51, 1);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  width: 60vw;
+  max-width: 400px;
 }
+
+.searchIcon{
+  margin: 0 0 0 3%;
+}
+ 
+.searchBar input {
+  font: 200 0.75rem 'Inter', sans-serif;
+  width: 100%;
+  min-width: 180px;
+  height: 30px;
+  margin-left: 10px;
+  border: 0;
+  border-radius: 6px;
+  outline: none;
+  background: inherit;
+  color: rgba(170, 228, 255, 0.6);
+}
+
+.searchBar input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  opacity: 1;
+}
+
+/* Рекомендації */
+.recommandationsBlock{
+  display: flex;
+  flex-direction: column;
+  margin: 0 5%;
+}
+
+.recTitle{
+  color: rgba(191, 237, 253, 1);
+  font: 600 1.25rem "Inter", sans-serif;
+  margin-bottom: 10px;
+}
+
+.recText{
+  color: rgba(209, 209, 209, 1);
+  font: 700 0.65rem "Inter", sans-serif;
+}
+
 
 @media(min-width: 780px){
   .listBlock{
     margin-top: 0;
   }
-  .numeration, .listHeader{
+  .listHeader{
     display: flex;
-  }
-  .poster{
-    left: 30px;
-  }
-  .trackName{
-    left: 90px;
   }
   .name, .author{
     width: 18vw;
   }
-  .album{
+  .albumHeader{
     left: 46%;
-    width: 10vw;
   }
   .dateHeader{
     left: 67%;
   }
-  .date{
-    left: 70%
-  }
   .durationHeader{
     right: 10px;
-  }
-  .duration{
-    right: 5px;
   }
 }
