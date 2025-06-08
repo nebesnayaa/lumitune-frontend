@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
+
 import defaultAvatar from "/images/defaultAvatar.png";
-import styles from "../styles/Header.module.css";
+import styles from "../../styles/layout/Header.module.css";
 
 interface HeaderProps {
   toggleMenu: () => void;

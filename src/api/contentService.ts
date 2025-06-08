@@ -20,7 +20,7 @@ export const uploadImage = async (file: FormData): Promise<Image | null> => {
     });
     return response.data;
   } catch (error) {
-    console.error("Помилка при отриманні головного контенту:", error);
+    console.error("Помилка при завантаженні аватарки:", error);
     return null;    
   }
 }
@@ -40,12 +40,25 @@ export const getTrackById = async (id: string) => {
   }
 };
 
+
 export const getPlaylistsByUserId = async (id: string): Promise<Playlist[] | null> => {
   try {
     const response = await axiosInstance.get(`/playlists/user/${id}`);
     return response.data;
   } catch (error) {
-    console.error("Помилка при отриманні головного контенту:", error);
+    console.error("Помилка при отриманні плейлістів юзера:", error);
     return null;    
   }
 };
+
+
+export const getPlaylistById = async (id: string): Promise<Playlist | null> => {
+  try {
+    const response = await axiosInstance.get(`/playlists/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні плейліста:", error);
+    return null;    
+  }
+};
+

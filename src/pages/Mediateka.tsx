@@ -5,7 +5,10 @@ import { getPlaylistsByUserId } from "../api/contentService";
 import { useAuth } from "../context/AuthContext";
 import { getUserByUsername } from "../api/userService";
 // import TrackCards from "../components/home/TrackCards";
-import PlaylistCards from "../components/mediateka/PlaylistCards";
+import PlaylistCards from "../components/contentCards/PlaylistCards";
+
+import styles from "../styles/pages/Mediateka.module.css";
+
 
 const Mediateka: React.FC = () => {
   const { user } = useAuth();
@@ -26,7 +29,8 @@ const Mediateka: React.FC = () => {
   }, [user]);
 
   return (
-    <div>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Моя медіатека</h2>
       <div>
         {/* {favorites && <TrackCards songs={favorites} />} */}
       </div>

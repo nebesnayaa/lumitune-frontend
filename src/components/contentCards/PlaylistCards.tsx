@@ -4,6 +4,7 @@ import { Playlist } from "../../types/HomeContentData";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/home/MusicContent.module.css";
+import { useNavigate } from "react-router";
 
 interface PlaylistCardsProps {
   playlists: Playlist[];
@@ -14,10 +15,12 @@ const PlaylistCards: React.FC<PlaylistCardsProps> = ({ playlists }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
 
-  // const handleTrackClick = (playlist: Playlist) => {
-  //   console.log("Clicked track:", playlist);
-  //   playTrack(playlist);
-  // };
+  const navigate = useNavigate();
+
+  const handlePlaylistClick = (playlist: Playlist) => {
+    console.log("Clicked playlist:", playlist);
+    navigate(`/playlist/${playlist.id}`);
+  };
 
   return(
     <div className={styles.container}>
@@ -32,7 +35,7 @@ const PlaylistCards: React.FC<PlaylistCardsProps> = ({ playlists }) => {
         </div>
         <div className={styles.slider} ref={sliderRef}>
           {playlists.map((playlist, index) => (
-            <div className={styles.card} key={index}>
+            <div className={styles.card} key={index} onClick={() => handlePlaylistClick(playlist)}>
               <img 
                 src={playlist.coverUrl?.url || defaultCover}
                 alt={playlist.name}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Artist } from "../types/UserData";
-import { getArtistById } from "../api/artistService";
+import { getArtistById } from "../api/userService";
 
 import poster from "../assets/monthTop/image1.svg";
-import styles from "../styles/artistPage/ArtistPage.module.css";
+import styles from "../styles/pages/ArtistPage.module.css";
 
 interface ArtistPageProps {
   onOpen: () => void;

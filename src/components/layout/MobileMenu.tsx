@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
+
 import defaultAvatar from "/images/defaultAvatar.png";
-import styles from "../styles/MobileMenu.module.css";
+import styles from "../../styles/layout/MobileMenu.module.css";
 
 
 interface Props {
@@ -130,7 +131,7 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
             </svg>
             <p>Головна</p>
           </NavLink>
-          <NavLink to="/library" onClick={onClose} 
+          <NavLink to="/mediateka" onClick={onClose} 
               className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>

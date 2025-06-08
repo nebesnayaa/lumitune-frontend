@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
-// import { Track } from "../types/HomeContentData";
+// import { Playlist, Track } from "../types/HomeContentData";
+import { Playlist } from "../types/HomeContentData";
+import { getPlaylistById } from "../api/contentService";
 
-import poster from "../assets/monthTop/image1.svg";
+import defaultCover from "/images/defaultPlaylist.png";
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/pages/Favorites.module.css";
 
-
-interface FavoritesProps {
+interface PlaylistProps {
   onOpen: () => void;
 }
 
-const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
+const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
+  const { id } = useParams<{ id: string }>();
+  const [ playlist, setPlaylist ] = useState<Playlist | null>(null);
+
   const { user } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;
   // const [ songs, setSongs ] = useState<Track[]>();
@@ -20,12 +25,29 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
     onOpen(); // Закриття бічної панелі
   }, []);
 
+  useEffect(() => {
+    if (!id) return;
+    const fetchArtist = async () => {
+      const data = await getPlaylistById(id);
+      setPlaylist(data);
+    };
+    fetchArtist();
+  }, [id]);
+
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  if(!playlist) return <></>;
+
   return (
     <div className={styles.container}>
       {/* Заголовок */}
       <div className={styles.headerBlock}>
         <p className={styles.text}>Плейлист</p>
-        <p className={styles.title}>Улюблені треки</p>
+        <p className={styles.title}>{playlist?.name}</p>
       </div>
       <div className={styles.profileSection}>
         <div className={styles.avatarFrame}>
@@ -38,7 +60,7 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
         </div>
         <p className={styles.username}>{user?.username}</p>
         <div className={styles.dot}></div>
-        <p className={styles.tracksAmount}>10 треків</p>
+        <p className={styles.tracksAmount}>{playlist.tracks.length} треків</p>
       </div>
 
       {/* Кнопки управління */}
@@ -52,12 +74,12 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
           <p className={styles.durationHeader}>Час</p>
         </div>
 
-        {/* { songs?.map((song, index)=> (
-          <div className={styles.trackItem}>
-            <p className={styles.numeration}>{index}</p>
+        { playlist?.tracks?.map((song, index)=> (
+          <div className={styles.trackItem} key={index}>
+            <p className={styles.numeration}>{index+1}</p>
 
             <div className={styles.poster}>
-              <img src={song.coverUrl} alt="img" />
+              <img src={song.coverUrl || defaultCover} alt="img" />
             </div>
 
             <div className={styles.trackName}>
@@ -67,46 +89,12 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
 
             <p className={styles.album}>{song.albumName}</p>
             <p className={styles.date}>Сьогодні</p>
-            <p className={styles.duration}>{song.duration}</p>
+            <p className={styles.duration}>{formatTime(song.duration)}</p>
           </div>
-        ))} */}
-        <div className={styles.trackItem}>
-          <p className={styles.numeration}>1</p>
-
-          <div className={styles.poster}>
-            <img src={poster} alt="img" />
-          </div>
-
-          <div className={styles.trackName}>
-            <p className={styles.name}>Вимолив</p>
-            <p className={styles.author}>Jerry Heil, MONATIK, Evgeny Khmara</p>
-          </div>
-
-          <p className={styles.album}>Вимолив</p>
-          <p className={styles.date}>Сьогодні</p>
-          <p className={styles.duration}>3:02</p>
-          
-        </div>
-        <div className={styles.trackItem}>
-          <p className={styles.numeration}>10</p>
-
-          <div className={styles.poster}>
-            <img src={poster} alt="img" />
-          </div>
-
-          <div className={styles.trackName}>
-            <p className={styles.name}>Вимолив</p>
-            <p className={styles.author}>Jerry Heil</p>
-          </div>
-
-          <p className={styles.album}>Вимолив</p>
-          <p className={styles.date}>Сьогодні</p>
-          <p className={styles.duration}>3:02</p>
-          
-        </div>
+        ))}
       </div>
     </div>
   );
 }
 
-export default Favorites;
+export default PlaylistPage;

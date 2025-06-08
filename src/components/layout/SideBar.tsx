@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
-import { Playlist } from "../types/HomeContentData";
-import { useAuth } from "../context/AuthContext";
-import { getPlaylistsByUserId } from "../api/contentService";
-import { getUserByUsername } from "../api/userService";
+import { Playlist } from "../../types/HomeContentData";
+import { useAuth } from "../../context/AuthContext";
+import { getPlaylistsByUserId } from "../../api/contentService";
+import { getUserByUsername } from "../../api/userService";
 
 import defaultCover from "/images/defaultPlaylist.png";
-import styles from "../styles/SideBar.module.css";
+import styles from "../../styles/layout/SideBar.module.css";
 
 const Sidebar: React.FC = () => {
 	const { user } = useAuth();
@@ -26,6 +26,8 @@ const Sidebar: React.FC = () => {
 		setFilterSelected(option);
 		setShowDropdown(false);
 	};
+
+	const navigate = useNavigate();
 
 	useEffect(() => {   // Закрити меню, якщо клік поза ним
 		const handleClickOutside = (event: MouseEvent) => {
@@ -64,6 +66,11 @@ const Sidebar: React.FC = () => {
 
 		setSortedPlaylists(sorted);
 	}, [filterSelected, playlists]);
+
+	const handlePlaylistClick = (playlist: Playlist) => {
+			console.log("Clicked playlist:", playlist);
+			navigate(`/playlist/${playlist.id}`);
+		};
 
 	return (
 		<aside className={styles.sidebar}>
@@ -147,7 +154,7 @@ const Sidebar: React.FC = () => {
 					)}
 				</div>
 				{sortedPlaylists?.map((playlist, index) => (
-					<div className={styles.playlistItem}  key={index}>
+					<div className={styles.playlistItem} key={index} onClick={() => handlePlaylistClick(playlist)}>
 						<img className={styles.playlistCover} src={playlist.coverUrl?.url || defaultCover} alt="playlistImg" />
 						<p className={styles.playlistName}>{playlist.name}</p>
 					</div>

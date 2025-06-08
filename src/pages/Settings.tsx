@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
-import styles from "../styles/profile/Settings.module.css";
 import { logoutUser } from "../api/userService";
+
+import styles from "../styles/pages/Settings.module.css";
 
 const Settings: React.FC = () => {
   const { logout } = useAuth();

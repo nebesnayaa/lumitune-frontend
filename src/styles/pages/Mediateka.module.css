@@ -1,0 +1,9 @@
+.container{
+  margin-top: 40px;
+}
+
+.title{
+  font: 400 1.35rem "Inter", sans-serif;
+  letter-spacing: 1px;
+  margin-left: 20px;
+}

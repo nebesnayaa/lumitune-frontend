@@ -1,5 +1,5 @@
 import { LoginFormData } from "../types/LoginFormData";
-import { User } from "../types/UserData";
+import { Artist, User } from "../types/UserData";
 import axiosInstance from "./axiosInstance";
 
 export interface RegistrationPayload {
@@ -61,6 +61,28 @@ export const getCurrentUser = async () => {
 export const editUser = async (data: User): Promise<User> => {
   try {
     const response = await axiosInstance.put(`/users/edit`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при редагуванні користувача:", error);
+    throw error;
+  }
+};
+
+export const getArtistById = async (id: string) => {
+  try {
+    console.log("Received id: ", id);
+    const response = await axiosInstance.get(`/artists/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні користувача:", error);
+    throw error;
+  }
+};
+
+
+export const editArtistById = async (id: string, data: Artist): Promise<Artist> => {
+  try {
+    const response = await axiosInstance.put(`/artists/${id}`, data);
     return response.data;
   } catch (error) {
     console.error("Помилка при редагуванні користувача:", error);

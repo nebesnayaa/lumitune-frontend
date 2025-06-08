@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { usePlayer } from "../context/PlayerContext";
+import { usePlayer } from "../../context/PlayerContext";
 import defaultCover from "/images/defaultPlaylist.png";
-import { getTrackById } from "../api/contentService";
+import { getTrackById } from "../../api/contentService";
+import { editArtistById } from "../../api/userService";
+import { Artist } from "../../types/UserData";
 
-import styles from "../styles/PlayerBar.module.css";
+import styles from "../../styles/layout/PlayerBar.module.css";
+
+
 interface PlayerBarProps {
   onOpenSide: () => void;
 }
 
 const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   const { currentTrack, isPlaying, togglePlayPause, audioRef, volume, setVolume } = usePlayer();
-  const [ currentArtist, setCurrentArtist ] = useState<any>(null);
+  const [ currentArtist, setCurrentArtist ] = useState<Artist>();
   const audio = audioRef.current;
   const [currentTime, setCurrentTime] = useState(0); // Секундомір поточного трека
   const volumeBarRef = useRef<HTMLDivElement>(null);
@@ -23,11 +27,27 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   useEffect(()=> {
     if(!currentTrack) return;
     const fetchTrack = async () =>{
-      const currentArtist = await getTrackById(currentTrack.id);
-      setCurrentArtist(currentArtist);
+      const track = await getTrackById(currentTrack.id);
+      setCurrentArtist(track.artist);
     }
     fetchTrack();
   }, [currentTrack]);
+
+  // === Оновленян прослуховувань ===
+  useEffect(()=>{
+    const updateArtistListenings = async() => {
+      if(!currentArtist) return;
+
+      const updatedArtist: Artist = {
+        ...currentArtist,
+        monthlyListeners: currentArtist.monthlyListeners + 1,
+      };
+      console.log("curARt ",currentArtist);
+      console.log("newARt ",updatedArtist);
+      await editArtistById(currentArtist.id, updatedArtist);
+    }
+    updateArtistListenings();
+  }, [currentTrack])
 
   // === Програвання / пауза ===
   useEffect(() => { 
@@ -116,7 +136,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   if (!currentTrack) return null;
 
   return (
-    <div className={styles.playerBar}  onClick={onOpenSide}>
+    <div className={styles.playerBar} onClick={onOpenSide}>
       <audio 
         ref={audioRef} 
         onCanPlay={() => {
@@ -144,7 +164,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
               )}
             </p>
             { currentArtist &&
-              <Link to={`/artist/${currentArtist.artist.id}`}>
+              <Link to={`/artist/${currentArtist.id}`}>
                 <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
               </Link>
             }

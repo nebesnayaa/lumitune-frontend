@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { usePlayer } from "../context/PlayerContext";
+import { usePlayer } from "../../context/PlayerContext";
 import { Link } from "react-router";
-import { getTrackById } from "../api/contentService";
+import { getTrackById } from "../../api/contentService";
 
-import styles from "../styles/SideInfoBox.module.css";
+import styles from "../../styles/layout/SideInfoBox.module.css";
 
 interface SideInfoBoxProps {
   onClose: () => void;

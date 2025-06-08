@@ -1,6 +1,7 @@
 import React from "react";
-import styles from "../styles/Footer.module.css";
 import { NavLink } from "react-router";
+
+import styles from "../../styles/layout/Footer.module.css";
 
 const Footer: React.FC = () => {
 

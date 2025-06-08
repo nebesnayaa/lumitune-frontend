@@ -8,7 +8,7 @@ import WeekLikes from "../components/profile/WeekLikes";
 import MonthTop from "../components/profile/MonthTop";
 
 import defaultAvatar from "/images/defaultAvatar.png";
-import styles from "../styles/profile/Profile.module.css";
+import styles from "../styles/pages/Profile.module.css";
 
 interface ProfileProps {
   onOpen: () => void;

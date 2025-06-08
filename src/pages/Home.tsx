@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "../components/home/Carousel";
 import MoodSelector from "../components/home/MoodSelector";
-import TrackCards from "../components/home/TrackCards";
-import AlbumCards from "../components/home/AlbumCards";
+import TrackCards from "../components/contentCards/TrackCards";
+import AlbumCards from "../components/contentCards/AlbumCards";
 
 import { CarouselItem, HomeContentResponse } from "../types/HomeContentData";
 import { getContentHome } from "../api/contentService";
