@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-
-import defaultAvatar from "/images/defaultAvatar.png";
-import styles from "../styles/pages/PlaylistPage.module.css";
 import TrackList from "../components/content/TrackList";
 import { Track } from "../types/HomeContentData";
 
+import defaultAvatar from "/images/defaultAvatar.png";
+import styles from "../styles/pages/PlaylistPage.module.css";
 
 interface FavoritesProps {
   onOpen: () => void;
@@ -57,7 +56,7 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
           <p className={styles.durationHeader}>Час</p>
         </div>
 
-        <TrackList songs={songs}/>
+        <TrackList songs={songs} format="viewing"/>
       </div>
     </div>
   );

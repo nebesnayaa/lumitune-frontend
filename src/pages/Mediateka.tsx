@@ -5,7 +5,7 @@ import { getPlaylistsByUserId } from "../api/contentService";
 import { useAuth } from "../context/AuthContext";
 import { getUserByUsername } from "../api/userService";
 // import TrackCards from "../components/home/TrackCards";
-import PlaylistCards from "../components/contentCards/PlaylistCards";
+import PlaylistCards from "../components/content/PlaylistCards";
 
 import styles from "../styles/pages/Mediateka.module.css";
 
