@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { usePlayer } from "../../context/PlayerContext";
-import defaultCover from "/images/defaultPlaylist.png";
-import { addTrackToPlaylist, getAlbumById, getPlaylistFavorites, getTrackById, removeTrackFromPlaylist } from "../../api/contentService";
-import { editArtistById, getArtistById } from "../../api/userService";
+import { addTrackToPlaylist, getAlbumById, getPlaylistFavorites, getTrackById, removeTrackFromPlaylist, updateTrackListeners } from "../../api/contentService";
+import { getArtistById, updateArtistListeners } from "../../api/userService";
 import { Artist } from "../../types/UserData";
 
+import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/layout/PlayerBar.module.css";
-
 
 interface PlayerBarProps {
   onOpenSide: () => void;
@@ -15,53 +14,48 @@ interface PlayerBarProps {
 
 const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   const { currentTrack, isPlaying, togglePlayPause, audioRef, volume, setVolume } = usePlayer();
+  const audio = audioRef.current;
+
   const [ currentArtist, setCurrentArtist ] = useState<Artist>();
   const [ albumCover, setAlbumCover ] = useState<string>();
+  const [ currentTime, setCurrentTime ] = useState(0); // Секундомір поточного трека
+  const [ isLiked, setIsLiked ] = useState(false);
 
-  const audio = audioRef.current;
-  const [currentTime, setCurrentTime] = useState(0); // Секундомір поточного трека
   const volumeBarRef = useRef<HTMLDivElement>(null);
 
-  const [isLiked, setIsLiked] = useState(false);
-  useEffect(()=> {
-    if(!currentTrack) return;
-    const fetchisLikedTrack = async () =>{
-      const favorites = await getPlaylistFavorites(); //currentTrack.id
-      if(!favorites) return;
-      const isFavorite = favorites.tracks.some(track => track.id === currentTrack.id);
-      setIsLiked(isFavorite);
-    }
-    fetchisLikedTrack();
-  }, [currentTrack]); 
+  useEffect(() => {
+    if (!currentTrack) return;
 
-  // === Артист ===
-  useEffect(()=> {
-    if(!currentTrack) return;
-    const fetchTrack = async () =>{
-      const track = await getTrackById(currentTrack.id);
-      const album = await getAlbumById(track.albumId);
-      const artist = await getArtistById(track.artistId);
-      setCurrentArtist(artist);
-      setAlbumCover(album.cover.url);
-    }
-    fetchTrack();
+    const fetchTrackData = async () => {
+      try {
+        // === Перевірка, чи трек улюблений ===
+        const favorites = await getPlaylistFavorites();
+        if (favorites) {
+          const isFavorite = favorites.tracks.some(track => track.id === currentTrack.id);
+          setIsLiked(isFavorite);
+        }
+
+        // === Завантаження повних даних треку ===
+        const fullTrack = await getTrackById(currentTrack.id);
+        const [album, artist] = await Promise.all([
+          getAlbumById(fullTrack.albumId),
+          getArtistById(fullTrack.artistId)
+        ]);
+        setCurrentArtist(artist);
+        setAlbumCover(album.cover.url);
+
+        // === Оновлення прослуховувань ===
+        await Promise.all([
+          updateArtistListeners(artist.id),
+          updateTrackListeners(fullTrack.id)
+        ]);
+      } catch (error) {
+        console.error("Помилка при завантаженні даних треку:", error);
+      }
+    };
+
+    fetchTrackData();
   }, [currentTrack]);
-
-  // === Оновлення прослуховувань ===
-  useEffect(()=>{
-    const updateArtistListenings = async() => {
-      if(!currentArtist) return;
-
-      const updatedArtist: Artist = {
-        ...currentArtist,
-        monthlyListeners: currentArtist.monthlyListeners + 1,
-      };
-      console.log("curARt ",currentArtist);
-      console.log("newARt ",updatedArtist);
-      await editArtistById(currentArtist.id, updatedArtist);
-    }
-    updateArtistListenings();
-  }, [currentTrack])
 
   // === Програвання / пауза ===
   useEffect(() => { 
@@ -220,12 +214,16 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
         </div>
         {/* Controls mobile */}
         <div className={styles.icons_mobile}>
-          <div className={styles.iconPlus_mobile}>
-          <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 18.5V0.5" stroke="#40A2FF" stroke-width="3"/>
-          <path d="M0 9.5L18 9.5" stroke="#40A2FF" stroke-width="3"/>
-          </svg>
-
+          <div className={styles.iconPlus_mobile} onClick={()=>handleLikeToggle(currentTrack.id)}>
+            { isLiked ? (
+              <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 7.63333L7.5189 13.8881C7.98801 14.4197 8.84607 14.3079 9.16316 13.6737L15 2" stroke="#7BAFDF" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>) : (
+              <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18.5V0.5" stroke="#40A2FF" stroke-width="3"/>
+                <path d="M0 9.5L18 9.5" stroke="#40A2FF" stroke-width="3"/>
+              </svg>
+            )}
           </div>
           <div className={styles.iconPlay_mobile} onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
             { isPlaying ? (

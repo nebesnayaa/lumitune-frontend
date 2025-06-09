@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import { Track } from "../../types/HomeContentData";
 import { usePlayer } from "../../context/PlayerContext";
+import { getArtistById } from "../../api/userService";
+import { getAlbumById } from "../../api/contentService";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/home/MusicContent.module.css";
-import { getArtistById } from "../../api/userService";
-import { getAlbumById } from "../../api/contentService";
 
 interface TrackCardsProps {
   songs: Track[];
@@ -26,9 +26,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
   useEffect(() => {
     if (songs.length > 0) {
       fetchAlbumCovers();
-      // fetchAlbumNames();
       fetchArtistsNames();
-      // fetchReleaseDates();
     }
   }, [songs]);
 
@@ -66,7 +64,6 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
   };
 
   const handleTrackClick = (track: Track) => {
-    console.log("Clicked track:", track);
     playTrack(track);
   };
 

@@ -120,3 +120,8 @@ export const removeTrackFromPlaylist = async(songId: string, playlistId: string)
   }
 }
 
+export const updateTrackListeners = async(songId: string) => {
+  const response = await axiosInstance.patch(`/tracks/add-listening/${songId}`);
+  return response.data;
+}
+

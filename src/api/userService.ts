@@ -70,7 +70,6 @@ export const editUser = async (data: User): Promise<User> => {
 
 export const getArtistById = async (id: string) => {
   try {
-    console.log("Received id: ", id);
     const response = await axiosInstance.get(`/artists/${id}`);
     return response.data;
   } catch (error) {
@@ -78,7 +77,6 @@ export const getArtistById = async (id: string) => {
     throw error;
   }
 };
-
 
 export const editArtistById = async (id: string, data: Artist): Promise<Artist> => {
   try {
@@ -89,3 +87,8 @@ export const editArtistById = async (id: string, data: Artist): Promise<Artist> 
     throw error;
   }
 };
+
+export const updateArtistListeners = async(artistId: string) => {
+  const response = await axiosInstance.patch(`/artists/add-listener/${artistId}`);
+  return response.data;
+}

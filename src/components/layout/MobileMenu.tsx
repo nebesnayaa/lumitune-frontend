@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../../context/AuthContext";
-import { createPlaylist } from "../../api/contentService";
+import { createPlaylist, getPlaylistFavorites } from "../../api/contentService";
 
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../../styles/layout/MobileMenu.module.css";
@@ -19,10 +19,21 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
   
   const [ isCreateModalOpen, setIsCreateModalOpen ] = useState(false);
   const [ playlistName, setPlaylistName ] = useState("");
+
+  const [ favoritesId, setFavoritesId ] = useState<string>("");
   
   const handleToggle = () => {
     setIsActive(prev => !prev);
   }
+
+  useEffect(() => {
+    const fetchFavoritesId = async() =>{
+      const favorites = await getPlaylistFavorites();
+      if(!favorites) return;
+      setFavoritesId(favorites.id);
+    }
+    fetchFavoritesId();
+  }, [user]);
 
   const handleCreatePlaylist = async (name: string) => {
     if (!name.trim()) return;
@@ -160,7 +171,7 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
         {/* Playlists */}
         <h3 className={styles.menuTitle}>Плейлисти</h3>
         <nav className={styles.menuSection}>
-          <NavLink to="/favorite" onClick={onClose}
+          <NavLink to={`/playlist/${favoritesId}`} onClick={onClose}
               className={({ isActive }) => isActive 
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>

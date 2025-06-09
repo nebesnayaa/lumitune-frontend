@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import Mediateka from "./pages/Mediateka";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import Favorites from "./pages/Favorites";
 import ArtistPage from "./pages/ArtistPage";
 import PlaylistPage from "./pages/PlaylistPage";
 import RegistrationForm from "./pages/forms/RegistrationForm";
@@ -50,7 +49,6 @@ const App: React.FC = () => {
                     <Route path="/mediateka" element={<Mediateka />} />
                     <Route path="/profile" element={<Profile onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/settings" element={<Settings />} />
-                    <Route path="/favorite" element={<Favorites onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/artist/:id" element={<ArtistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/playlist/:id" element={<PlaylistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                   </Routes>

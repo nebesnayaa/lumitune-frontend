@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router";
 
 import { Playlist } from "../../types/HomeContentData";
 import { useAuth } from "../../context/AuthContext";
-import { createPlaylist, getPlaylistsByUserId } from "../../api/contentService";
+import { createPlaylist, getPlaylistFavorites, getPlaylistsByUserId } from "../../api/contentService";
 import { getUserByUsername } from "../../api/userService";
 
 import defaultCover from "/images/defaultPlaylist.png";
@@ -12,7 +12,8 @@ import styles from "../../styles/layout/SideBar.module.css";
 const Sidebar: React.FC = () => {
 	const { user } = useAuth();
 	const [ playlists, setPlaylists ] = useState<Playlist[] | null>(null);
-	
+	const [ favoritesId, setFavoritesId ] = useState<string>("");
+
 	const [ sortedPlaylists, setSortedPlaylists ] = useState<Playlist[] | null>(null);
 	const [ filterSelected, setFilterSelected ] = useState<"default" | "alphabet">("default");
 	const [ showDropdown, setShowDropdown ] = useState(false);
@@ -49,6 +50,12 @@ const Sidebar: React.FC = () => {
 
 	useEffect(() => {
 		loadPlaylists();
+		const fetchFavoritesId = async() =>{
+			const favorites = await getPlaylistFavorites();
+			if(!favorites) return;
+			setFavoritesId(favorites.id);
+		}
+		fetchFavoritesId();
 	}, [user]);
 
 	useEffect(() => {  // Сортування плейлістів
@@ -68,7 +75,13 @@ const Sidebar: React.FC = () => {
 		if (!user) return;
 		const userId = await getUserByUsername(user.username);
 		const playlists = await getPlaylistsByUserId(userId.id);
-		setPlaylists(playlists);
+		if (!playlists) return;
+
+		const favorites = await getPlaylistFavorites();
+		const excludedId = favorites?.id;
+
+		const filteredPlaylists = playlists?.filter(playlist => playlist.id !== excludedId);
+		setPlaylists(filteredPlaylists);
 	};
 
 	const handleCreatePlaylist = async () => {
@@ -85,7 +98,6 @@ const Sidebar: React.FC = () => {
 	}
 
 	const handlePlaylistClick = (playlist: Playlist) => {
-		console.log("Clicked playlist:", playlist);
 		navigate(`/playlist/${playlist.id}`);
 	};
 
@@ -122,7 +134,7 @@ const Sidebar: React.FC = () => {
 
 			<h4 className={styles.sectionTitle}>Плейлисти</h4>
 			<nav className={styles.menuSection}>
-				<NavLink to="/favorite" className={({ isActive }) => isActive 
+				<NavLink to={`/playlist/${favoritesId}`} className={({ isActive }) => isActive 
 						? `${styles.menuItem} ${styles.active}` 
 						: styles.menuItem}>
 					<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -179,7 +191,7 @@ const Sidebar: React.FC = () => {
 								className={`${styles.option} ${filterSelected === "default" ? styles.filterActive : ""}`}
 								onClick={(e) => handleSelect("default", e)}
 							>
-								Нещодавно слухали
+								Нещодавно додані
 							</div>
 							<div
 								className={`${styles.option} ${filterSelected === "alphabet" ? styles.filterActive : ""}`}

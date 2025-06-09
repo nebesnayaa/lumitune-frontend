@@ -14,22 +14,24 @@ interface PlaylistProps {
 
 const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
   const { id } = useParams<{ id: string }>();
+  const { user } = useAuth();
+  const avatarUrl = user?.avatarUrl || defaultAvatar;
+
   const [ playlist, setPlaylist ] = useState<Playlist | null>(null);
   const [ recommendations, setRecommendations ] = useState<Track[]>()
 
   const [ searchQuery, setSearchQuery ] = useState(""); // стан для введеного тексту
   const [ searchResult, setSearchResult ] = useState<Track[] | null>(null);
 
-  const { user } = useAuth();
-  const avatarUrl = user?.avatarUrl || defaultAvatar;
-  
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     onOpen(); // Закриття бічної панелі
   }, []);
 
   useEffect(() => {
     if (!id) return;
-    const fetchArtist = async () => {
+    const fetchPlaylists = async () => {
       const data = await getPlaylistById(id);
       setPlaylist(data);
     };
@@ -37,11 +39,22 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
       const data = await getContentHome();
       setRecommendations(data?.recommendations);
     }
-    fetchArtist();
+    fetchPlaylists();
     fetchReccomendations();
     setSearchQuery("");
     setSearchResult(null);
   }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+    const refreshPlaylist = async () => {
+      const playlist = await getPlaylistById(id);
+      setPlaylist(playlist);
+    };
+    refreshPlaylist();
+    setSearchQuery("");
+    setSearchResult(null);
+  }, [refresh]);
 
   const handleSearch = async () => {
     if (searchQuery.trim()) {
@@ -90,7 +103,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
             <p className={styles.durationHeader}>Час</p>
           </div>
 
-          <TrackList playlistId={playlist.id} songs={playlist.tracks} format="viewing"/>
+          <TrackList playlistId={playlist.id} songs={playlist.tracks} format="viewing" onTrackChange={() => setRefresh(prev=>!prev)}/>
         </div>
       }   
 
@@ -107,7 +120,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
             onKeyDown={handleKeyDown}
           />
         </div>
-        { searchResult && <TrackList playlistId={playlist.id} songs={searchResult} format="adding"/>}
+        { searchResult && <TrackList playlistId={playlist.id} songs={searchResult} format="adding" onTrackChange={() => setRefresh(prev=>!prev)}/>}
         { searchResult && searchResult.length === 0 && 
           <div className={styles.badSearch}>
             <h2 className={styles.badSearchTitle}>За вашим запитом нічого не знайдено :(</h2>
@@ -122,7 +135,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
         <div className={styles.recommandationsBlock}>
           <h2 className={styles.recTitle}>Рекомендації</h2>
           <p className={styles.recText}>На основі ваших вподобань</p>
-          {recommendations && <TrackList playlistId={playlist.id} songs={recommendations} format="adding"/>}
+          {recommendations && <TrackList playlistId={playlist.id} songs={recommendations} format="adding" onTrackChange={() => setRefresh(prev=>!prev)}/>}
         </div>
       }
 
