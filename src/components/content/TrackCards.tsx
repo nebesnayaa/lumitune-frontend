@@ -1,10 +1,12 @@
-import React, { useRef} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import { Track } from "../../types/HomeContentData";
 import { usePlayer } from "../../context/PlayerContext";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/home/MusicContent.module.css";
+import { getArtistById } from "../../api/userService";
+import { getAlbumById } from "../../api/contentService";
 
 interface TrackCardsProps {
   songs: Track[];
@@ -14,6 +16,54 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
   const { playTrack } = usePlayer();
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
+
+  const [ artists, setArtists] = useState<Record<string, string>>({});
+  const [ albumCovers, setAlbumCovers] = useState<Record<string, string>>({});
+
+  const albumIds = Array.from(new Set(songs.map(song => song.albumId)));
+  const artistIds = Array.from(new Set(songs.map(song => song.artistId)));
+
+  useEffect(() => {
+    if (songs.length > 0) {
+      fetchAlbumCovers();
+      // fetchAlbumNames();
+      fetchArtistsNames();
+      // fetchReleaseDates();
+    }
+  }, [songs]);
+
+  const fetchAlbumCovers = async () => {
+    const albumMap: Record<string, string> = {};
+
+    const requests = albumIds.map(async (id) => {
+      try {
+        const album = await getAlbumById(id);
+        albumMap[id] = album.cover.url;
+      } catch (error) {
+        console.error("Помилка при завантаженні альбому", id, error);
+        albumMap[id] = "Невідомий альбом";
+      }
+    });
+
+    await Promise.all(requests);
+    setAlbumCovers(albumMap);
+  };
+  const fetchArtistsNames = async () => {
+    const artistMap: Record<string, string> = {};
+
+    const requests = artistIds.map(async (id) => {
+      try {
+        const artist = await getArtistById(id);
+        artistMap[id] = artist.user.username;
+      } catch (error) {
+        console.error("Помилка при завантаженні артиста", id, error);
+        artistMap[id] = "Невідомий артист";
+      }
+    });
+
+    await Promise.all(requests);
+    setArtists(artistMap);
+  };
 
   const handleTrackClick = (track: Track) => {
     console.log("Clicked track:", track);
@@ -35,7 +85,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
           {songs.map((song, index) => (
             <div className={styles.card} key={index} onClick={() => handleTrackClick(song)}>
               <img 
-                src={song.coverUrl || defaultCover}
+                src={albumCovers[song.albumId] || defaultCover}
                 alt={song.name}
                 draggable="false"
                 onError={(e) => {
@@ -57,7 +107,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
                 </div>
               </div>
               
-              <p className={styles.authorName}>{song.artistName || "Author"}</p>
+              <p className={styles.authorName}>{artists[song.artistId] || "Author"}</p>
             </div>
           ))}
         </div>

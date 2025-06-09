@@ -37,7 +37,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format }) =>
 
     const requests = albumIds.map(async (id) => {
       try {
-        const album = await getAlbumById(id); // твій API запит
+        const album = await getAlbumById(id);
         albumMap[id] = album.name;
       } catch (error) {
         console.error("Помилка при завантаженні альбому", id, error);
@@ -69,7 +69,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format }) =>
 
     const requests = albumIds.map(async (id) => {
       try {
-        const album = await getAlbumById(id); // твій API запит
+        const album = await getAlbumById(id);
         albumMap[id] = album.cover.url;
       } catch (error) {
         console.error("Помилка при завантаженні альбому", id, error);
@@ -85,7 +85,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format }) =>
 
     const requests = albumIds.map(async (id) => {
       try {
-        const album = await getAlbumById(id); // твій API запит
+        const album = await getAlbumById(id);
         reliaseMap[id] = album.relDate;
       } catch (error) {
         console.error("Помилка при завантаженні альбому", id, error);
