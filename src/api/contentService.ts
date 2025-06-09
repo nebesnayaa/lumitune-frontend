@@ -62,3 +62,13 @@ export const getPlaylistById = async (id: string): Promise<Playlist | null> => {
   }
 };
 
+export const createPlaylist = async(name: string) => {
+  try {
+    const response = await axiosInstance.post("/playlists/", name);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при створенні плейлиста:", error);
+    return null;    
+  }
+}
+

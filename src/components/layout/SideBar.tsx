@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router";
 
 import { Playlist } from "../../types/HomeContentData";
 import { useAuth } from "../../context/AuthContext";
-import { getPlaylistsByUserId } from "../../api/contentService";
+import { createPlaylist, getPlaylistsByUserId } from "../../api/contentService";
 import { getUserByUsername } from "../../api/userService";
 
 import defaultCover from "/images/defaultPlaylist.png";
@@ -13,14 +13,17 @@ const Sidebar: React.FC = () => {
 	const { user } = useAuth();
 	const [ playlists, setPlaylists ] = useState<Playlist[] | null>(null);
 	
-	const [sortedPlaylists, setSortedPlaylists] = useState<Playlist[] | null>(null);
-	const [ filterSelected, setFilterSelected] = useState<"default" | "alphabet">("default");
-	const [showDropdown, setShowDropdown] = useState(false);
-	const dropdownRef = useRef<HTMLDivElement>(null);
+	const [ sortedPlaylists, setSortedPlaylists ] = useState<Playlist[] | null>(null);
+	const [ filterSelected, setFilterSelected ] = useState<"default" | "alphabet">("default");
+	const [ showDropdown, setShowDropdown ] = useState(false);
+
+	const [ isCreateModalOpen, setIsCreateModalOpen ] = useState(false);
+	const [ playlistName, setPlaylistName ] = useState("");
+
+	const dropdownFilterRef = useRef<HTMLDivElement>(null);
 	const toggleRef = useRef<HTMLSpanElement>(null);
 
 	const toggleDropdown = () => setShowDropdown((prev) => !prev);
-	
 	const handleSelect = (option: "default" | "alphabet", event: React.MouseEvent) => {
 		event.stopPropagation();
 		setFilterSelected(option);
@@ -32,8 +35,8 @@ const Sidebar: React.FC = () => {
 	useEffect(() => {   // Закрити меню, якщо клік поза ним
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
-				dropdownRef.current &&
-				!dropdownRef.current.contains(event.target as Node) &&
+				dropdownFilterRef.current &&
+				!dropdownFilterRef.current.contains(event.target as Node) &&
 				toggleRef.current &&
 				!toggleRef.current.contains(event.target as Node)
 			) {
@@ -54,6 +57,16 @@ const Sidebar: React.FC = () => {
 		fetchPlaylists();
 	}, [user]);
 
+	useEffect(()=> {
+		if(!user) return;
+		const fetchPlaylists = async() => {
+			const userId = await getUserByUsername(user.username);
+			const playlists = await getPlaylistsByUserId(userId.id);
+			setPlaylists(playlists);
+		}
+		fetchPlaylists();
+	}, [playlists]);
+
 	useEffect(() => {  // Сортування плейлістів
 		if (!playlists) return;
 
@@ -67,10 +80,22 @@ const Sidebar: React.FC = () => {
 		setSortedPlaylists(sorted);
 	}, [filterSelected, playlists]);
 
+	const handleCreatePlaylist = async (name: string) => {
+		if (!name.trim()) return;
+		try {
+			await createPlaylist(name);
+			console.log(name);
+			setPlaylistName(""); // очищаємо поле
+			setIsCreateModalOpen(false); // закриваємо модалку
+		} catch (error) {
+			console.error("Помилка створення плейліста:", error);
+		}
+	}
+
 	const handlePlaylistClick = (playlist: Playlist) => {
-			console.log("Clicked playlist:", playlist);
-			navigate(`/playlist/${playlist.id}`);
-		};
+		console.log("Clicked playlist:", playlist);
+		navigate(`/playlist/${playlist.id}`);
+	};
 
 	return (
 		<aside className={styles.sidebar}>
@@ -120,15 +145,35 @@ const Sidebar: React.FC = () => {
 					</svg>
 					<p className={styles.itemName}>Улюблені треки</p>
 				</NavLink>
-				<NavLink to="/create-playlist" className={({ isActive }) => isActive 
-						? `${styles.menuItem} ${styles.active}` 
-						: styles.menuItem}>
+				<div className={styles.menuItem} onClick={()=> setIsCreateModalOpen(true)}>
 					<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 6.22363C2.25 5.80942 2.58579 5.47363 3 5.47363H20C20.4142 5.47363 20.75 5.80942 20.75 6.22363C20.75 6.63784 20.4142 6.97363 20 6.97363H3C2.58579 6.97363 2.25 6.63784 2.25 6.22363ZM2.25 11.2236C2.25 10.8094 2.58579 10.4736 3 10.4736H10C10.4142 10.4736 10.75 10.8094 10.75 11.2236C10.75 11.6378 10.4142 11.9736 10 11.9736H3C2.58579 11.9736 2.25 11.6378 2.25 11.2236ZM2.25 16.2236C2.25 15.8094 2.58579 15.4736 3 15.4736H10C10.4142 15.4736 10.75 15.8094 10.75 16.2236C10.75 16.6378 10.4142 16.9736 10 16.9736H3C2.58579 16.9736 2.25 16.6378 2.25 16.2236Z" fill="#F0F0F0"/>
 						<path d="M19.125 10.9088C20.767 11.8568 21.588 12.3308 21.8478 12.958C22.0507 13.4481 22.0507 13.9987 21.8478 14.4888C21.588 15.116 20.767 15.59 19.125 16.538C17.483 17.486 16.662 17.96 15.9889 17.8714C15.4631 17.8021 14.9862 17.5268 14.6633 17.106C14.25 16.5674 14.25 15.6194 14.25 13.7234C14.25 11.8274 14.25 10.8794 14.6633 10.3408C14.9862 9.91999 15.4631 9.64468 15.9889 9.57545C16.662 9.48683 17.483 9.96083 19.125 10.9088Z" fill="#F0F0F0"/>
 					</svg>
 					<p className={styles.itemName}>Створити плейлист</p>
-				</NavLink>
+				</div>
+				{isCreateModalOpen && (
+					<div className={styles.createPlaylistOverlay} onClick={() => setIsCreateModalOpen(false)}>
+						<div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+							<h3 className={styles.titleCreate}>Придумайте назву для вашого плейлиста</h3>
+							
+							<input
+								type="text"
+								className={styles.inputCreate}
+								value={playlistName}
+								placeholder="Назва плейлиста"
+								onChange={(e) => setPlaylistName(e.target.value)}
+							/>
+							<button 
+									className={styles.btnCreate} 
+									onClick={()=>handleCreatePlaylist(playlistName)}
+									disabled={!playlistName.trim()}>
+								Створити
+							</button>
+						</div>
+					</div>
+				)}
+
 				<div className={`${styles.menuItem} ${styles.myPlaylistsItem}`}>
 					<NavLink to="/mediateka#playlists">
 						<p className={styles.itemNamePlaylists}>Ваші плейлисти</p>
@@ -137,7 +182,7 @@ const Sidebar: React.FC = () => {
 						<path d="M4.75 1.84375H16M4.75 7H16M4.75 12.1562H16M1 1.84375H1.9375M1 7H1.9375M1 12.1562H1.9375" stroke="#86AECA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 					{showDropdown && (
-						<div className={styles.dropdown} ref={dropdownRef}>
+						<div className={styles.dropdown} ref={dropdownFilterRef}>
 							<div
 								className={`${styles.option} ${filterSelected === "default" ? styles.filterActive : ""}`}
 								onClick={(e) => handleSelect("default", e)}
