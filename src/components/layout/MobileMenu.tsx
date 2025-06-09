@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../../context/AuthContext";
+import { createPlaylist } from "../../api/contentService";
 
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../../styles/layout/MobileMenu.module.css";
-
 
 interface Props {
   isOpen: boolean;
@@ -17,9 +17,23 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
   const { user } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;
   
+  const [ isCreateModalOpen, setIsCreateModalOpen ] = useState(false);
+  const [ playlistName, setPlaylistName ] = useState("");
   
   const handleToggle = () => {
     setIsActive(prev => !prev);
+  }
+
+  const handleCreatePlaylist = async (name: string) => {
+    if (!name.trim()) return;
+    try {
+      await createPlaylist(name);
+      console.log(name);
+      setPlaylistName(""); // очищаємо поле
+      setIsCreateModalOpen(false); // закриваємо модалку
+    } catch (error) {
+      console.error("Помилка створення плейліста:", error);
+    }
   }
 
   if (!isOpen) return null;
@@ -162,16 +176,34 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
             </svg>
             <p>Улюблені треки</p>
           </NavLink>
-          <NavLink to="/create-playlist" onClick={onClose}
-              className={({ isActive }) => isActive 
-              ? `${styles.menuItem} ${styles.active}` 
-              : styles.menuItem}>
+          <div onClick={()=> setIsCreateModalOpen(true)} className={styles.menuItem}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 6.22363C2.25 5.80942 2.58579 5.47363 3 5.47363H20C20.4142 5.47363 20.75 5.80942 20.75 6.22363C20.75 6.63784 20.4142 6.97363 20 6.97363H3C2.58579 6.97363 2.25 6.63784 2.25 6.22363ZM2.25 11.2236C2.25 10.8094 2.58579 10.4736 3 10.4736H10C10.4142 10.4736 10.75 10.8094 10.75 11.2236C10.75 11.6378 10.4142 11.9736 10 11.9736H3C2.58579 11.9736 2.25 11.6378 2.25 11.2236ZM2.25 16.2236C2.25 15.8094 2.58579 15.4736 3 15.4736H10C10.4142 15.4736 10.75 15.8094 10.75 16.2236C10.75 16.6378 10.4142 16.9736 10 16.9736H3C2.58579 16.9736 2.25 16.6378 2.25 16.2236Z" fill="#F0F0F0"/>
               <path d="M19.125 10.9088C20.767 11.8568 21.588 12.3308 21.8478 12.958C22.0507 13.4481 22.0507 13.9987 21.8478 14.4888C21.588 15.116 20.767 15.59 19.125 16.538C17.483 17.486 16.662 17.96 15.9889 17.8714C15.4631 17.8021 14.9862 17.5268 14.6633 17.106C14.25 16.5674 14.25 15.6194 14.25 13.7234C14.25 11.8274 14.25 10.8794 14.6633 10.3408C14.9862 9.91999 15.4631 9.64468 15.9889 9.57545C16.662 9.48683 17.483 9.96083 19.125 10.9088Z" fill="#F0F0F0"/>
             </svg>
             <p>Створити плейлист</p>
-          </NavLink>
+          </div>
+          {isCreateModalOpen && (
+            <div className={styles.createPlaylistOverlay} onClick={() => setIsCreateModalOpen(false)}>
+              <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+                <h3 className={styles.titleCreate}>Придумайте назву для вашого плейлиста</h3>
+                
+                <input
+                  type="text"
+                  className={styles.inputCreate}
+                  value={playlistName}
+                  placeholder="Назва плейлиста"
+                  onChange={(e) => setPlaylistName(e.target.value)}
+                />
+                <button 
+                    className={styles.btnCreate} 
+                    onClick={()=>handleCreatePlaylist(playlistName)}
+                    disabled={!playlistName.trim()}>
+                  Створити
+                </button>
+              </div>
+            </div>
+          )}
           <NavLink to="/mediateka#playlists" onClick={onClose} className={styles.menuItem}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.25 7.06738H19.5M8.25 12.2236H19.5M8.25 17.3799H19.5M4.5 7.06738H5.4375M4.5 12.2236H5.4375M4.5 17.3799H5.4375" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

@@ -19,15 +19,19 @@ export interface Track {
   name: string;
   duration: number;
   artistName: string;
+  // artistId: string;
   albumName: string;
+  album: string;
   segNumber: number;
   playsNumber: number;
   coverUrl: string;
+  cover: Image;
   url: string;
   explicit: false;
 }
 
 export interface Album {
+  id: string;
   albumName: string;
   author: string;
   imageLink: string;

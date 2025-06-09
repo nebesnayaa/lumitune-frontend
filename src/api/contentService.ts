@@ -40,6 +40,26 @@ export const getTrackById = async (id: string) => {
   }
 };
 
+export const trackSearch = async (name: string) => {
+  try {
+    const response = await axiosInstance.get(`/tracks/search?name=${name}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при пошуку треку:", error);
+    return null;    
+  }
+}
+
+
+export const getAlbumById = async (id: string) => {
+  try {
+    const response = await axiosInstance.get(`/albums/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні альбому за id:", error);
+    return null;    
+  }
+};
 
 export const getPlaylistsByUserId = async (id: string): Promise<Playlist[] | null> => {
   try {
@@ -50,7 +70,6 @@ export const getPlaylistsByUserId = async (id: string): Promise<Playlist[] | nul
     return null;    
   }
 };
-
 
 export const getPlaylistById = async (id: string): Promise<Playlist | null> => {
   try {

@@ -3,6 +3,7 @@ import { usePlayer } from "../../context/PlayerContext";
 import { Link } from "react-router";
 import { getTrackById } from "../../api/contentService";
 
+import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/layout/SideInfoBox.module.css";
 
 interface SideInfoBoxProps {
@@ -38,7 +39,7 @@ const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
           </svg>
         </button>
         <h2 className={styles.header}>Track info</h2>
-        <img src={currentTrack.coverUrl} alt="Album cover" className={styles.albumCover}/>
+        <img src={currentTrack.coverUrl || defaultCover} alt="Album cover" className={styles.albumCover}/>
         <div className={styles.trackInfo}>
           <p className={styles.trackName}>{currentTrack.name}</p>
           {currentArtist &&

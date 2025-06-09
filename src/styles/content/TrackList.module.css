@@ -1,6 +1,9 @@
 .trackList{
   margin-top: 20px;
   max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .trackItem{
   width: 100%;
@@ -59,13 +62,19 @@
 .album{
   width: 70px;
   max-width: 170px;
-  left: 50%;
+  left: 55%;
 }
 .date{
-  left: 70%
+  display: none;
 }
 .duration{
+  right: 40px;
+}
+
+.addIcon{
+  position: absolute;
   right: 5px;
+  width: 25px;
 }
 
 @media(min-width: 780px){
@@ -86,9 +95,7 @@
     width: 10vw;
   }
   .date{
-    left: 70%
-  }
-  .duration{
-    right: 5px;
+    display: flex;
+    left: 69%
   }
 }
