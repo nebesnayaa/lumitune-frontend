@@ -1,18 +1,44 @@
-import React, { useRef} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
-
 import { Album } from "../../types/HomeContentData";
-import posterTrack from "../../assets/newRelease/poster.png";
+import { getArtistById } from "../../api/userService";
 
+import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/home/MusicContent.module.css";
 
 interface AlbumCardsProps {
   albums: Album[];
 }
 
-const AlbumCards: React.FC<AlbumCardsProps> = ({albums}) => {
+const AlbumCards: React.FC<AlbumCardsProps> = ({ albums }) => {
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
+
+  const [ artists, setArtists] = useState<Record<string, string>>({});
+  const artistIds = Array.from(new Set(albums.map(album => album.artistId)));
+
+  useEffect(() => {
+    if (albums.length > 0) {
+      fetchArtistsNames();
+    }
+  }, [albums]);
+
+  const fetchArtistsNames = async () => {
+    const artistMap: Record<string, string> = {};
+
+    const requests = artistIds.map(async (id) => {
+      try {
+        const artist = await getArtistById(id);
+        artistMap[id] = artist.user.username;
+      } catch (error) {
+        console.error("Помилка при завантаженні артиста", id, error);
+        artistMap[id] = "Невідомий артист";
+      }
+    });
+
+    await Promise.all(requests);
+    setArtists(artistMap);
+  };
 
   return(
     <div className={styles.container}>
@@ -28,11 +54,11 @@ const AlbumCards: React.FC<AlbumCardsProps> = ({albums}) => {
         {albums.map((album, index) => (
           <div className={styles.card} key={index}>
             <img 
-              src={album.imageLink || posterTrack}
+              src={album.imageLink || defaultCover}
               alt={album.albumName}
               draggable="false"
               onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = posterTrack;
+                (e.currentTarget as HTMLImageElement).src = defaultCover;
               }}
             />
 
@@ -49,10 +75,9 @@ const AlbumCards: React.FC<AlbumCardsProps> = ({albums}) => {
                 )}
               </div>
             </div>
-            {/* <p className={styles.trackName}>{album.albumName}</p> */}
             
             <p className={styles.authorName}>
-              by {album.author}{'\n'}{album.tracksQnt} track(s)
+              by {artists[album.artistId]}{album.albumName}{'\n'}{album.tracksQnt} track(s)
             </p>
           </div>
         ))}

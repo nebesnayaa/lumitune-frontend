@@ -29,8 +29,9 @@ export interface Track {
 export interface Album {
   id: string;
   albumName: string;
-  author: string;
+  artistId: string;
   cover: Image;
+  imageLink: string;
   tracksQnt: number;
   tracks: Track[];
 }
