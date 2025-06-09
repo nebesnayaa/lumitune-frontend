@@ -90,7 +90,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
             <p className={styles.durationHeader}>Час</p>
           </div>
 
-          <TrackList songs={playlist.tracks} format="viewing"/>
+          <TrackList playlistId={playlist.id} songs={playlist.tracks} format="viewing"/>
         </div>
       }   
 
@@ -107,7 +107,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
             onKeyDown={handleKeyDown}
           />
         </div>
-        { searchResult && <TrackList songs={searchResult} format="adding"/>}
+        { searchResult && <TrackList playlistId={playlist.id} songs={searchResult} format="adding"/>}
         { searchResult && searchResult.length === 0 && 
           <div className={styles.badSearch}>
             <h2 className={styles.badSearchTitle}>За вашим запитом нічого не знайдено :(</h2>
@@ -122,7 +122,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
         <div className={styles.recommandationsBlock}>
           <h2 className={styles.recTitle}>Рекомендації</h2>
           <p className={styles.recText}>На основі ваших вподобань</p>
-          {recommendations && <TrackList songs={recommendations} format="adding"/>}
+          {recommendations && <TrackList playlistId={playlist.id} songs={recommendations} format="adding"/>}
         </div>
       }
 

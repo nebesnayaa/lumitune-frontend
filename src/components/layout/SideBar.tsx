@@ -18,7 +18,7 @@ const Sidebar: React.FC = () => {
 	const [ showDropdown, setShowDropdown ] = useState(false);
 
 	const [ isCreateModalOpen, setIsCreateModalOpen ] = useState(false);
-	const [ playlistName, setPlaylistName ] = useState("");
+	const [ playlistName, setPlaylistName ] = useState<string>("");
 
 	const dropdownFilterRef = useRef<HTMLDivElement>(null);
 	const toggleRef = useRef<HTMLSpanElement>(null);
@@ -47,25 +47,9 @@ const Sidebar: React.FC = () => {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	useEffect(()=> {
-		if(!user) return;
-		const fetchPlaylists = async() => {
-			const userId = await getUserByUsername(user.username);
-			const playlists = await getPlaylistsByUserId(userId.id);
-			setPlaylists(playlists);
-		}
-		fetchPlaylists();
+	useEffect(() => {
+		loadPlaylists();
 	}, [user]);
-
-	useEffect(()=> {
-		if(!user) return;
-		const fetchPlaylists = async() => {
-			const userId = await getUserByUsername(user.username);
-			const playlists = await getPlaylistsByUserId(userId.id);
-			setPlaylists(playlists);
-		}
-		fetchPlaylists();
-	}, [playlists]);
 
 	useEffect(() => {  // Сортування плейлістів
 		if (!playlists) return;
@@ -80,13 +64,21 @@ const Sidebar: React.FC = () => {
 		setSortedPlaylists(sorted);
 	}, [filterSelected, playlists]);
 
-	const handleCreatePlaylist = async (name: string) => {
-		if (!name.trim()) return;
+	const loadPlaylists = async () => {
+		if (!user) return;
+		const userId = await getUserByUsername(user.username);
+		const playlists = await getPlaylistsByUserId(userId.id);
+		setPlaylists(playlists);
+	};
+
+	const handleCreatePlaylist = async () => {
+		if (!playlistName.trim()) return;
 		try {
-			await createPlaylist(name);
-			console.log(name);
+			await createPlaylist(playlistName);
+			console.log(playlistName);
 			setPlaylistName(""); // очищаємо поле
 			setIsCreateModalOpen(false); // закриваємо модалку
+			await loadPlaylists();
 		} catch (error) {
 			console.error("Помилка створення плейліста:", error);
 		}
@@ -166,7 +158,7 @@ const Sidebar: React.FC = () => {
 							/>
 							<button 
 									className={styles.btnCreate} 
-									onClick={()=>handleCreatePlaylist(playlistName)}
+									onClick={()=>handleCreatePlaylist()}
 									disabled={!playlistName.trim()}>
 								Створити
 							</button>

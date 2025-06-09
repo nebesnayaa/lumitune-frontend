@@ -18,14 +18,10 @@ export interface Track {
   id: string;
   name: string;
   duration: number;
-  artistName: string;
-  // artistId: string;
-  albumName: string;
-  album: string;
+  artistId: string;
+  albumId: string;
   segNumber: number;
   playsNumber: number;
-  coverUrl: string;
-  cover: Image;
   url: string;
   explicit: false;
 }
@@ -34,7 +30,7 @@ export interface Album {
   id: string;
   albumName: string;
   author: string;
-  imageLink: string;
+  cover: Image;
   tracksQnt: number;
   tracks: Track[];
 }

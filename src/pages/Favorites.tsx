@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import TrackList from "../components/content/TrackList";
-import { Track } from "../types/HomeContentData";
+import { Playlist } from "../types/HomeContentData";
 
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/pages/PlaylistPage.module.css";
+import { getPlaylistFavorites } from "../api/contentService";
 
 interface FavoritesProps {
   onOpen: () => void;
@@ -13,15 +14,18 @@ interface FavoritesProps {
 const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
   const { user } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;
-  const [ songs, setSongs ] = useState<Track[]>([]);
+  const [ favorites, setFavorites ] = useState<Playlist | null>();
   
   useEffect(() => {
     onOpen(); // Закриття бічної панелі
   }, []);
 
   useEffect(()=> {
-    //запит на улюблені треки
-    setSongs([]);
+    const fetchFavorites = async()=> {
+      const favorites = await getPlaylistFavorites();
+      setFavorites(favorites);
+    }
+    fetchFavorites();
   }, [user]);
 
   return (
@@ -56,7 +60,7 @@ const Favorites: React.FC<FavoritesProps> = ({ onOpen }) => {
           <p className={styles.durationHeader}>Час</p>
         </div>
 
-        <TrackList songs={songs} format="viewing"/>
+        {favorites && <TrackList playlistId={favorites.id} songs={favorites?.tracks} format="viewing"/>}
       </div>
     </div>
   );

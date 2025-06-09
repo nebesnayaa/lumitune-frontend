@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { usePlayer } from "../../context/PlayerContext";
 import defaultCover from "/images/defaultPlaylist.png";
-import { getTrackById } from "../../api/contentService";
-import { editArtistById } from "../../api/userService";
+import { addTrackToPlaylist, getAlbumById, getPlaylistFavorites, getTrackById, removeTrackFromPlaylist } from "../../api/contentService";
+import { editArtistById, getArtistById } from "../../api/userService";
 import { Artist } from "../../types/UserData";
 
 import styles from "../../styles/layout/PlayerBar.module.css";
@@ -16,24 +16,38 @@ interface PlayerBarProps {
 const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   const { currentTrack, isPlaying, togglePlayPause, audioRef, volume, setVolume } = usePlayer();
   const [ currentArtist, setCurrentArtist ] = useState<Artist>();
+  const [ albumCover, setAlbumCover ] = useState<string>();
+
   const audio = audioRef.current;
   const [currentTime, setCurrentTime] = useState(0); // Секундомір поточного трека
   const volumeBarRef = useRef<HTMLDivElement>(null);
 
   const [isLiked, setIsLiked] = useState(false);
-  const handleLikeToggle = () => setIsLiked(prev => !prev);
+  useEffect(()=> {
+    if(!currentTrack) return;
+    const fetchisLikedTrack = async () =>{
+      const favorites = await getPlaylistFavorites(); //currentTrack.id
+      if(!favorites) return;
+      const isFavorite = favorites.tracks.some(track => track.id === currentTrack.id);
+      setIsLiked(isFavorite);
+    }
+    fetchisLikedTrack();
+  }, [currentTrack]); 
 
   // === Артист ===
   useEffect(()=> {
     if(!currentTrack) return;
     const fetchTrack = async () =>{
       const track = await getTrackById(currentTrack.id);
-      setCurrentArtist(track.artist);
+      const album = await getAlbumById(track.albumId);
+      const artist = await getArtistById(track.artistId);
+      setCurrentArtist(artist);
+      setAlbumCover(album.cover.url);
     }
     fetchTrack();
   }, [currentTrack]);
 
-  // === Оновленян прослуховувань ===
+  // === Оновлення прослуховувань ===
   useEffect(()=>{
     const updateArtistListenings = async() => {
       if(!currentArtist) return;
@@ -77,6 +91,18 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
       audio.removeEventListener('timeupdate', updateTime);
     };
   }, [audio]);
+
+  const handleLikeToggle = async(trackId: string) => {
+    const favorites = await getPlaylistFavorites();
+    if(!favorites) return;
+    if(!isLiked){
+      await addTrackToPlaylist(trackId, favorites.id);
+    }
+    else{
+      await removeTrackFromPlaylist(trackId, favorites.id);
+    }
+    setIsLiked(prev => !prev);
+  }
 
   /* Управління звуком аудіо */
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => { /* Обробник натискання миші на слайдер гучності: встановлює нову гучність та слухає рух миші для динамічної зміни */
@@ -152,7 +178,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
       <div className={styles.wideScreen}>
         {/* Блок ліворуч */}
         <div className={styles.trackInfo}>
-          <img className={styles.trackPoster} src={currentTrack.coverUrl || defaultCover} alt="" />
+          <img className={styles.trackPoster} src={albumCover || defaultCover} alt="" />
           <div className={styles.trackText}>
             <p className={styles.trackName}>
               {currentTrack.name.length > 20 ? (
@@ -165,12 +191,12 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
             </p>
             { currentArtist &&
               <Link to={`/artist/${currentArtist.id}`}>
-                <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
+                <p className={styles.trackAuthor}>{currentArtist.user.username}</p>
               </Link>
             }
           </div>
           <div className={styles.icons}>
-            <div className={styles.heartIcon} onClick={handleLikeToggle}>
+            <div className={styles.heartIcon} onClick={()=>handleLikeToggle(currentTrack.id)}>
               { isLiked ? (
                 <svg width="20" height="23" viewBox="1 -0.5 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.5 19L12 21L9 19.5L5.5 17L3.5 13.5L2.5 9L5 5H9L12 6.5L14 5.5L17 4.5L20 6.5L21.5 9.5L20.5 14L15.5 19Z" fill="url(#paint0_linear_35_360)"/>

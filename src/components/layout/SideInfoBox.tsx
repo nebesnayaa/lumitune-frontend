@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { usePlayer } from "../../context/PlayerContext";
 import { Link } from "react-router";
-import { getTrackById } from "../../api/contentService";
+import { getAlbumById, getTrackById } from "../../api/contentService";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/layout/SideInfoBox.module.css";
+import { getArtistById } from "../../api/userService";
 
 interface SideInfoBoxProps {
   onClose: () => void;
@@ -12,14 +13,18 @@ interface SideInfoBoxProps {
 
 const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
   const { currentTrack } = usePlayer();
+  const [ albumCover, setAlbumCover ] = useState<string>();
   const [ currentArtist, setCurrentArtist ] = useState<any>(null);
   const [ isSubscribed, setIsSubscribed ] = useState<any>(false);
   
   useEffect(()=> {
     if(!currentTrack) return;
     const fetchTrack = async () =>{
-      const currentArtist = await getTrackById(currentTrack.id);
+      const detailedTrack = await getTrackById(currentTrack.id);
+      const album = await getAlbumById(detailedTrack.albumId);
+      const currentArtist = await getArtistById(detailedTrack.artistId);
       setCurrentArtist(currentArtist);
+      setAlbumCover(album.cover.url);
     }
     fetchTrack();
   }, [currentTrack]);
@@ -39,12 +44,12 @@ const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
           </svg>
         </button>
         <h2 className={styles.header}>Track info</h2>
-        <img src={currentTrack.coverUrl || defaultCover} alt="Album cover" className={styles.albumCover}/>
+        <img src={albumCover || defaultCover} alt="Album cover" className={styles.albumCover}/>
         <div className={styles.trackInfo}>
           <p className={styles.trackName}>{currentTrack.name}</p>
           {currentArtist &&
-          <Link to={`/artist/${currentArtist.artist.id}`}>
-            <p className={styles.trackAuthor}>{currentTrack.artistName}</p>
+          <Link to={`/artist/${currentArtist.id}`}>
+            <p className={styles.trackAuthor}>{currentArtist.user.username}</p>
           </Link>}
           <svg className={styles.addTrackIcon} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_2573_35768)">
@@ -60,15 +65,15 @@ const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
         </div>
         <div className={styles.authorInfo}>
           { currentArtist && 
-            <Link to={`/artist/${currentArtist.artist.id}`}>
-              <img src={currentArtist.artist.user.avatar?.url} alt="Album cover" className={styles.authorImg}/>
-              <p className={styles.authorName}>{currentTrack.artistName}</p>
+            <Link to={`/artist/${currentArtist.id}`}>
+              <img src={currentArtist.user.avatar.url || defaultCover} alt="Album cover" className={styles.authorImg}/>
+              <p className={styles.authorName}>{currentArtist.user.username}</p>
             </Link>
           }
           <div className={styles.subscribeSection}>
             { currentArtist && 
               <p className={styles.followings}>
-                {currentArtist.artist.monthlyListeners} слухачів за місяць
+                {currentArtist.monthlyListeners} слухачів за місяць
               </p>
             }
             { isSubscribed ? 
@@ -77,7 +82,7 @@ const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
               <button className={styles.subscribeBtn} onClick={handleFollowClick}>Підписатися</button>
             }
           </div>
-          {currentArtist && <p className={styles.bio}>{currentArtist.artist.bio}
+          {currentArtist && <p className={styles.bio}>{currentArtist.bio}
           </p>}
         </div>
       </div>
