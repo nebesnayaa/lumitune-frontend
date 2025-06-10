@@ -197,8 +197,8 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
                 <path d="M12 6.40707L11.4934 6.89466C11.6259 7.03237 11.8088 7.11019 12 7.11019C12.1912 7.11019 12.3741 7.03237 12.5066 6.89466L12 6.40707ZM9.58692 18.427C8.16599 17.3068 6.61225 16.213 5.37965 14.825C4.17114 13.4642 3.32812 11.8763 3.32812 9.81625H1.92188C1.92188 12.3152 2.96297 14.2215 4.32817 15.7587C5.66927 17.2689 7.37885 18.477 8.71633 19.5313L9.58692 18.427ZM3.32812 9.81625C3.32812 7.79981 4.46753 6.10884 6.02284 5.39791C7.53382 4.70723 9.56406 4.89014 11.4934 6.89466L12.5066 5.91948C10.2173 3.54103 7.56008 3.14902 5.43821 4.11893C3.36067 5.06859 1.92188 7.27369 1.92188 9.81625H3.32812ZM8.71633 19.5313C9.19655 19.9099 9.71207 20.3136 10.2345 20.6189C10.7568 20.9241 11.3527 21.1721 12 21.1721V19.7658C11.7098 19.7658 11.3682 19.6527 10.944 19.4048C10.52 19.157 10.0801 18.8157 9.58692 18.427L8.71633 19.5313ZM15.2837 19.5313C16.6211 18.477 18.3307 17.2689 19.6718 15.7587C21.037 14.2215 22.0781 12.3152 22.0781 9.81625H20.6719C20.6719 11.8763 19.8289 13.4642 18.6203 14.825C17.3877 16.213 15.834 17.3068 14.4131 18.427L15.2837 19.5313ZM22.0781 9.81625C22.0781 7.27369 20.6393 5.06859 18.5618 4.11893C16.4399 3.14902 13.7827 3.54103 11.4934 5.91948L12.5066 6.89466C14.4359 4.89014 16.4662 4.70723 17.9771 5.39791C19.5324 6.10884 20.6719 7.79981 20.6719 9.81625H22.0781ZM14.4131 18.427C13.9199 18.8157 13.48 19.157 13.056 19.4048C12.6318 19.6527 12.2902 19.7658 12 19.7658V21.1721C12.6473 21.1721 13.2432 20.9241 13.7655 20.6189C14.288 20.3136 14.8034 19.9099 15.2837 19.5313L14.4131 18.427Z" fill="#93D3E7"/>
                 <defs>
                 <linearGradient id="paint0_linear_35_360" x1="12" y1="4.5" x2="12" y2="21" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#0059FF"/>
-                <stop offset="1" stop-color="#6FBAFF"/>
+                <stop stopColor="#0059FF"/>
+                <stop offset="1" stopColor="#6FBAFF"/>
                 </linearGradient>
                 </defs>
                 </svg>
@@ -208,7 +208,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
               )}
             </div>
             <svg className={styles.plusIcon} width="15" height="15" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M8 11V19H11V11H19V8L11 8V0H8V8L0 8V11H8Z" fill="#93D3E7"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M8 11V19H11V11H19V8L11 8V0H8V8L0 8V11H8Z" fill="#93D3E7"/>
             </svg>
           </div>
         </div>
@@ -217,11 +217,11 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
           <div className={styles.iconPlus_mobile} onClick={()=>handleLikeToggle(currentTrack.id)}>
             { isLiked ? (
               <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 7.63333L7.5189 13.8881C7.98801 14.4197 8.84607 14.3079 9.16316 13.6737L15 2" stroke="#7BAFDF" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M2 7.63333L7.5189 13.8881C7.98801 14.4197 8.84607 14.3079 9.16316 13.6737L15 2" stroke="#7BAFDF" strokeWidth="2.5" strokeLinecap="round"/>
               </svg>) : (
               <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 18.5V0.5" stroke="#40A2FF" stroke-width="3"/>
-                <path d="M0 9.5L18 9.5" stroke="#40A2FF" stroke-width="3"/>
+                <path d="M9 18.5V0.5" stroke="#40A2FF" strokeWidth="3"/>
+                <path d="M0 9.5L18 9.5" stroke="#40A2FF" strokeWidth="3"/>
               </svg>
             )}
           </div>
@@ -238,10 +238,10 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
         <div className={styles.trackField}>
           <div className={styles.controlButtons}>
             <svg width="15" height="12" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9156 11.9856H4.84157L4.84157 5.70577H7.41497L3.94445 0.5L0.473938 5.70577L3.04734 5.70577L3.04733 13.7798L12.9156 13.7798V11.9856ZM7.08436 3.01442L15.1584 3.01442L15.1584 9.29425H12.585L16.0555 14.5L19.5261 9.29425L16.9527 9.29425V1.22019L7.08436 1.22019L7.08436 3.01442Z" fill="#93D3E7"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M12.9156 11.9856H4.84157L4.84157 5.70577H7.41497L3.94445 0.5L0.473938 5.70577L3.04734 5.70577L3.04733 13.7798L12.9156 13.7798V11.9856ZM7.08436 3.01442L15.1584 3.01442L15.1584 9.29425H12.585L16.0555 14.5L19.5261 9.29425L16.9527 9.29425V1.22019L7.08436 1.22019L7.08436 3.01442Z" fill="#93D3E7"/>
             </svg>
             <svg width="12" height="12" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.52606 8.1547V14H0.526062V7V0H2.52606V5.8453L12.5261 0.0717964V13.9282L2.52606 8.1547Z" fill="#93D3E7"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M2.52606 8.1547V14H0.526062V7V0H2.52606V5.8453L12.5261 0.0717964V13.9282L2.52606 8.1547Z" fill="#93D3E7"/>
             </svg>
             <div onClick={(e) => { e.stopPropagation(); togglePlayPause(); }}>
             {isPlaying ? (
@@ -251,10 +251,10 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
             )}
             </div>
             <svg width="12" height="12" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5261 8.1547V14H12.5261V7V0H10.5261V5.8453L0.526062 0.0717964V13.9282L10.5261 8.1547Z" fill="#93D3E7"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M10.5261 8.1547V14H12.5261V7V0H10.5261V5.8453L0.526062 0.0717964V13.9282L10.5261 8.1547Z" fill="#93D3E7"/>
             </svg>
             <svg width="15" height="12" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5785 4.18421H10.4297L8.16764 6.67474L7.07711 5.68295L9.55879 2.95147C9.62788 2.87554 9.71207 2.81489 9.80597 2.7734C9.89987 2.7319 10.0014 2.71049 10.1041 2.71053H11.5785V0.5L15.2627 3.49305L11.5785 6.39474V4.18421ZM10.43 10.8158H11.5788V8.60526L15.263 11.5526L11.5788 14.5V12.2895H10.1043C10.0017 12.2895 9.90015 12.2681 9.80625 12.2266C9.71235 12.1851 9.62816 12.1245 9.55907 12.0485L6.42086 8.59569L3.28265 12.0493C3.21356 12.1252 3.12937 12.1858 3.03547 12.2273C2.94157 12.2688 2.84004 12.2902 2.73739 12.2902H0.526123V10.8165H2.4117L5.42539 7.5L2.4117 4.18421H0.526123V2.71053H2.73739C2.84004 2.71049 2.94157 2.7319 3.03547 2.7734C3.12937 2.81489 3.21356 2.87554 3.28265 2.95147L10.43 10.8158Z" fill="#93D3E7"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M11.5785 4.18421H10.4297L8.16764 6.67474L7.07711 5.68295L9.55879 2.95147C9.62788 2.87554 9.71207 2.81489 9.80597 2.7734C9.89987 2.7319 10.0014 2.71049 10.1041 2.71053H11.5785V0.5L15.2627 3.49305L11.5785 6.39474V4.18421ZM10.43 10.8158H11.5788V8.60526L15.263 11.5526L11.5788 14.5V12.2895H10.1043C10.0017 12.2895 9.90015 12.2681 9.80625 12.2266C9.71235 12.1851 9.62816 12.1245 9.55907 12.0485L6.42086 8.59569L3.28265 12.0493C3.21356 12.1252 3.12937 12.1858 3.03547 12.2273C2.94157 12.2688 2.84004 12.2902 2.73739 12.2902H0.526123V10.8165H2.4117L5.42539 7.5L2.4117 4.18421H0.526123V2.71053H2.73739C2.84004 2.71049 2.94157 2.7319 3.03547 2.7734C3.12937 2.81489 3.21356 2.87554 3.28265 2.95147L10.43 10.8158Z" fill="#93D3E7"/>
             </svg>
           </div>
           <div className={styles.controlTrack}>
@@ -276,14 +276,14 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
         <div className={styles.volumeBlock}>
           <div className={styles.volumeBar} tabIndex={0} onKeyDown={handleKeyDown}>
             <svg className={styles.volumeIcon} width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.1537 0L15.3461 7.12501V9.50002H13.1537L13.1537 0ZM13.1537 19.0001L15.3461 11.875V9.50005H13.1537L13.1537 19.0001ZM0 7.30766L8.76928 0.730725V9.49997V18.2692L0 11.6923V9.49997V7.30766ZM11.6924 7.85587L10.2309 2.92317V9.5001V16.077L11.6924 11.1443V9.5001L11.6924 7.85587Z" fill="#93D3E7"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M13.1537 0L15.3461 7.12501V9.50002H13.1537L13.1537 0ZM13.1537 19.0001L15.3461 11.875V9.50005H13.1537L13.1537 19.0001ZM0 7.30766L8.76928 0.730725V9.49997V18.2692L0 11.6923V9.49997V7.30766ZM11.6924 7.85587L10.2309 2.92317V9.5001V16.077L11.6924 11.1443V9.5001L11.6924 7.85587Z" fill="#93D3E7"/>
             </svg>
             <div className={styles.volumeLine} ref={volumeBarRef} onMouseDown={handleMouseDown}>
               <div className={styles.volumeFill} style={{ width: `${volume * 100}%` }}></div>
             </div>
           </div>
           <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 2H17V15H7V9H4V2ZM2 9V2V0H4H17H19V2V15V17H17H7V19H0V9H2Z" fill="#93D3E7"/>
+            <path fillRule="evenodd" clipRule="evenodd" d="M4 2H17V15H7V9H4V2ZM2 9V2V0H4H17H19V2V15V17H17H7V19H0V9H2Z" fill="#93D3E7"/>
           </svg>
         </div>
       </div>

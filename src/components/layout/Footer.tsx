@@ -27,11 +27,11 @@ const Footer: React.FC = () => {
               <path d="M56.6443 38.9377L53.0304 40.3789L55.8068 43.1228L62.8462 42.2695L56.6443 38.9377Z" fill="#0B89CD"/>
               <path d="M17.489 38.9377L21.103 40.3789L18.3266 43.1228L11.2872 42.2695L17.489 38.9377Z" fill="#0B89CD"/>
               <path d="M20.0941 27.3066L20.5047 33.2078L14.9142 31.2153L11.4382 21.01L20.0941 27.3066Z" fill="#0B89CD"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M41.266 35.7215L36.4171 20.8178L31.8573 35.6073L36.5361 42.8533L41.266 35.7215Z" fill="#40CCFF"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M59.2175 27.8924L61.5617 21.01L55.7548 25.2341L55.4771 29.2255L59.2175 27.8924Z" fill="#40CCFF"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M58.1003 42.8451L62.8485 42.2695L58.6879 40.0344L56.2429 41.0094L58.1003 42.8451Z" fill="#40CCFF"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0328 42.8451L11.2847 42.2695L15.4453 40.0344L17.8903 41.0094L16.0328 42.8451Z" fill="#40CCFF"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7823 27.8923L11.4382 21.0099L17.245 25.2341L17.5228 29.2254L13.7823 27.8923Z" fill="#40CCFF"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M41.266 35.7215L36.4171 20.8178L31.8573 35.6073L36.5361 42.8533L41.266 35.7215Z" fill="#40CCFF"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M59.2175 27.8924L61.5617 21.01L55.7548 25.2341L55.4771 29.2255L59.2175 27.8924Z" fill="#40CCFF"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M58.1003 42.8451L62.8485 42.2695L58.6879 40.0344L56.2429 41.0094L58.1003 42.8451Z" fill="#40CCFF"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M16.0328 42.8451L11.2847 42.2695L15.4453 40.0344L17.8903 41.0094L16.0328 42.8451Z" fill="#40CCFF"/>
+              <path fillRule="evenodd" clipRule="evenodd" d="M13.7823 27.8923L11.4382 21.0099L17.245 25.2341L17.5228 29.2254L13.7823 27.8923Z" fill="#40CCFF"/>
             </svg>
           </div>
         </NavLink>
@@ -45,14 +45,14 @@ const Footer: React.FC = () => {
           <div className={styles.contacts}>
             <div className={styles.phone}>
               <svg width="18" height="25" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M18.0404 14.1474L15.2125 13.8246C14.5333 13.7466 13.8653 13.9804 13.3866 14.4592L11.338 16.5077C8.18723 14.9045 5.60425 12.3327 4.00102 9.17071L6.06072 7.111C6.53947 6.63226 6.77327 5.96424 6.69533 5.28509L6.37246 2.47943C6.23886 1.35494 5.29251 0.508789 4.15689 0.508789H2.23079C0.972706 0.508789 -0.0738448 1.55535 0.00408987 2.81344C0.594166 12.3215 8.19836 19.9146 17.6953 20.5047C18.9533 20.5826 19.9999 19.5361 19.9999 18.278V16.3519C20.011 15.2274 19.1649 14.281 18.0404 14.1474Z" fill="white"/>
+                <path fillRule="evenodd" clipRule="evenodd" d="M18.0404 14.1474L15.2125 13.8246C14.5333 13.7466 13.8653 13.9804 13.3866 14.4592L11.338 16.5077C8.18723 14.9045 5.60425 12.3327 4.00102 9.17071L6.06072 7.111C6.53947 6.63226 6.77327 5.96424 6.69533 5.28509L6.37246 2.47943C6.23886 1.35494 5.29251 0.508789 4.15689 0.508789H2.23079C0.972706 0.508789 -0.0738448 1.55535 0.00408987 2.81344C0.594166 12.3215 8.19836 19.9146 17.6953 20.5047C18.9533 20.5826 19.9999 19.5361 19.9999 18.278V16.3519C20.011 15.2274 19.1649 14.281 18.0404 14.1474Z" fill="white"/>
               </svg>
               <p>+38 (048) 728-66-60</p>
             </div>
             <div className={styles.email}>
               <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.4348 4.49707H2.56522C1.70077 4.49707 1 5.16864 1 5.99707V14.9971C1 15.8255 1.70077 16.4971 2.56522 16.4971H17.4348C18.2992 16.4971 19 15.8255 19 14.9971V5.99707C19 5.16864 18.2992 4.49707 17.4348 4.49707Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M18 5.49707L10 12.4971L2 5.49707" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17.4348 4.49707H2.56522C1.70077 4.49707 1 5.16864 1 5.99707V14.9971C1 15.8255 1.70077 16.4971 2.56522 16.4971H17.4348C18.2992 16.4971 19 15.8255 19 14.9971V5.99707C19 5.16864 18.2992 4.49707 17.4348 4.49707Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M18 5.49707L10 12.4971L2 5.49707" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <p>office@itstep.org</p>
             </div>
