@@ -79,15 +79,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(35, 46, 54, 1);
+  background-color: rgba(25, 36, 46, 1);
   border-radius: 6px;
-  width: 30%;
-  max-width: 250px;
+  width: 250px;
   max-height: 150px;
 }
 
 .titleCreate{
-  color: rgb(255, 255, 255, 0.9);
+  color: rgba(158, 216, 233, 1);
   text-align: center;
   font-size: 0.8rem;
   max-width: 180px;
@@ -95,14 +94,15 @@
 
 .inputCreate{
   height: 25px;
-  width: 80%;
+  width: 60%;
   max-width: 180px;
   font: 400 0.75rem "Inter", sans-serif;
   color: rgb(251, 251, 251, 0.8);
-  background-color: rgb(55, 75, 90);
-  border: 1px solid rgb(87, 104, 115);
-  border-radius: 6px;
+  background-color: rgba(33, 54, 68, 1);
+  border: none;
   outline: none;
+  text-align: center;
+  border-radius: 6px;
   padding: 0 5px;
   margin-bottom: 10px;
 }
@@ -111,8 +111,8 @@
 }
 
 .btnCreate{
-  background-color: rgb(144, 166, 181);
-  color: rgb(24, 40, 59);
+  background-color: rgba(107, 201, 220, 1);
+  color: rgba(0, 37, 45, 1);
   border: none;
   border-radius: 5px;
   height: 25px;
@@ -121,7 +121,7 @@
   font: 600 0.75rem "Inter", sans-serif;
 }
 .btnCreate:disabled{
-  background-color: rgb(110, 129, 141);
+  background-color: rgb(102, 150, 160);
   color: rgb(60, 76, 96);
 }
 
