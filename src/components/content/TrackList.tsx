@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Track } from "../../types/HomeContentData";
 import { usePlayer } from "../../context/PlayerContext";
-import { addTrackToPlaylist, getAlbumById, removeTrackFromPlaylist } from "../../api/contentService";
+import { addTrackToPlaylist, getAlbumById, getTrackById, removeTrackFromPlaylist } from "../../api/contentService";
 import { getArtistById } from "../../api/userService";
 
 import defaultCover from "/images/defaultPlaylist.png";
@@ -20,16 +20,21 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format, onTr
   const [ artists, setArtists] = useState<Record<string, string>>({});
   const [ albumCovers, setAlbumCovers] = useState<Record<string, string>>({});
   const [ relieseDate, setReleaseDate ] = useState<Record<string, string>>({});
+  const [ listenings, setListenings ] = useState<Record<string, string>>({});
 
   const albumIds = Array.from(new Set(songs.map(song => song.albumId)));
   const artistIds = Array.from(new Set(songs.map(song => song.artistId)));
+  const songsIds = Array.from(new Set(songs.map(song => song.id)));
 
   useEffect(() => {
     if (songs.length > 0) {
       fetchAlbumCovers();
       fetchAlbumNames();
       fetchArtistsNames();
-      fetchReleaseDates();
+      if(format == "adding")
+        fetchListenings();
+      else
+        fetchReleaseDates();
     }
   }, [songs]);
 
@@ -97,6 +102,22 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format, onTr
     await Promise.all(requests);
     setReleaseDate(reliaseMap);
   };
+  const fetchListenings = async () => {
+    const listensMap: Record<string, string> = {};
+
+    const requests = songsIds.map(async (id) => {
+      try {
+        const song = await getTrackById(id);
+        listensMap[id] = song.playsNumber;
+      } catch (error) {
+        console.error("Помилка при завантаженні трека", id, error);
+        listensMap[id] = "Невідома кількість";
+      }
+    });
+
+    await Promise.all(requests);
+    setListenings(listensMap);
+  };
 
   const handleTrackClick = (track: Track) => {
     playTrack(track);
@@ -142,7 +163,12 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format, onTr
           </div>
 
           <p className={styles.album}>{albums[song.albumId] || "Album..."}</p>
-          <p className={styles.date}>{formatDate(relieseDate[song.albumId]) || "Release..."}</p>
+          { format == "adding" && 
+            <p className={styles.date}>{listenings[song.id] || "0"}</p>
+          }
+          { format == "viewing" &&
+            <p className={styles.date}>{formatDate(relieseDate[song.albumId]) || "Release..."}</p>
+          }
           <p className={styles.duration}>{formatTime(song.duration)}</p>
 
           { format == "adding" && 
