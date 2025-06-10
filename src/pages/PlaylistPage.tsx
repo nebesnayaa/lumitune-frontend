@@ -20,10 +20,10 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
   const [ playlist, setPlaylist ] = useState<Playlist | null>(null);
   const [ recommendations, setRecommendations ] = useState<Track[]>()
 
-  const [ searchQuery, setSearchQuery ] = useState(""); // стан для введеного тексту
+  const [ searchQuery, setSearchQuery ] = useState("");
   const [ searchResult, setSearchResult ] = useState<Track[] | null>(null);
 
-  const [refresh, setRefresh] = useState(false);
+  const [ refresh, setRefresh ] = useState(false);
 
   useEffect(() => {
     onOpen(); // Закриття бічної панелі
@@ -129,7 +129,6 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
         }
       </div>
       
-
       {/* Рекомендації */}
       { playlist.tracks.length == 0 && 
         <div className={styles.recommandationsBlock}>
@@ -138,7 +137,6 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
           {recommendations && <TrackList playlistId={playlist.id} songs={recommendations} format="adding" onTrackChange={() => setRefresh(prev=>!prev)}/>}
         </div>
       }
-
     </div>
   );
 }
