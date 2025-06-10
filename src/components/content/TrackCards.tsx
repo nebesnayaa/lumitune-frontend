@@ -74,9 +74,9 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
           <h2 className={styles.title}>
             Топ ВАША <span className={styles.blue}>музика</span> сьогодні
           </h2>
-          <svg className={styles.arrow} width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* <svg className={styles.arrow} width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 13L7 7L1 1" stroke="#40A2FF" stroke-width="2"/>
-          </svg>
+          </svg> */}
         </div>
         <div className={styles.slider} ref={sliderRef}>
           {songs.map((song, index) => (

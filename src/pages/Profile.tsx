@@ -4,8 +4,6 @@ import { useAuth } from "../context/AuthContext";
 import { User } from "../types/UserData";
 import { getCurrentUser, editUser } from "../api/userService";
 import { deleteImage, uploadImage } from "../api/contentService";
-import WeekLikes from "../components/profile/WeekLikes";
-import MonthTop from "../components/profile/MonthTop";
 
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/pages/Profile.module.css";
@@ -137,8 +135,8 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
           </div> */}
         </div>
       </div>
-      <WeekLikes/>
-      <MonthTop/>
+      {/* <WeekLikes/>
+      <MonthTop/> */}
     </div>
   );
 }
