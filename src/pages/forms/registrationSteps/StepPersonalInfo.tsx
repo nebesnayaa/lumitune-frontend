@@ -320,6 +320,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
               value="true"
               checked={formData.isArtist}
               onChange={() => onChange("isArtist", true)}
+              disabled
               />
             <span>Я автор пісень</span>
           </label>
