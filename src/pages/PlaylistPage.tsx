@@ -69,7 +69,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
     if (e.key === "Enter") {
       handleSearch();
     }
-};
+  };
   
   if(!playlist) return <></>;
 

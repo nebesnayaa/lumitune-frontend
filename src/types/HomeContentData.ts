@@ -24,6 +24,8 @@ export interface Track {
   playsNumber: number;
   url: string;
   explicit: false;
+  genres: string[];
+  moods: string[];
 }
 
 export interface Album {
@@ -34,6 +36,7 @@ export interface Album {
   imageLink: string;
   tracksQnt: number;
   tracks: Track[];
+  relDate: string;
 }
 
 export interface Playlist{

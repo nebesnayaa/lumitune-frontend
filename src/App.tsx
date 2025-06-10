@@ -19,6 +19,7 @@ import MobileMenu from "./components/layout/MobileMenu";
 import PlayerBar from "./components/layout/PlayerBar";
 import SideInfoBox from "./components/layout/SideInfoBox";
 import Footer from "./components/layout/Footer";
+import MoodPage from "./pages/MoodPage";
 
 
 const App: React.FC = () => {
@@ -51,6 +52,7 @@ const App: React.FC = () => {
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/artist/:id" element={<ArtistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/playlist/:id" element={<PlaylistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
+                    <Route path="/mood/:name" element={<MoodPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                   </Routes>
                 </main>
                 {isSideBoxOpen && <SideInfoBox onClose={() => setIsSideBoxOpen(false)} />}

@@ -125,3 +125,23 @@ export const updateTrackListeners = async(songId: string) => {
   return response.data;
 }
 
+
+export const getMoods = async() => {
+  const response = await axiosInstance.get("/mood");
+  return response.data;
+}
+
+export const getGenres = async() => {
+  const response = await axiosInstance.get("/genre");
+  return response.data;
+}
+
+export const getTracksByMood = async(mood: string) => {
+  const response = await axiosInstance.get(`/tracks/mood/${mood}`);
+  return response.data;
+}
+
+export const getTracksByGenre = async(genre: string) => {
+  const response = await axiosInstance.get(`/tracks/genre/${genre}`);
+  return response.data;
+}

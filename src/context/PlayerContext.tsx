@@ -17,7 +17,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [volume, setVolumeState] = useState(0.4);
+  const [volume, setVolumeState] = useState(0.25);
     
   const playTrack = (track: Track) => {
     setCurrentTrack(track);

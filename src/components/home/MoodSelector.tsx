@@ -18,6 +18,8 @@ import rapIMg from "/images/genres/street.svg";
 import clasIMg from "/images/genres/classic.svg";
 
 import styles from "../../styles/home/MoodSelector.module.css";
+import { getGenres, getMoods } from "../../api/contentService";
+import { useNavigate } from "react-router";
 
 const MoodSelector: React.FC = () => {
   const moods = [
@@ -38,6 +40,8 @@ const MoodSelector: React.FC = () => {
     { label: "Реп", img: rapIMg },
     { label: "Класика", img: clasIMg },
   ];
+  const [ moodNames, setMoodNames ] = useState<string[]>([]);
+  const [ genreNames, setGenreNames ] = useState<string[]>([]);
 
   const [selected, setSelected] = useState<"mood" | "genre">("mood");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -45,7 +49,7 @@ const MoodSelector: React.FC = () => {
   const toggleRef = useRef<HTMLSpanElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
-
+  const navigate = useNavigate()
   const toggleDropdown = () => setShowDropdown((prev) => !prev);
 
   const handleSelect = (option: "mood" | "genre", event: React.MouseEvent) => {
@@ -68,6 +72,25 @@ const MoodSelector: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(()=> {
+    const fetchgenres = async() => {
+      const moods = await getMoods();
+      const genres = await getGenres();
+      // if(!moods || !genres) return;
+      setMoodNames(moods);
+      setGenreNames(genres);
+    }
+    fetchgenres();
+  })
+
+  const onMoodClick = (name: string) => {
+    navigate(`mood/${name}`, { state: { type: "mood" } });
+  }
+
+  const onGenreClick = (name: string) => {
+    navigate(`mood/${name}`, { state: { type: "genre" } });
+  }
 
   return(
     <div className={styles.container}>
@@ -102,14 +125,14 @@ const MoodSelector: React.FC = () => {
         {/* Строка настроїв */}
         <div className={styles.slider} ref={sliderRef}>
           {selected === "mood" ? 
-            (moods.map((mood, index) => (
-              <div key={index} className={styles.emotion}>
+            (moods.map((mood, index) => (   
+              <div key={index} className={styles.emotion} onClick={()=>onMoodClick(moodNames[index])}>   
                 <img src={mood.img} alt={mood.label} draggable={false}/>
                 <p>{mood.label}</p>
               </div>
             ))) :
-            (genres.map((genre, index) => (
-              <div key={index} className={styles.emotion}>
+            (genres.map((genre, index) => ( 
+              <div key={index} className={styles.emotion} onClick={()=>onGenreClick(genreNames[index])}>
                 <img src={genre.img} alt={genre.label} draggable={false}/>
                 <p>{genre.label}</p>
               </div>
