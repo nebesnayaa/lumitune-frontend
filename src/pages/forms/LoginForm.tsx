@@ -127,10 +127,6 @@ const LoginForm: React.FC = () => {
           <div className={styles.line}></div>
         </div>
 
-        
-        
-       
-        
         <div className={styles.registerSection}>
           <p>Немає акаунта?</p>
           <Link to="/register" className={styles.registerLink}>Зареєструватись</Link>
