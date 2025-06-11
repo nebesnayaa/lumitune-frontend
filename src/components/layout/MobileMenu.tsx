@@ -68,31 +68,31 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
           <div className={styles.notifIcon} onClick={handleToggle}>
           { isActive ? (
             <svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_1572_58271)">
-            <path d="M13.5 19.5C15.7551 19.5 17.5 21.2449 17.5 23.5C17.5 25.6247 15.745 27.5 13.5 27.5C11.2449 27.5 9.5 25.7551 9.5 23.5C9.5 21.3753 11.255 19.5 13.5 19.5Z" fill="url(#paint0_linear_1572_58271)" stroke="url(#paint1_linear_1572_58271)"/>
-            <path d="M4.81348 8.39941C4.93376 4.03392 8.56749 0.5 12.9404 0.5C17.4519 0.500187 21.1865 4.26621 21.1865 8.83691V15.9785C21.1865 17.2182 22.1248 18.1738 23.3643 18.1738C24.521 18.1739 25.5 19.1556 25.5 20.3369C25.5 21.5182 24.521 22.4999 23.3643 22.5H2.63574C1.47904 22.4999 0.50004 21.5182 0.5 20.3369C0.5 19.1556 1.47901 18.1739 2.63574 18.1738C3.87524 18.1738 4.81348 17.2182 4.81348 15.9785V8.39941Z" fill="url(#paint2_linear_1572_58271)" stroke="url(#paint3_linear_1572_58271)"/>
-            </g>
-            <defs>
-            <linearGradient id="paint0_linear_1572_58271" x1="8.26397" y1="23.5347" x2="18.8108" y2="23.5347" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#0066BF"/>
-            <stop offset="1" stop-color="#005791"/>
-            </linearGradient>
-            <linearGradient id="paint1_linear_1572_58271" x1="9.30052" y1="18.9123" x2="17.927" y2="28.3241" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#9DD8FF"/>
-            <stop offset="1" stop-color="#D0FAFF" stop-opacity="0"/>
-            </linearGradient>
-            <linearGradient id="paint2_linear_1572_58271" x1="4.56474" y1="25.439" x2="25.843" y2="1.5278" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#003BD1"/>
-            <stop offset="1" stop-color="#008CFF"/>
-            </linearGradient>
-            <linearGradient id="paint3_linear_1572_58271" x1="1.05905" y1="1.48435" x2="20.9551" y2="25.3901" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#9DD9FF"/>
-            <stop offset="1" stop-color="#9DDEFF" stop-opacity="0"/>
-            </linearGradient>
-            <clipPath id="clip0_1572_58271">
-            <rect width="26" height="28" fill="white"/>
-            </clipPath>
-            </defs>
+              <g clipPath="url(#clip0_1572_58271)">
+              <path d="M13.5 19.5C15.7551 19.5 17.5 21.2449 17.5 23.5C17.5 25.6247 15.745 27.5 13.5 27.5C11.2449 27.5 9.5 25.7551 9.5 23.5C9.5 21.3753 11.255 19.5 13.5 19.5Z" fill="url(#paint0_linear_1572_58271)" stroke="url(#paint1_linear_1572_58271)"/>
+              <path d="M4.81348 8.39941C4.93376 4.03392 8.56749 0.5 12.9404 0.5C17.4519 0.500187 21.1865 4.26621 21.1865 8.83691V15.9785C21.1865 17.2182 22.1248 18.1738 23.3643 18.1738C24.521 18.1739 25.5 19.1556 25.5 20.3369C25.5 21.5182 24.521 22.4999 23.3643 22.5H2.63574C1.47904 22.4999 0.50004 21.5182 0.5 20.3369C0.5 19.1556 1.47901 18.1739 2.63574 18.1738C3.87524 18.1738 4.81348 17.2182 4.81348 15.9785V8.39941Z" fill="url(#paint2_linear_1572_58271)" stroke="url(#paint3_linear_1572_58271)"/>
+              </g>
+              <defs>
+              <linearGradient id="paint0_linear_1572_58271" x1="8.26397" y1="23.5347" x2="18.8108" y2="23.5347" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0066BF"/>
+              <stop offset="1" stopColor="#005791"/>
+              </linearGradient>
+              <linearGradient id="paint1_linear_1572_58271" x1="9.30052" y1="18.9123" x2="17.927" y2="28.3241" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#9DD8FF"/>
+              <stop offset="1" stopColor="#D0FAFF" stopOpacity="0"/>
+              </linearGradient>
+              <linearGradient id="paint2_linear_1572_58271" x1="4.56474" y1="25.439" x2="25.843" y2="1.5278" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#003BD1"/>
+              <stop offset="1" stopColor="#008CFF"/>
+              </linearGradient>
+              <linearGradient id="paint3_linear_1572_58271" x1="1.05905" y1="1.48435" x2="20.9551" y2="25.3901" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#9DD9FF"/>
+              <stop offset="1" stopColor="#9DDEFF" stopOpacity="0"/>
+              </linearGradient>
+              <clipPath id="clip0_1572_58271">
+              <rect width="26" height="28" fill="white"/>
+              </clipPath>
+              </defs>
             </svg>
           ) : (
             <svg width="26" height="28" viewBox="0 0 26 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,20 +114,20 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
               <defs>
               <clipPath id="bgblur_1_1669_11868_clip_path" transform="translate(18 18)"><path d="M4.81348 8.39941C4.93376 4.03392 8.56749 0.5 12.9404 0.5C17.4519 0.500187 21.1865 4.26621 21.1865 8.83691V15.9785C21.1865 17.2182 22.1248 18.1738 23.3643 18.1738C24.521 18.1739 25.5 19.1556 25.5 20.3369C25.5 21.5182 24.521 22.4999 23.3643 22.5H2.63574C1.47904 22.4999 0.50004 21.5182 0.5 20.3369C0.5 19.1556 1.47901 18.1739 2.63574 18.1738C3.87524 18.1738 4.81348 17.2182 4.81348 15.9785V8.39941Z"/>
               </clipPath><linearGradient id="paint0_linear_1669_11868" x1="9.5081" y1="27.4919" x2="17.4919" y2="19.5081" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#393D40"/>
-              <stop offset="1" stop-color="#5D6063"/>
+              <stop stopColor="#393D40"/>
+              <stop offset="1" stopColor="#5D6063"/>
               </linearGradient>
               <linearGradient id="paint1_linear_1669_11868" x1="9.6353" y1="19.7078" x2="17.1584" y2="27.7518" gradientUnits="userSpaceOnUse">
-              <stop stop-color="white"/>
-              <stop offset="1" stop-color="white" stop-opacity="0"/>
+              <stop stopColor="white"/>
+              <stop offset="1" stopColor="white" stopOpacity="0"/>
               </linearGradient>
               <linearGradient id="paint2_linear_1669_11868" x1="1.46785" y1="21.7015" x2="21.7185" y2="-1.19052" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#393D40"/>
-              <stop offset="1" stop-color="#5D6063"/>
+              <stop stopColor="#393D40"/>
+              <stop offset="1" stopColor="#5D6063"/>
               </linearGradient>
               <linearGradient id="paint3_linear_1669_11868" x1="1.83531" y1="1.80891" x2="20.7632" y2="24.687" gradientUnits="userSpaceOnUse">
-              <stop stop-color="white"/>
-              <stop offset="1" stop-color="white" stop-opacity="0"/>
+              <stop stopColor="white"/>
+              <stop offset="1" stopColor="white" stopOpacity="0"/>
               </linearGradient>
               <clipPath id="clip0_1669_11868">
               <rect width="26" height="28" fill="white"/>
@@ -176,7 +176,7 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
               ? `${styles.menuItem} ${styles.active}` 
               : styles.menuItem}>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.5 18.2236L12 20.2236L9 18.7236L5.5 16.2236L3.5 12.7236L2.5 8.22363L5 4.22363H9L12 5.72363L14 4.72363L17 3.72363L20 5.72363L21.5 8.72363L20.5 13.2236L15.5 18.2236Z" fill="url(#paint0_linear_1644_4096)" fill-opacity="0.8"/>
+              <path d="M15.5 18.2236L12 20.2236L9 18.7236L5.5 16.2236L3.5 12.7236L2.5 8.22363L5 4.22363H9L12 5.72363L14 4.72363L17 3.72363L20 5.72363L21.5 8.72363L20.5 13.2236L15.5 18.2236Z" fill="url(#paint0_linear_1644_4096)" fillOpacity="0.8"/>
               <path d="M12 6.13058L11.4934 6.61817C11.6259 6.75588 11.8088 6.83371 12 6.83371C12.1912 6.83371 12.3741 6.75588 12.5066 6.61817L12 6.13058ZM9.58692 18.1505C8.16599 17.0303 6.61225 15.9365 5.37965 14.5485C4.17114 13.1877 3.32812 11.5998 3.32812 9.53976H1.92188C1.92188 12.0387 2.96297 13.945 4.32817 15.4823C5.66927 16.9924 7.37885 18.2005 8.71633 19.2549L9.58692 18.1505ZM3.32812 9.53976C3.32812 7.52332 4.46753 5.83235 6.02284 5.12142C7.53382 4.43074 9.56406 4.61365 11.4934 6.61817L12.5066 5.64299C10.2173 3.26454 7.56008 2.87253 5.43821 3.84244C3.36067 4.7921 1.92188 6.9972 1.92188 9.53976H3.32812ZM8.71633 19.2549C9.19655 19.6334 9.71207 20.0371 10.2345 20.3424C10.7568 20.6476 11.3527 20.8956 12 20.8956V19.4893C11.7098 19.4893 11.3682 19.3762 10.944 19.1283C10.52 18.8805 10.0801 18.5393 9.58692 18.1505L8.71633 19.2549ZM15.2837 19.2549C16.6211 18.2005 18.3307 16.9924 19.6718 15.4823C21.037 13.945 22.0781 12.0387 22.0781 9.53976H20.6719C20.6719 11.5998 19.8289 13.1877 18.6203 14.5485C17.3877 15.9365 15.834 17.0303 14.4131 18.1505L15.2837 19.2549ZM22.0781 9.53976C22.0781 6.9972 20.6393 4.7921 18.5618 3.84244C16.4399 2.87253 13.7827 3.26454 11.4934 5.64299L12.5066 6.61817C14.4359 4.61365 16.4662 4.43074 17.9771 5.12142C19.5324 5.83235 20.6719 7.52332 20.6719 9.53976H22.0781ZM14.4131 18.1505C13.9199 18.5393 13.48 18.8805 13.056 19.1283C12.6318 19.3762 12.2902 19.4893 12 19.4893V20.8956C12.6473 20.8956 13.2432 20.6476 13.7655 20.3424C14.288 20.0371 14.8034 19.6334 15.2837 19.2549L14.4131 18.1505Z" fill="#F0F0F0"/>
               <defs>
                 <linearGradient id="paint0_linear_1644_4096" x1="12" y1="3.72363" x2="12" y2="20.2236" gradientUnits="userSpaceOnUse">

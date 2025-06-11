@@ -82,7 +82,7 @@ const MoodSelector: React.FC = () => {
       setGenreNames(genres);
     }
     fetchgenres();
-  })
+  }, [])
 
   const onMoodClick = (name: string) => {
     navigate(`mood/${name}`, { state: { type: "mood" } });
@@ -101,7 +101,7 @@ const MoodSelector: React.FC = () => {
           <span className={styles.mood} onClick={toggleDropdown} ref={toggleRef}>
             {selected === "mood" ? "настрою" : "жанру"}
             <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 1.5L7 7.5L13 1.5" stroke="#40A2FF" stroke-width="2"/>
+              <path d="M1 1.5L7 7.5L13 1.5" stroke="#40A2FF" strokeWidth="2"/>
             </svg>
             {showDropdown && (
               <div className={styles.dropdown} ref={dropdownRef}>
