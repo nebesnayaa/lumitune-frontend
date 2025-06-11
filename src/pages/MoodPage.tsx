@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { Track } from "../types/HomeContentData";
-import { getTracksByMood } from "../api/contentService";
+import { getTracksByGenre, getTracksByMood } from "../api/contentService";
 import TrackList from "../components/content/TrackList";
 
 import defaultAvatar from "/images/defaultAvatar.png";
@@ -29,8 +29,14 @@ const MoodPage: React.FC<MoodProps> = ({ onOpen }) => {
   useEffect(() => {
     if (!name) return;
     const fetchMoodTracks = async () =>{
-      const tracks = await getTracksByMood(name);
-      setTracks(tracks);
+      if(type =="mood"){
+        const tracks = await getTracksByMood(name);
+        setTracks(tracks);
+      }
+      else{
+        const tracks = await getTracksByGenre(name);
+        setTracks(tracks);
+      }
     }
     fetchMoodTracks();
   }, [name, type]);
