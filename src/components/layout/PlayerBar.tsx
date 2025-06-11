@@ -42,7 +42,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
           getArtistById(fullTrack.artistId)
         ]);
         setCurrentArtist(artist);
-        setAlbumCover(album.cover.url);
+        setAlbumCover(album.cover?.url);
 
         // === Оновлення прослуховувань ===
         await Promise.all([

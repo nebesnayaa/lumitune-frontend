@@ -78,7 +78,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format, onTr
         const album = await getAlbumById(id);
         albumMap[id] = album.cover.url;
       } catch (error) {
-        console.error("Помилка при завантаженні альбому", id, error);
+        // console.error("Помилка при завантаженні альбому", id, error);
         albumMap[id] = "Невідомий альбом";
       }
     });
@@ -154,7 +154,12 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format, onTr
           <p className={styles.numeration}>{index + 1}</p>
 
           <div className={styles.poster}>
-            <img src={albumCovers[song.albumId] || defaultCover} alt="img" />
+            <img  src={albumCovers[song.albumId]}
+                  onError={(e) => {
+                      e.currentTarget.onerror = null; // щоб не зациклити
+                      e.currentTarget.src = defaultCover;
+                  }} 
+                  alt="img" />
           </div>
 
           <div className={styles.trackName}>

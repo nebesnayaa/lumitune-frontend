@@ -24,7 +24,7 @@ const SideInfoBox: React.FC<SideInfoBoxProps> = ({ onClose }) => {
       const album = await getAlbumById(detailedTrack.albumId);
       const currentArtist = await getArtistById(detailedTrack.artistId);
       setCurrentArtist(currentArtist);
-      setAlbumCover(album.cover.url);
+      setAlbumCover(album.cover?.url);
     }
     fetchTrack();
   }, [currentTrack]);
