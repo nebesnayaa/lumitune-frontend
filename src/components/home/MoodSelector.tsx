@@ -43,8 +43,8 @@ const MoodSelector: React.FC = () => {
   const [ moodNames, setMoodNames ] = useState<string[]>([]);
   const [ genreNames, setGenreNames ] = useState<string[]>([]);
 
-  const [selected, setSelected] = useState<"mood" | "genre">("mood");
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [ selected, setSelected ] = useState<"mood" | "genre">("mood");
+  const [ showDropdown, setShowDropdown ] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLSpanElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -77,7 +77,6 @@ const MoodSelector: React.FC = () => {
     const fetchgenres = async() => {
       const moods = await getMoods();
       const genres = await getGenres();
-      // if(!moods || !genres) return;
       setMoodNames(moods);
       setGenreNames(genres);
     }
