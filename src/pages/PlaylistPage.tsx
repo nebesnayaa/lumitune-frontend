@@ -116,6 +116,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
             type="text" 
             placeholder="Пошук треків та виконавців..." 
             value={searchQuery}
+            maxLength={100}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}
           />
