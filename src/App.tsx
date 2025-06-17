@@ -20,6 +20,7 @@ import PlayerBar from "./components/layout/PlayerBar";
 import SideInfoBox from "./components/layout/SideInfoBox";
 import Footer from "./components/layout/Footer";
 import MoodPage from "./pages/MoodPage";
+import Notifications from "./pages/Notifications";
 
 
 const App: React.FC = () => {
@@ -50,6 +51,7 @@ const App: React.FC = () => {
                     <Route path="/mediateka" element={<Mediateka />} />
                     <Route path="/profile" element={<Profile onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/settings" element={<Settings />} />
+                    <Route path="/notifications" element={<Notifications onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/artist/:id" element={<ArtistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/playlist/:id" element={<PlaylistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/mood/:name" element={<MoodPage onOpen={() => setIsSideBoxOpen(false)}/>} />

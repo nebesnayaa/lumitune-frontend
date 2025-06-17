@@ -94,9 +94,25 @@
     /* margin: 0 2vw; */
   }
 
-  .notifIcon{
+  .notifIcon {
     display: none;
     align-items: center;
+
+    .default {
+      display: block;
+    }
+    .hover {
+      display: none;
+    }
+
+    &:hover {
+      .default {
+        display: none;
+      }
+      .hover {
+        display: block;
+      }
+    }
   }
 
   .avatarSection {

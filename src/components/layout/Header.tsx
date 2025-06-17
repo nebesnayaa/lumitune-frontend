@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router";
+import React from "react";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 
 import defaultAvatar from "/images/defaultAvatar.png";
@@ -9,15 +9,18 @@ interface HeaderProps {
   toggleMenu: () => void;
 }
 
+
+
 const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
-  const [isActive, setIsActive] = useState(false);  // Логіка перемикання стану для сповіщень
   const { user } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;
 
-  const handleToggle = () => {
-    setIsActive(prev => !prev);
-  }
+  const navigate = useNavigate();
 
+  const onBellClick = () => {
+    navigate("/notifications");
+  }
+  
   return (
     <header className={styles.header}>
       {/* Логотип */}
@@ -77,71 +80,67 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
               <path d="M19 18.2144H0V16.2144H19V18.2144ZM19 10.4995H0V8.49951H19V10.4995ZM19 2.78564H0V0.785645H19V2.78564Z" fill="#00C8FF"/>
             </svg>
           </div>
-          <div className={styles.notifIcon} onClick={handleToggle}>
-            { isActive ? (
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clipPath="url(#clip0_1605_3166)">
-                <path d="M12.2 17.1001C14 17.1001 15.4 18.5001 15.4 20.3001C15.4 22.0001 14 23.5001 12.2 23.5001C10.4 23.5001 9 22.1001 9 20.3001C9 18.6001 10.4 17.1001 12.2 17.1001Z" fill="url(#paint0_linear_1605_3166)" stroke="url(#paint1_linear_1605_3166)"/>
-                <path d="M12 0.5C16 0.5 19.2999 3.8 19.2999 7.8V13.7C19.2999 14.5 19.9 15.1 20.7 15.1C21.9 15.1 22.9 16.1 22.9 17.3C22.9 18.5 21.9 19.5 20.7 19.5H3.39995C2.19995 19.5 1.19995 18.5 1.19995 17.3C1.19995 16.1 2.19995 15.1 3.39995 15.1C4.19995 15.1 4.79995 14.5 4.79995 13.7V7.8C4.69995 3.8 7.99995 0.5 12 0.5Z" fill="url(#paint2_linear_1605_3166)" stroke="url(#paint3_linear_1605_3166)"/>
-                </g>
-                <defs>
-                <linearGradient id="paint0_linear_1605_3166" x1="8.4766" y1="20.3248" x2="15.9766" y2="20.3248" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#0066BF"/>
-                <stop offset="1" stopColor="#005791"/>
-                </linearGradient>
-                <linearGradient id="paint1_linear_1605_3166" x1="9.2137" y1="17.0377" x2="15.3481" y2="23.7306" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#9DD8FF"/>
-                <stop offset="1" stopColor="#D0FAFF" stopOpacity="0"/>
-                </linearGradient>
-                <linearGradient id="paint2_linear_1605_3166" x1="5.00975" y1="21.5148" x2="22.5656" y2="1.583" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#003BD1"/>
-                <stop offset="1" stopColor="#008CFF"/>
-                </linearGradient>
-                <linearGradient id="paint3_linear_1605_3166" x1="2.08385" y1="1.7262" x2="18.4883" y2="21.6401" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#9DD9FF"/>
-                <stop offset="1" stopColor="#9DDEFF" stopOpacity="0"/>
-                </linearGradient>
-                <clipPath id="clip0_1605_3166">
-                <rect width="24" height="24" fill="white"/>
-                </clipPath>
-                </defs>
-              </svg>
-            ) : (
-              <svg width="26" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12.2368 18.4307C14.157 18.4307 15.7104 19.981 15.7104 21.8887C15.7103 23.7962 14.1569 25.3456 12.2368 25.3457C10.3167 25.3457 8.76336 23.7963 8.76318 21.8887C8.76318 19.9809 10.3166 18.4307 12.2368 18.4307Z" fill="url(#paint0_linear_1627_15636)" stroke="url(#paint1_linear_1627_15636)"/>
-                <foreignObject x="-18" y="-18" width="60" height="57.4844">
-                  <div 
-                    style={{
-                      backdropFilter: 'blur(9px)',
-                      clipPath: 'url(#bgblur_0_1627_15636_clip_path)',
-                      height: '100%',
-                      width: '100%'
-                    }}>
-                  </div>
-                </foreignObject>
-                <path data-figma-bg-blur-radius="18" d="M12 0.5C16.2674 0.5 19.7441 4.03159 19.7441 8.40723V14.7588C19.7441 15.5413 20.3693 16.1933 21.1602 16.1934C22.4431 16.1934 23.5 17.2566 23.5 18.5889C23.5 19.9211 22.4431 20.9844 21.1602 20.9844H2.83984C1.55694 20.9844 0.500045 19.9211 0.5 18.5889C0.5 17.2566 1.55691 16.1934 2.83984 16.1934C3.63073 16.1933 4.25586 15.5413 4.25586 14.7588V8.40723C4.25586 4.03159 7.73264 0.5 12 0.5Z" fill="url(#paint2_linear_1627_15636)" stroke="url(#paint3_linear_1627_15636)"/>
-                <defs>
-                <clipPath id="bgblur_0_1627_15636_clip_path" transform="translate(18 18)"><path d="M12 0.5C16.2674 0.5 19.7441 4.03159 19.7441 8.40723V14.7588C19.7441 15.5413 20.3693 16.1933 21.1602 16.1934C22.4431 16.1934 23.5 17.2566 23.5 18.5889C23.5 19.9211 22.4431 20.9844 21.1602 20.9844H2.83984C1.55694 20.9844 0.500045 19.9211 0.5 18.5889C0.5 17.2566 1.55691 16.1934 2.83984 16.1934C3.63073 16.1933 4.25586 15.5413 4.25586 14.7588V8.40723C4.25586 4.03159 7.73264 0.5 12 0.5Z"/>
-                </clipPath><linearGradient id="paint0_linear_1627_15636" x1="8.71184" y1="25.3991" x2="15.7334" y2="18.3495" gradientUnits="userSpaceOnUse">
-                <stop stopColor="white" stopOpacity="0.15"/>
-                <stop offset="1" stopColor="white" stopOpacity="0.3"/>
-                </linearGradient>
-                <linearGradient id="paint1_linear_1627_15636" x1="8.82415" y1="18.5532" x2="15.4388" y2="25.6541" gradientUnits="userSpaceOnUse">
-                <stop stopColor="white"/>
-                <stop offset="1" stopColor="white" stopOpacity="0"/>
-                </linearGradient>
-                <linearGradient id="paint2_linear_1627_15636" x1="1.35494" y1="20.2716" x2="20.2974" y2="-0.88869" gradientUnits="userSpaceOnUse">
-                <stop stopColor="white" stopOpacity="0.15"/>
-                <stop offset="1" stopColor="white" stopOpacity="0.3"/>
-                </linearGradient>
-                <linearGradient id="paint3_linear_1627_15636" x1="1.69413" y1="1.68972" x2="19.413" y2="22.8535" gradientUnits="userSpaceOnUse">
-                <stop stopColor="white"/>
-                <stop offset="1" stopColor="white" stopOpacity="0"/>
-                </linearGradient>
-                </defs>
-              </svg>
-            )}
-            
+          <div className={styles.notifIcon} onClick={onBellClick}>
+            <svg className={styles.default} width="26" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.2368 18.4307C14.157 18.4307 15.7104 19.981 15.7104 21.8887C15.7103 23.7962 14.1569 25.3456 12.2368 25.3457C10.3167 25.3457 8.76336 23.7963 8.76318 21.8887C8.76318 19.9809 10.3166 18.4307 12.2368 18.4307Z" fill="url(#paint0_linear_1627_15636)" stroke="url(#paint1_linear_1627_15636)"/>
+              <foreignObject x="-18" y="-18" width="60" height="57.4844">
+                <div 
+                  style={{
+                    backdropFilter: 'blur(9px)',
+                    clipPath: 'url(#bgblur_0_1627_15636_clip_path)',
+                    height: '100%',
+                    width: '100%'
+                  }}>
+                </div>
+              </foreignObject>
+              <path data-figma-bg-blur-radius="18" d="M12 0.5C16.2674 0.5 19.7441 4.03159 19.7441 8.40723V14.7588C19.7441 15.5413 20.3693 16.1933 21.1602 16.1934C22.4431 16.1934 23.5 17.2566 23.5 18.5889C23.5 19.9211 22.4431 20.9844 21.1602 20.9844H2.83984C1.55694 20.9844 0.500045 19.9211 0.5 18.5889C0.5 17.2566 1.55691 16.1934 2.83984 16.1934C3.63073 16.1933 4.25586 15.5413 4.25586 14.7588V8.40723C4.25586 4.03159 7.73264 0.5 12 0.5Z" fill="url(#paint2_linear_1627_15636)" stroke="url(#paint3_linear_1627_15636)"/>
+              <defs>
+              <clipPath id="bgblur_0_1627_15636_clip_path" transform="translate(18 18)"><path d="M12 0.5C16.2674 0.5 19.7441 4.03159 19.7441 8.40723V14.7588C19.7441 15.5413 20.3693 16.1933 21.1602 16.1934C22.4431 16.1934 23.5 17.2566 23.5 18.5889C23.5 19.9211 22.4431 20.9844 21.1602 20.9844H2.83984C1.55694 20.9844 0.500045 19.9211 0.5 18.5889C0.5 17.2566 1.55691 16.1934 2.83984 16.1934C3.63073 16.1933 4.25586 15.5413 4.25586 14.7588V8.40723C4.25586 4.03159 7.73264 0.5 12 0.5Z"/>
+              </clipPath><linearGradient id="paint0_linear_1627_15636" x1="8.71184" y1="25.3991" x2="15.7334" y2="18.3495" gradientUnits="userSpaceOnUse">
+              <stop stopColor="white" stopOpacity="0.15"/>
+              <stop offset="1" stopColor="white" stopOpacity="0.3"/>
+              </linearGradient>
+              <linearGradient id="paint1_linear_1627_15636" x1="8.82415" y1="18.5532" x2="15.4388" y2="25.6541" gradientUnits="userSpaceOnUse">
+              <stop stopColor="white"/>
+              <stop offset="1" stopColor="white" stopOpacity="0"/>
+              </linearGradient>
+              <linearGradient id="paint2_linear_1627_15636" x1="1.35494" y1="20.2716" x2="20.2974" y2="-0.88869" gradientUnits="userSpaceOnUse">
+              <stop stopColor="white" stopOpacity="0.15"/>
+              <stop offset="1" stopColor="white" stopOpacity="0.3"/>
+              </linearGradient>
+              <linearGradient id="paint3_linear_1627_15636" x1="1.69413" y1="1.68972" x2="19.413" y2="22.8535" gradientUnits="userSpaceOnUse">
+              <stop stopColor="white"/>
+              <stop offset="1" stopColor="white" stopOpacity="0"/>
+              </linearGradient>
+              </defs>
+            </svg>
+            <svg className={styles.hover} width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clipPath="url(#clip0_1605_3166)">
+              <path d="M12.2 17.1001C14 17.1001 15.4 18.5001 15.4 20.3001C15.4 22.0001 14 23.5001 12.2 23.5001C10.4 23.5001 9 22.1001 9 20.3001C9 18.6001 10.4 17.1001 12.2 17.1001Z" fill="url(#paint0_linear_1605_3166)" stroke="url(#paint1_linear_1605_3166)"/>
+              <path d="M12 0.5C16 0.5 19.2999 3.8 19.2999 7.8V13.7C19.2999 14.5 19.9 15.1 20.7 15.1C21.9 15.1 22.9 16.1 22.9 17.3C22.9 18.5 21.9 19.5 20.7 19.5H3.39995C2.19995 19.5 1.19995 18.5 1.19995 17.3C1.19995 16.1 2.19995 15.1 3.39995 15.1C4.19995 15.1 4.79995 14.5 4.79995 13.7V7.8C4.69995 3.8 7.99995 0.5 12 0.5Z" fill="url(#paint2_linear_1605_3166)" stroke="url(#paint3_linear_1605_3166)"/>
+              </g>
+              <defs>
+              <linearGradient id="paint0_linear_1605_3166" x1="8.4766" y1="20.3248" x2="15.9766" y2="20.3248" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#0066BF"/>
+              <stop offset="1" stopColor="#005791"/>
+              </linearGradient>
+              <linearGradient id="paint1_linear_1605_3166" x1="9.2137" y1="17.0377" x2="15.3481" y2="23.7306" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#9DD8FF"/>
+              <stop offset="1" stopColor="#D0FAFF" stopOpacity="0"/>
+              </linearGradient>
+              <linearGradient id="paint2_linear_1605_3166" x1="5.00975" y1="21.5148" x2="22.5656" y2="1.583" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#003BD1"/>
+              <stop offset="1" stopColor="#008CFF"/>
+              </linearGradient>
+              <linearGradient id="paint3_linear_1605_3166" x1="2.08385" y1="1.7262" x2="18.4883" y2="21.6401" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#9DD9FF"/>
+              <stop offset="1" stopColor="#9DDEFF" stopOpacity="0"/>
+              </linearGradient>
+              <clipPath id="clip0_1605_3166">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
           </div>
           <NavLink to="/profile">
             <div className={styles.avatarSection}>
