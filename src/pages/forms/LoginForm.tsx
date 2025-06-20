@@ -4,6 +4,7 @@ import { loginUser } from "../../api/userService";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router";
 import styles from "../../styles/forms/Login.module.css";
+import { encrypt } from "../../utils/aesEncryption";
 
 const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -27,10 +28,14 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const loginPayload = {
+      username: formData.username,
+      password: encrypt(formData.password),
+    }
     setError(null);
 
     try {
-      const data = await loginUser(formData);
+      const data = await loginUser(loginPayload);
       await refreshUser(); // підтягує currentUser з сервера і викликає setUser
 
       localStorage.setItem("username", data.user.username); // Збереження в localStorage

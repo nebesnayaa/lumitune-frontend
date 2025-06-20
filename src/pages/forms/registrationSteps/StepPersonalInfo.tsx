@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import { RegistrationFormData } from "../../../types/RegistrationFormData";
 import { Region, fetchCountries, fetchCitiesByCountryId, fetchRegionById } from "../../../api/regionService";
 import { registerUser, isUsernameUnique } from "../../../api/userService";
+import { encrypt } from "../../../utils/aesEncryption";
+
 import styles from "../../../styles/forms/Registration.module.css";
 
 interface StepPersonalInfoProps {
@@ -148,7 +150,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
   const handleSubmit = async () => {
     const userPayload = {
       username: formData.username,
-      password: formData.password,
+      password: encrypt(formData.password),
       avatarId: "string",
       role: "USER" as const,
       accSubscribers: 0,
@@ -320,7 +322,6 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
               value="true"
               checked={formData.isArtist}
               onChange={() => onChange("isArtist", true)}
-              disabled
               />
             <span>Я автор пісень</span>
           </label>
