@@ -105,7 +105,7 @@ export const addTrackToPlaylist = async(songId: string, playlistId: string) => {
     const response = await axiosInstance.post("/playlists/add-song", { playlistId, songId });
     return response.data;
   } catch (error) {
-    console.error("Помилка при створенні плейлиста:", error);
+    console.error("Помилка при додаванні треку до плейлиста:", error);
     return null;    
   }
 }

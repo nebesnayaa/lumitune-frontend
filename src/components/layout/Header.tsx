@@ -9,8 +9,6 @@ interface HeaderProps {
   toggleMenu: () => void;
 }
 
-
-
 const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
   const { user } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;

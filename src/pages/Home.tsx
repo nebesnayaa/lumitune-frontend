@@ -38,7 +38,7 @@ const Home: React.FC = () => {
       <Carousel images={content?.carousel || fallbackImages}/>
       <div className={styles.home}>
         <MoodSelector/>
-        {content && <TrackCards songs={content.recommendations} />}
+        {content && <TrackCards songs={content.recommendations} title={"home"} />}
         {content && <AlbumCards albums={content.newReleases}/>}
       </div>
     </div>

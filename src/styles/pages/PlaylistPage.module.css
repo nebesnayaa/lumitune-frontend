@@ -1,8 +1,12 @@
 /* Заголовок */
 .headerBlock{
   width: 100%;
-  background-image: url(/images/favorites-background.svg);
+  background-image: url(/images/playlist-background.svg);
   padding: 60px 0 10px;
+}
+
+.favoritesBG{
+  background-image: url(/images/favorites-background.svg);
 }
 
 .text{

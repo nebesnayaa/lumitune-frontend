@@ -11,14 +11,12 @@ interface PlaylistCardsProps {
 }
 
 const PlaylistCards: React.FC<PlaylistCardsProps> = ({ playlists }) => {
-  // const { playTrack } = usePlayer();
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
 
   const navigate = useNavigate();
 
   const handlePlaylistClick = (playlist: Playlist) => {
-    console.log("Clicked playlist:", playlist);
     navigate(`/playlist/${playlist.id}`);
   };
 
@@ -29,9 +27,6 @@ const PlaylistCards: React.FC<PlaylistCardsProps> = ({ playlists }) => {
           <h2 className={styles.title}>
             Плейлісти
           </h2>
-          {/* <svg className={styles.arrow} width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 13L7 7L1 1" stroke="#40A2FF" strokeWidth="2"/>
-          </svg> */}
         </div>
         <div className={styles.slider} ref={sliderRef}>
           {playlists.map((playlist, index) => (

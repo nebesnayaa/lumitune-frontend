@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import TrackList from "../components/content/TrackList";
 import { Playlist, Track } from "../types/HomeContentData";
-import { getContentHome, getPlaylistById, trackSearch } from "../api/contentService";
+import { getContentHome, getPlaylistById, getPlaylistFavorites, trackSearch } from "../api/contentService";
 
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/pages/PlaylistPage.module.css";
-import TrackList from "../components/content/TrackList";
 
 interface PlaylistProps {
   onOpen: () => void;
@@ -17,6 +17,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
   const { user } = useAuth();
   const avatarUrl = user?.avatarUrl || defaultAvatar;
 
+  const [ isFavorites, setIsFavorites ] = useState<boolean>(false);
   const [ playlist, setPlaylist ] = useState<Playlist | null>(null);
   const [ recommendations, setRecommendations ] = useState<Track[]>()
 
@@ -29,9 +30,23 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
     onOpen(); // Закриття бічної панелі
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {   // Обкладинка на сторінку
+    const fetchPlaylist = async () => {
+      const favorite = await getPlaylistFavorites();
+      if(favorite?.id === id){
+        setIsFavorites(true);
+      }
+      else{
+        setIsFavorites(false);
+      }
+    };
+    
+    fetchPlaylist();
+  }, [id]);
+
+  useEffect(() => {   // Завантаження плейліста та рекомендацій
     if (!id) return;
-    const fetchPlaylists = async () => {
+    const fetchPlaylist = async () => {
       const data = await getPlaylistById(id);
       setPlaylist(data);
     };
@@ -39,13 +54,13 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
       const data = await getContentHome();
       setRecommendations(data?.recommendations);
     }
-    fetchPlaylists();
+    fetchPlaylist();
     fetchReccomendations();
     setSearchQuery("");
     setSearchResult(null);
   }, [id]);
 
-  useEffect(() => {
+  useEffect(() => {   // Оновлення плейліста після взаємодії з ним
     if (!id) return;
     const refreshPlaylist = async () => {
       const playlist = await getPlaylistById(id);
@@ -76,7 +91,7 @@ const PlaylistPage: React.FC<PlaylistProps> = ({ onOpen }) => {
   return (
     <div className={styles.container}>
       {/* Заголовок */}
-      <div className={styles.headerBlock}>
+      <div className={isFavorites ? `${styles.headerBlock} ${styles.favoritesBG}` : `${styles.headerBlock}`}>
         <p className={styles.text}>Плейлист</p>
         <p className={styles.title}>{playlist?.name}</p>
       </div>
