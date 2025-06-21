@@ -230,7 +230,6 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
           </div>
           
           <p className={styles.label}>Дата народження</p>
-          {/* <p className={styles.helpLabel}>Для чого нам ваша дата народження?</p> */}
           <div className={styles.dateSection}> 
             <input
               type="text"
@@ -264,7 +263,6 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
           {errorDate && <p className={styles.errorText}>{errorDate}</p>}
 
           <p className={styles.label}>Регіон проживання</p>
-          {/* <p className={styles.helpLabel}>Для чого нам ваш регіон ?</p> */}
           <div className={styles.regionSection}>
             <div className={styles.countryField}>
               <select

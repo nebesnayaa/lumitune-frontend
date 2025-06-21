@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { Artist, User } from "../types/UserData";
-import { getCurrentUser, editUser } from "../api/userService";
+import { getCurrentUser, editUser, isUsernameUnique } from "../api/userService";
 import { editArtistById, getArtistByUserId } from "../api/artistService";
 import { deleteImage, uploadImage } from "../api/contentService";
 
@@ -29,6 +29,9 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
   const [ selectedName, setSelectedName ] = useState<string | null>(null);
   const [ selectedBio, setSelectedBio ] = useState<string | null>(null);
 
+  const [ errorUserName, setErrorUserName ] = useState<string>();
+  const [ isEditAllowed, setIsEditAllowed ] = useState<boolean>(true);
+
   useEffect(() => {
     onOpen(); // Закриття бічної панелі
     if (user) {
@@ -52,6 +55,20 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
     }
   }, [user]);
 
+  const handleUsernameBlur = async() => {
+    if(!selectedName?.trim()) {
+      setErrorUserName("");
+      return;
+    }
+    try {
+      const isUnique = await isUsernameUnique(selectedName.trim());
+        setErrorUserName(isUnique ? ""   : "Це ім’я вже зайняте.");
+        setIsEditAllowed(isUnique ? true : false);
+    } catch (error) {
+      console.error(error);
+      setErrorUserName("Помилка перевірки імені. Спробуйте пізніше.");
+    }
+  }
   const handleUpload = async () => {
     try {
       const currentUser = await getCurrentUser();
@@ -146,7 +163,11 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                       placeholder="username"
                       className={styles.inputName}
                       onChange={(e) => setSelectedName(e.target.value)}
+                      onBlur={handleUsernameBlur}
                     />
+                    {errorUserName && (
+                      <p className={styles.errorText}>{errorUserName}</p>
+                    )}
                     {isAuthor ? (
                       <div>
                         <p className={styles.label}>Опис</p>
@@ -200,7 +221,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                     />
                   </div>
                 }
-                <button className={styles.btnUpload} onClick={handleUpload}>Зберегти</button>
+                <button className={styles.btnUpload} onClick={handleUpload} disabled={!isEditAllowed}>Зберегти</button>
               </div>
             </div>
           )}

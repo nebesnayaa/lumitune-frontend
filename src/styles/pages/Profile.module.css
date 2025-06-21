@@ -124,6 +124,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
 }
 .label{
   font: 400 0.9rem "Inter", sans-serif;
@@ -146,6 +147,12 @@
 }
 .inputName::placeholder, .inputBio::placeholder{
   color: #cfcfcf;
+}
+
+.errorText{
+  position: absolute;
+  top: 55px;
+  left: 5px;
 }
 
 .inputBio{
@@ -187,11 +194,9 @@
 }
 
 .btnUpload {
-  /* display: inline-block; */
   align-self: self-end;
   width: 30%;
   height: 35px;
-  /* padding: 0.6rem 1.4rem; */
   background-color: rgba(88, 191, 226, 1);
   color: rgba(2, 39, 46, 1);
   border: none;
@@ -199,6 +204,9 @@
   font: 600 1rem "Inter", sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+.btnUpload:disabled{
+  background-color: rgb(130, 175, 190);
 }
 
 .nameSection{
@@ -272,6 +280,9 @@
   .textSection p{
     font-size: 0.75rem;
   }
+  .errorText{
+    top: 60px;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -280,6 +291,9 @@
   }
   .profileInfo{
     gap: 2vw;
+  }
+  .errorText{
+    top: 65px;
   }
 }
 
