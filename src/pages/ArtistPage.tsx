@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Artist } from "../types/UserData";
-import { getArtistById } from "../api/userService";
+import { getArtistById } from "../api/artistService";
 
 import poster from "../assets/monthTop/image1.svg";
 import styles from "../styles/pages/ArtistPage.module.css";

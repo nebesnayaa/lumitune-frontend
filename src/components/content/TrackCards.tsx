@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import { Track } from "../../types/HomeContentData";
 import { usePlayer } from "../../context/PlayerContext";
-import { getArtistById } from "../../api/userService";
+import { getArtistById } from "../../api/artistService";
 import { getAlbumById } from "../../api/contentService";
 
 import defaultCover from "/images/defaultPlaylist.png";
@@ -10,9 +10,10 @@ import styles from "../../styles/home/MusicContent.module.css";
 
 interface TrackCardsProps {
   songs: Track[];
+  title: string;
 }
 
-const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
+const TrackCards: React.FC<TrackCardsProps> = ({ songs, title }) => {
   const { playTrack } = usePlayer();
   const sliderRef = useRef<HTMLDivElement>(null);
   useDragScroll(sliderRef);
@@ -71,12 +72,13 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs }) => {
     <div className={styles.container}>
       <div>
         <div className={styles.titleBlock}>
-          <h2 className={styles.title}>
-            Топ ВАША <span className={styles.blue}>музика</span> сьогодні
-          </h2>
-          {/* <svg className={styles.arrow} width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 13L7 7L1 1" stroke="#40A2FF" stroke-width="2"/>
-          </svg> */}
+          { title === "Ваші вподобання" ? (
+            <h2 className={styles.title}>{title}</h2>
+          ) : (
+            <h2 className={styles.title}>
+              Топ ВАША <span className={styles.blue}>музика</span> сьогодні
+            </h2>
+          )}
         </div>
         <div className={styles.slider} ref={sliderRef}>
           {songs.map((song, index) => (

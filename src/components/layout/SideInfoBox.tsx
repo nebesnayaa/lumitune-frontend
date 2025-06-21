@@ -5,7 +5,7 @@ import { getAlbumById, getTrackById } from "../../api/contentService";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/layout/SideInfoBox.module.css";
-import { getArtistById } from "../../api/userService";
+import { getArtistById } from "../../api/artistService";
 
 interface SideInfoBoxProps {
   onClose: () => void;
