@@ -152,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({toggleMenu}) => {
           </NavLink>
         </div>
       ) : (
-        <Link to="/login" className={styles.regBtn}>Sign in</Link>
+        <Link to="/login" className={styles.regBtn}>Увійти</Link>
       )}
       
     </header>
