@@ -20,6 +20,9 @@ export interface User {
   accSubscribers: number;
   accFollowings: number;
   userData: UserData;
+  bio: string;
+  subscribers: User[];
+  subscribtions: User[];
 }
 
 export interface Artist {

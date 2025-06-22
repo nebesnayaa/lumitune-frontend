@@ -1,5 +1,6 @@
 import axiosInstance from "./axiosInstance";
-import { HomeContentResponse, Image, Playlist } from "../types/HomeContentData";
+import { HomeContentResponse, Image, Playlist, Track } from "../types/HomeContentData";
+import { Artist } from "../types/UserData";
 
 export const getContentHome = async (): Promise<HomeContentResponse | null> => {
   try {
@@ -40,12 +41,48 @@ export const getTrackById = async (id: string) => {
   }
 };
 
+export const createTrack = async(formData: FormData) => {
+  try {
+    const response = await axiosInstance.post("/tracks", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при створенні треку:", error);
+    return null;    
+  }
+}
+
 export const trackSearch = async (name: string) => {
   try {
     const response = await axiosInstance.get(`/tracks/search?name=${name}`);
     return response.data;
   } catch (error) {
     console.error("Помилка при пошуку треку:", error);
+    return null;    
+  }
+}
+
+export interface AlbumPayload {
+  name: string,
+  type: string,
+  label: string,
+  duration: number,
+  relDate: Date,
+  cover: Image,
+  artist: Artist,
+  tracks: Track[],
+}
+
+export const getAlbums = async (id: string) => {
+  try {
+    const response = await axiosInstance.get(`/albums?artistId=${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні альбомів артиста:", error);
     return null;    
   }
 }
@@ -59,6 +96,16 @@ export const getAlbumById = async (id: string) => {
     return null;    
   }
 };
+
+export const createAlbum = async (data: AlbumPayload) => {
+  try {
+    const response = await axiosInstance.post("/albums", data);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при створенні альбома:", error);
+    return null;    
+  }
+}
 
 export const getPlaylistsByUserId = async (id: string): Promise<Playlist[] | null> => {
   try {

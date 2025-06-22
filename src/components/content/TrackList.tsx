@@ -7,14 +7,14 @@ import { getArtistById } from "../../api/artistService";
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/content/TrackList.module.css";
 
-interface TrackCardsProps {
+interface TrackListProps {
   playlistId: string;
   songs: Track[];
   format: "default" | "viewing" | "adding";
   onTrackChange: () => void;
 }
 
-const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format, onTrackChange }) => {
+const TrackList: React.FC<TrackListProps> = ({ playlistId, songs, format, onTrackChange }) => {
   const { playTrack } = usePlayer();
   const [ albums, setAlbums] = useState<Record<string, string>>({});
   const [ artists, setArtists] = useState<Record<string, string>>({});
@@ -216,4 +216,4 @@ const TrackCards: React.FC<TrackCardsProps> = ({ playlistId, songs, format, onTr
     </div>
   );
 }
-export default TrackCards;
+export default TrackList;

@@ -26,6 +26,7 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs, title }) => {
 
   useEffect(() => {
     if (songs.length > 0) {
+      console.log(songs);
       fetchAlbumCovers();
       fetchArtistsNames();
     }
@@ -72,14 +73,15 @@ const TrackCards: React.FC<TrackCardsProps> = ({ songs, title }) => {
     <div className={styles.container}>
       <div>
         <div className={styles.titleBlock}>
-          { title === "Ваші вподобання" ? (
-            <h2 className={styles.title}>{title}</h2>
-          ) : (
+          { title === "home" ? (
             <h2 className={styles.title}>
               Топ ВАША <span className={styles.blue}>музика</span> сьогодні
             </h2>
+          ) : (
+            <h2 className={styles.title}>{title}</h2>
           )}
         </div>
+        {songs.length === 0 && <p>У вас поки що немає вподобаних треків</p>}
         <div className={styles.slider} ref={sliderRef}>
           {songs.map((song, index) => (
             <div className={styles.card} key={index} onClick={() => handleTrackClick(song)}>

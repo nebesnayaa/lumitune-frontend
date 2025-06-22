@@ -39,7 +39,7 @@ const Home: React.FC = () => {
       <div className={styles.home}>
         <MoodSelector/>
         {content && <TrackCards songs={content.recommendations} title={"home"} />}
-        {content && <AlbumCards albums={content.newReleases}/>}
+        {content && <AlbumCards albums={content.newReleases} title={"home"}/>}
       </div>
     </div>
   );
