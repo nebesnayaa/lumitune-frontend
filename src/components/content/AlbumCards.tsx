@@ -55,7 +55,6 @@ const AlbumCards: React.FC<AlbumCardsProps> = ({ albums, title, format, onAlbumD
     const requests = albumIds.map(async (id) => {
       try {
         const album = await getAlbumById(id);
-        console.log(album);
         tracksMap[id] = album.tracks?.length || 0;
       } catch (error) {
         console.error("Помилка при отриманні кількості треків альбому:", id, error);
