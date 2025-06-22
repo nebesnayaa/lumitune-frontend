@@ -3,6 +3,21 @@
   width: 100%;
   background-image: url(/images/playlist-background.svg);
   padding: 60px 0 10px;
+  position: relative;
+}
+
+.prevBtn{
+  position: absolute;
+  left: 5px;
+  top: 15px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  padding: 5px;
+  font: 700 0.8rem "Inter", sans-serif;
+}
+
+.prevBtn svg{
+  height: 15px;
 }
 
 .favoritesBG{

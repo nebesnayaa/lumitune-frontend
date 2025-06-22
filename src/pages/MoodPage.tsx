@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router";
+import { useParams, useLocation, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { Track } from "../types/HomeContentData";
 
@@ -21,6 +21,7 @@ const MoodPage: React.FC<MoodProps> = ({ onOpen }) => {
   const avatarUrl = user?.avatarUrl || defaultAvatar;
 
   const [ tracks, setTracks ] = useState<Track[]>()
+  const navigate = useNavigate();
 
   useEffect(() => {
     onOpen(); // Закриття бічної панелі
@@ -45,6 +46,11 @@ const MoodPage: React.FC<MoodProps> = ({ onOpen }) => {
     <div className={styles.container}>
       {/* Заголовок */}
       <div className={styles.headerBlock}>
+        <button className={styles.prevBtn} onClick={() => navigate(-1)}>
+          <svg width="16" height="28" viewBox="0 0 16 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 26L2.70711 14.7071C2.31658 14.3166 2.31658 13.6834 2.70711 13.2929L14 2" stroke="#74BCC3" strokeWidth="4" strokeLinecap="round"/>
+          </svg>
+        </button>
         <p className={styles.text}>Підбірка</p>
         <p className={styles.title}>{name}</p>
       </div>

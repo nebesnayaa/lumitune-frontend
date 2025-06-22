@@ -44,7 +44,9 @@ const MoodSelector: React.FC = () => {
   const [ moodNames, setMoodNames ] = useState<string[]>([]);
   const [ genreNames, setGenreNames ] = useState<string[]>([]);
 
-  const [ selected, setSelected ] = useState<"mood" | "genre">("mood");
+  const [selected, setSelected] = useState<"mood" | "genre">(
+    () => (sessionStorage.getItem("selectedType") as "mood" | "genre") || "mood"
+  );
   const [ showDropdown, setShowDropdown ] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLSpanElement>(null);
@@ -56,6 +58,7 @@ const MoodSelector: React.FC = () => {
   const handleSelect = (option: "mood" | "genre", event: React.MouseEvent) => {
     event.stopPropagation();
     setSelected(option);
+    sessionStorage.setItem("selectedType", option);
     setShowDropdown(false);
   };
 
