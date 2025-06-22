@@ -44,3 +44,14 @@ export const createAlbum = async (data: AlbumPayload) => {
     return null;    
   }
 }
+
+// DELETE
+export const deleteAlbum = async(id: string) => {
+  try {
+    const response = await axiosInstance.delete(`/albums/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при видаленні альбому:", error);
+    return null;    
+  }
+}

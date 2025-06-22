@@ -49,6 +49,7 @@
   padding: 0;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .card img{
@@ -97,6 +98,14 @@
 
 .animate {
   animation: scroll-loop 20s linear infinite;
+}
+
+.deleteIcon{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 8px;
+  top: 8px;
 }
 
 /* Ключові кадри для анімації */

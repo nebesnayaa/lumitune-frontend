@@ -38,8 +38,8 @@ const Home: React.FC = () => {
       <Carousel images={content?.carousel || fallbackImages}/>
       <div className={styles.home}>
         <MoodSelector/>
-        {content && <TrackCards songs={content.recommendations} title={"home"} />}
-        {content && <AlbumCards albums={content.newReleases} title={"home"}/>}
+        {content && <TrackCards songs={content.recommendations} title={"home"} format="default" onTrackDeleted={()=> {}}/>}
+        {content && <AlbumCards albums={content.newReleases} title={"home"} format="default" onAlbumDeleted={()=> {}}/>}
       </div>
     </div>
   );

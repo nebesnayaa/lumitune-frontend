@@ -37,7 +37,7 @@ const Mediateka: React.FC = () => {
     <div className={styles.container}>
       <h2 className={styles.title}>Моя медіатека</h2>
       <div>
-        {favorites && <TrackCards songs={favorites} title={"Ваші вподобання"}/>}
+        {favorites && <TrackCards songs={favorites} format="default" title={"Ваші вподобання"} onTrackDeleted={()=> {}}/>}
       </div>
       <div id="playlists">
         {playlists && <PlaylistCards playlists={playlists} />}

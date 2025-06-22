@@ -53,9 +53,12 @@ export const updateTrackListeners = async(songId: string) => {
   return response.data;
 }
 
-export const setTrackMood = async(formData: FormData) => {
+export const setTrackMood = async(songId: string, mood: string) => {
   try {
-    const response = await axiosInstance.patch("/tracks/set-mooods", formData);
+    const response = await axiosInstance.patch("/tracks/set-mooods", {
+      songId: songId,
+      moods: [mood],
+    });
     return response.data;
   } catch (error) {
     console.error("Помилка при встановленні настрою треку:", error);
@@ -63,18 +66,21 @@ export const setTrackMood = async(formData: FormData) => {
   }
 }
 
-export const setTrackGenre = async(formData: FormData) => {
+export const setTrackGenre = async(songId: string, genre: string) => {
   try {
-    const response = await axiosInstance.patch("/tracks/set-genres", formData);
+    const response = await axiosInstance.patch("/tracks/set-genres", {
+      songId: songId,
+      genres: [genre],
+    });
     return response.data;
   } catch (error) {
-    console.error("Помилка при встановленні настрою треку:", error);
+    console.error("Помилка при встановленні жанру треку:", error);
     return null;    
   }
 }
 
 // DELETE
-export const deleteTracks = async(id: string) => {
+export const deleteTrack = async(id: string) => {
   try {
     const response = await axiosInstance.delete(`/tracks/${id}`);
     return response.data;

@@ -158,11 +158,11 @@ const TrackList: React.FC<TrackListProps> = ({ playlistId, songs, format, onTrac
 
           <div className={styles.poster}>
             <img  src={albumCovers[song.albumId]}
-                  onError={(e) => {
-                      e.currentTarget.onerror = null; // щоб не зациклити
-                      e.currentTarget.src = defaultCover;
-                  }} 
-                  alt="img" />
+              onError={(e) => {
+                  e.currentTarget.onerror = null; // щоб не зациклити
+                  e.currentTarget.src = defaultCover;
+              }} 
+              alt="img" />
           </div>
 
           <div className={styles.trackName}>

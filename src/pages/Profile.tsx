@@ -7,7 +7,7 @@ import { Album, Track } from "../types/HomeContentData";
 import { getCurrentUser, editUser, isUsernameUnique } from "../api/userService";
 import { editArtistById, getArtistByUserId } from "../api/artistService";
 import { deleteImage, getGenres, getMoods, uploadImage } from "../api/contentService";
-import { createTrack } from "../api/trackService";
+import { createTrack, setTrackGenre, setTrackMood } from "../api/trackService";
 import { getPlaylistFavorites } from "../api/playlistService";
 import { createAlbum, getAlbumById, getAlbums } from "../api/albumService";
 
@@ -221,7 +221,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
   }
 
   const handleUploadTrack = async () => {
-    if(!selectedAudio || !selectedTrackName  || !artist) return;
+    if(!selectedAudio || !selectedTrackName || !artist) return;
     
     fetchgenres();
     try{
@@ -240,8 +240,11 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
       console.log(created);
       if(created){
         setAllTracks(prev => prev ? [...prev, created] : [created]);
+
+        await setTrackGenre(created.id, selectedGenre || "");
+        await setTrackMood(created.id, selectedMood || "");
+        setIsCreateTrackModalOpen(false);
       }
-      setIsCreateTrackModalOpen(false);
 
     } catch (error) {
       console.error("Помилка публікування треку:", error);
@@ -254,6 +257,14 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
     setMoodNames(moods);
     setGenreNames(genres);
   }
+
+  const handleTrackDeleted = (deletedId: string) => {
+    setAllTracks(prev => (prev ? prev.filter(track => track.id !== deletedId) : null));
+  };
+
+  const handleAlbumDeleted = (deletedId: string) => {
+    setAlbums(prev => (prev ? prev.filter(album => album.id !== deletedId) : null));
+  };
 
   return (
     <div className={styles.container}>
@@ -531,9 +542,9 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
             <button className={styles.btnTrackCreate} onClick={()=>{setIsCreateTrackModalOpen(true)}}>Завантажити трек</button>
           </div>
         }
-        { allTracks && <TrackCards songs={allTracks} title="Ваші треки"/>}
-        { albums && <AlbumCards albums={albums} title="Ваші створені альбоми"/> }
-        { favorites && <TrackCards songs={favorites} title="Вам до вподоби"/>}
+        { allTracks && <TrackCards songs={allTracks} title="Ваші треки" format="private" onTrackDeleted={handleTrackDeleted}/>}
+        { albums && <AlbumCards albums={albums} title="Ваші створені альбоми" format="private" onAlbumDeleted={handleAlbumDeleted}/> }
+        { favorites && <TrackCards songs={favorites} title="Вам до вподоби" format="default" onTrackDeleted={()=> {}}/>}
       </div>
     </div>
   );
