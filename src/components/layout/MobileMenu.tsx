@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import { createPlaylist, getPlaylistFavorites } from "../../api/playlistService";
 
@@ -20,8 +20,6 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const [ favoritesId, setFavoritesId ] = useState<string>("");
   
-  const navigate = useNavigate();
-  
   useEffect(() => {
     const fetchFavoritesId = async() =>{
       const favorites = await getPlaylistFavorites();
@@ -30,10 +28,6 @@ const MobileMenu: React.FC<Props> = ({ isOpen, onClose }) => {
     }
     fetchFavoritesId();
   }, [user]);
-
-  const onBellClick = () => {
-    navigate("/notifications");
-  }
 
   const handleCreatePlaylist = async (name: string) => {
     if (!name.trim()) return;
