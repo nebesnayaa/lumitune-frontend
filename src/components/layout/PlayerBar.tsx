@@ -159,7 +159,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
   if (!currentTrack) return null;
 
   return (
-    <div className={styles.playerBar} onClick={onOpenSide}>
+    <div className={styles.playerBar}>
       <audio 
         ref={audioRef} 
         onCanPlay={() => {
@@ -175,9 +175,9 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
       <div className={styles.wideScreen}>
         {/* Блок ліворуч */}
         <div className={styles.trackInfo}>
-          <img className={styles.trackPoster} src={albumCover || defaultCover} alt="" />
+          <img className={styles.trackPoster} src={albumCover || defaultCover} alt="Сover" onClick={onOpenSide}/>
           <div className={styles.trackText}>
-            <p className={styles.trackName}>
+            <p className={styles.trackName} onClick={onOpenSide}>
               {currentTrack.name.length > 20 ? (
                 <span className={styles.scrollText}>
                   {currentTrack.name}&nbsp;&nbsp;&nbsp;&nbsp;{currentTrack.name}
