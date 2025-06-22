@@ -60,6 +60,16 @@ export const logoutUser = async () => {
   return response.data;
 };
 
+export const subscribe = async(subscriberId: string, targetId: string) => {
+  try {
+    const response = await axiosInstance.put(`/users/${subscriberId}/subscribe/${targetId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при підпусця користувача:", error);
+    throw error;
+  }
+}
+
 // PUT
 export const editUser = async (data: User): Promise<User> => {
   try {
