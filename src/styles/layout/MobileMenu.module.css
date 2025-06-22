@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 100;
 }
 
 .menu {
@@ -22,6 +22,7 @@
 .accountInfo{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   margin-left: 10px;
   position: relative;
@@ -59,10 +60,25 @@
   max-width: 60vw;
 }
 
-.notifIcon{
-  width: 26px;
-  position: absolute;
-  right: 15px;
+.notifIcon {
+  
+  align-items: center; 
+
+  .default {
+    display: block;
+  }
+  .hover {
+    display: none;
+  }
+
+  &:hover {
+    .default {
+      display: none;
+    }
+    .hover {
+      display: block;
+    }
+  }
 }
 
 /* Меню */
