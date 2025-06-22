@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { Track } from "../types/HomeContentData";
-import { getTracksByGenre, getTracksByMood } from "../api/contentService";
+
+import { getTracksByGenre, getTracksByMood } from "../api/trackService";
 import TrackList from "../components/content/TrackList";
 
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/pages/PlaylistPage.module.css";
-
 
 interface MoodProps {
   onOpen: () => void;

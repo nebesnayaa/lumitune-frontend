@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Playlist, Track } from "../types/HomeContentData";
-// import { Playlist } from "../types/HomeContentData";
-import { getPlaylistFavorites, getPlaylistsByUserId } from "../api/contentService";
 import { useAuth } from "../context/AuthContext";
+import { Playlist, Track } from "../types/HomeContentData";
+
+import { getPlaylistFavorites, getPlaylistsByUserId } from "../api/playlistService";
 import { getUserByUsername } from "../api/userService";
+
 import TrackCards from "../components/content/TrackCards";
 import PlaylistCards from "../components/content/PlaylistCards";
 
 import styles from "../styles/pages/Mediateka.module.css";
-
 
 const Mediateka: React.FC = () => {
   const { user } = useAuth();

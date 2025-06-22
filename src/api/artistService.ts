@@ -1,6 +1,7 @@
 import { Artist } from "../types/UserData";
 import axiosInstance from "./axiosInstance";
 
+// GET
 export const getArtistById = async (id: string) => {
   try {
     const response = await axiosInstance.get(`/artists/${id}`);
@@ -21,6 +22,7 @@ export const getArtistByUserId = async (id: string) => {
   }
 };
 
+// PUT
 export const editArtistById = async (id: string, data: Artist): Promise<Artist> => {
   try {
     const response = await axiosInstance.put(`/artists/${id}`, data);

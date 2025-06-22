@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
-import TrackList from "../components/content/TrackList";
 import { Playlist, Track } from "../types/HomeContentData";
-import { getContentHome, getPlaylistById, getPlaylistFavorites, trackSearch } from "../api/contentService";
+
+import { getContentHome } from "../api/contentService";
+import { trackSearch } from "../api/trackService";
+import { getPlaylistById, getPlaylistFavorites } from "../api/playlistService";
+
+import TrackList from "../components/content/TrackList";
 
 import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/pages/PlaylistPage.module.css";

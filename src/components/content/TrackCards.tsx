@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState} from "react";
+import { usePlayer } from "../../context/PlayerContext";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import { Track } from "../../types/HomeContentData";
-import { usePlayer } from "../../context/PlayerContext";
+
 import { getArtistById } from "../../api/artistService";
-import { getAlbumById } from "../../api/contentService";
+import { getAlbumById } from "../../api/albumService";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/home/MusicContent.module.css";

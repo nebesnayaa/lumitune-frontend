@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 
-import { Playlist } from "../../types/HomeContentData";
 import { useAuth } from "../../context/AuthContext";
-import { createPlaylist, getPlaylistFavorites, getPlaylistsByUserId } from "../../api/contentService";
+import { Playlist } from "../../types/HomeContentData";
+
+import { createPlaylist, getPlaylistFavorites, getPlaylistsByUserId } from "../../api/playlistService";
 import { getUserByUsername } from "../../api/userService";
 
 import defaultCover from "/images/defaultPlaylist.png";

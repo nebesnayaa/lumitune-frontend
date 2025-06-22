@@ -22,7 +22,6 @@ import Footer from "./components/layout/Footer";
 import MoodPage from "./pages/MoodPage";
 import Notifications from "./pages/Notifications";
 
-
 const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSideBoxOpen, setIsSideBoxOpen] = useState(true);

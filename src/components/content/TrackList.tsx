@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Track } from "../../types/HomeContentData";
 import { usePlayer } from "../../context/PlayerContext";
-import { addTrackToPlaylist, getAlbumById, getTrackById, removeTrackFromPlaylist } from "../../api/contentService";
+import { Track } from "../../types/HomeContentData";
+
+import { getAlbumById } from "../../api/albumService";
+import { getTrackById } from "../../api/trackService";
 import { getArtistById } from "../../api/artistService";
+import { addTrackToPlaylist, removeTrackFromPlaylist } from "../../api/playlistService";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/content/TrackList.module.css";

@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { useDragScroll } from "../../hooks/useDragScroll";
+
+import { getGenres, getMoods } from "../../api/contentService";
 
 import happyImg from "/images/mood/happy.svg";
 import sadImg from "/images/mood/sad.svg";
@@ -18,8 +21,6 @@ import rapIMg from "/images/genres/street.svg";
 import clasIMg from "/images/genres/classic.svg";
 
 import styles from "../../styles/home/MoodSelector.module.css";
-import { getGenres, getMoods } from "../../api/contentService";
-import { useNavigate } from "react-router";
 
 const MoodSelector: React.FC = () => {
   const moods = [

@@ -1,6 +1,6 @@
-import { LoginFormData } from "../types/LoginFormData";
-import { Artist, User } from "../types/UserData";
 import axiosInstance from "./axiosInstance";
+import { LoginFormData } from "../types/LoginFormData";
+import { User } from "../types/UserData";
 
 export interface RegistrationPayload {
   username: string;
@@ -18,19 +18,15 @@ export interface RegistrationPayload {
   };
 }
 
-export const registerUser = async (data: RegistrationPayload) => {
-  const response = await axiosInstance.post("/auth/sign-up", data);
-  return response.data;
-};
-
-export const loginUser = async (data: LoginFormData) => {
-  const response = await axiosInstance.post("/auth/login", data);
-  return response.data;
-};
-
-export const logoutUser = async () => {
-  const response = await axiosInstance.post("/users/logout");
-  return response.data;
+// GET
+export const getCurrentUser = async () => {
+  try {
+    const response = await axiosInstance.get(`/users/current`);
+    return response.data;
+  } catch (error) {
+    console.error("Помилка при отриманні поточного користувача:", error);
+    throw error;
+  }
 };
 
 export const isUsernameUnique = async (username: string): Promise<boolean> => {
@@ -48,16 +44,23 @@ export const getUserByUsername = async (username: string) => {
   }
 };
 
-export const getCurrentUser = async () => {
-  try {
-    const response = await axiosInstance.get(`/users/current`);
-    return response.data;
-  } catch (error) {
-    console.error("Помилка при отриманні поточного користувача:", error);
-    throw error;
-  }
+// POST
+export const registerUser = async (data: RegistrationPayload) => {
+  const response = await axiosInstance.post("/auth/sign-up", data);
+  return response.data;
 };
 
+export const loginUser = async (data: LoginFormData) => {
+  const response = await axiosInstance.post("/auth/login", data);
+  return response.data;
+};
+
+export const logoutUser = async () => {
+  const response = await axiosInstance.post("/users/logout");
+  return response.data;
+};
+
+// PUT
 export const editUser = async (data: User): Promise<User> => {
   try {
     const response = await axiosInstance.put(`/users/edit`, data);
@@ -68,27 +71,3 @@ export const editUser = async (data: User): Promise<User> => {
   }
 };
 
-export const getArtistById = async (id: string) => {
-  try {
-    const response = await axiosInstance.get(`/artists/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Помилка при отриманні користувача:", error);
-    throw error;
-  }
-};
-
-export const editArtistById = async (id: string, data: Artist): Promise<Artist> => {
-  try {
-    const response = await axiosInstance.put(`/artists/${id}`, data);
-    return response.data;
-  } catch (error) {
-    console.error("Помилка при редагуванні користувача:", error);
-    throw error;
-  }
-};
-
-export const updateArtistListeners = async(artistId: string) => {
-  const response = await axiosInstance.patch(`/artists/add-listener/${artistId}`);
-  return response.data;
-}

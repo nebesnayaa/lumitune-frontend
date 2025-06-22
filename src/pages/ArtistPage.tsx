@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { Artist } from "../types/UserData";
 import { getArtistById } from "../api/artistService";
 
-import poster from "../assets/monthTop/image1.svg";
+import defaultAvatar from "/images/defaultAvatar.png";
 import styles from "../styles/pages/ArtistPage.module.css";
 
 interface ArtistPageProps {
@@ -35,14 +35,14 @@ const ArtistPage: React.FC<ArtistPageProps> = ({ onOpen }) => {
     <div className={styles.container}>
       {/* Заголовок */}
       <div className={styles.headerBlock}>
-        <img src={artist.user.avatar?.url || poster} alt="" className={styles.artistImg}/>
+        <img src={artist.user.avatar?.url || defaultAvatar} alt="" className={styles.artistImg}/>
         <div className={styles.nameSection}>
           <p className={styles.text}>Виконавець</p>
           <p className={styles.artistName}>{artist.user.username}</p>
           <div className={styles.profileSection}>
             <div className={styles.avatarFrame}>
               <img
-                src={artist.user.avatar?.url || poster}
+                src={artist.user.avatar?.url || defaultAvatar}
                 alt=""
                 className={styles.avatar}
                 draggable="false"

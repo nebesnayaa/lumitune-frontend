@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState} from "react";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import { Album } from "../../types/HomeContentData";
-import { getAlbumById } from "../../api/contentService";
+
+import { getAlbumById } from "../../api/albumService";
 import { getArtistById } from "../../api/artistService";
 
 import defaultCover from "/images/defaultPlaylist.png";

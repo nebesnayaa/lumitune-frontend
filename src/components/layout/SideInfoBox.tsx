@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { usePlayer } from "../../context/PlayerContext";
 import { Link } from "react-router";
-import { getAlbumById, getTrackById } from "../../api/contentService";
+import { usePlayer } from "../../context/PlayerContext";
+
+import { getAlbumById } from "../../api/albumService";
+import { getArtistById } from "../../api/artistService";
+import { getTrackById } from "../../api/trackService";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/layout/SideInfoBox.module.css";
-import { getArtistById } from "../../api/artistService";
 
 interface SideInfoBoxProps {
   onClose: () => void;

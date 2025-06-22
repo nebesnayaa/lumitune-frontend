@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { CarouselItem } from "../../types/HomeContentData";
+
 import styles from "../../styles/home/Carousel.module.css";
 
 interface CarouselProps {

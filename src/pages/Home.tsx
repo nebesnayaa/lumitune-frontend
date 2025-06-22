@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { CarouselItem, HomeContentResponse } from "../types/HomeContentData";
+import { getContentHome } from "../api/contentService";
+
 import Carousel from "../components/home/Carousel";
 import MoodSelector from "../components/home/MoodSelector";
 import TrackCards from "../components/content/TrackCards";
 import AlbumCards from "../components/content/AlbumCards";
-
-import { CarouselItem, HomeContentResponse } from "../types/HomeContentData";
-import { getContentHome } from "../api/contentService";
 
 import poster1 from "/images/carousel/poster1.svg";
 import poster2 from "/images/carousel/poster2.svg";

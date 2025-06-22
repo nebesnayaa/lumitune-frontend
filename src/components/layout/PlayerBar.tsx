@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { usePlayer } from "../../context/PlayerContext";
-import { addTrackToPlaylist, getAlbumById, getPlaylistFavorites, getTrackById, removeTrackFromPlaylist, updateTrackListeners } from "../../api/contentService";
-import { getArtistById, updateArtistListeners } from "../../api/artistService";
 import { Artist } from "../../types/UserData";
+
+import { getTrackById, updateTrackListeners } from "../../api/trackService";
+import { getArtistById, updateArtistListeners } from "../../api/artistService";
+import { addTrackToPlaylist, getPlaylistFavorites, removeTrackFromPlaylist } from "../../api/playlistService";
+import { getAlbumById } from "../../api/albumService";
 
 import defaultCover from "/images/defaultPlaylist.png";
 import styles from "../../styles/layout/PlayerBar.module.css";
@@ -207,9 +210,6 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ onOpenSide }) => {
                 </svg>
               )}
             </div>
-            {/* <svg className={styles.plusIcon} width="15" height="15" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M8 11V19H11V11H19V8L11 8V0H8V8L0 8V11H8Z" fill="#93D3E7"/>
-            </svg> */}
           </div>
         </div>
         {/* Controls mobile */}

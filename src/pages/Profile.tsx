@@ -3,9 +3,14 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { Artist, User } from "../types/UserData";
 import { Album, Track } from "../types/HomeContentData";
+
 import { getCurrentUser, editUser, isUsernameUnique } from "../api/userService";
 import { editArtistById, getArtistByUserId } from "../api/artistService";
-import { createAlbum, createTrack, deleteImage, getAlbumById, getAlbums, getGenres, getMoods, getPlaylistFavorites, uploadImage } from "../api/contentService";
+import { deleteImage, getGenres, getMoods, uploadImage } from "../api/contentService";
+import { createTrack } from "../api/trackService";
+import { getPlaylistFavorites } from "../api/playlistService";
+import { createAlbum, getAlbumById, getAlbums } from "../api/albumService";
+
 import AlbumCards from "../components/content/AlbumCards";
 import TrackCards from "../components/content/TrackCards";
 

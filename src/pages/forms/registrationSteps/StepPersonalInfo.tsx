@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { RegistrationFormData } from "../../../types/RegistrationFormData";
-import { Region, fetchCountries, fetchCitiesByCountryId, fetchRegionById } from "../../../api/regionService";
+import { Region, getCountries, getCitiesByCountryId, getRegionById } from "../../../api/regionService";
 import { registerUser, isUsernameUnique } from "../../../api/userService";
 import { encrypt } from "../../../utils/aesEncryption";
 
@@ -51,7 +51,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
   // 1. Завантаження країн та дати народження з formData.birthDate
   useEffect(() => {
     if(countries.length === 0){
-      fetchCountries()
+      getCountries()
         .then(setCountries)
         .catch((error) => console.error("Помилка при завантаженні країн", error));
     }
@@ -67,11 +67,11 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
   useEffect(() => {
     const loadRegions = async () => {
       try {
-        const cityRegion = await fetchRegionById(formData.regionId);
+        const cityRegion = await getRegionById(formData.regionId);
         setSelectedCityId(cityRegion.id);
 
         if (cityRegion.parentId) {
-          const countryRegion = await fetchRegionById(cityRegion.parentId);
+          const countryRegion = await getRegionById(cityRegion.parentId);
           setSelectedCountryId(countryRegion.id);
         }
       } catch (error) {
@@ -87,7 +87,7 @@ const StepPersonalInfo: React.FC<StepPersonalInfoProps> = ({ prevStep, formData,
   // 3. Завантаження міст при виборі країни
   useEffect(() => {
     if (selectedCountryId && cities.length === 0) {
-      fetchCitiesByCountryId(selectedCountryId)
+      getCitiesByCountryId(selectedCountryId)
         .then(setCities)
         .catch((error) => console.error("Помилка при завантаженні міст", error));
     }
