@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { LoginFormData } from "../../types/LoginFormData";
-import { loginUser } from "../../api/userService";
-import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router";
-import styles from "../../styles/forms/Login.module.css";
+import { useAuth } from "../../context/AuthContext";
+import { LoginFormData } from "../../types/LoginFormData";
 import { encrypt } from "../../utils/aesEncryption";
+import { loginUser } from "../../api/userService";
+
+import styles from "../../styles/forms/Login.module.css";
 
 const LoginForm: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormData>({

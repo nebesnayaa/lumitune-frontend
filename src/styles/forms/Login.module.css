@@ -245,4 +245,10 @@
       font-size: 1rem;
     }
   }
+
+  @media (min-width: 1850px) {
+    .logPage{
+      background-image: url(/images/hugeBackground.svg);
+    }
+  }
  
