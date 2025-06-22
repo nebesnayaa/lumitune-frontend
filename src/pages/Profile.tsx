@@ -442,8 +442,9 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                     : <p className={styles.label}>У вас немає створених альбомів</p>
                   }
                   { albums && 
+                  <div className={styles.albumField}>
                     <select
-                      className={styles.genreSelect}
+                      className={styles.albumSelect}
                       value={selectedAlbumId}
                       onChange={(e) => setSelectedAlbumId(e.target.value)}
                     >
@@ -454,6 +455,10 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                         </option>
                       ))}
                     </select>
+                    <svg className={styles.arrow} width="25" height="13" viewBox="0 0 25 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
                   }
                 </div>
 
@@ -477,30 +482,40 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                 </div>
 
                 <div className={styles.selectSection}>
-                  <select
-                    className={styles.genreSelect}
-                    value={selectedGenre}
-                    onChange={(e) => setSelectedGenre(e.target.value)}
-                  >
-                    <option value="">Оберіть жанр</option>
-                    {genres.map((genre, id) => (
-                      <option key={id} value={genreNames[id]}>
-                        {genre.label}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    className={styles.moodSelect}
-                    value={selectedMood}
-                    onChange={(e) => setSelectedMood(e.target.value)}
-                  >
-                    <option value="">Оберіть настрій</option>
-                    {moods.map((mood, id) => (
-                      <option key={id} value={moodNames[id]}>
-                        {mood.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className={styles.genreField}>
+                    <select
+                      className={styles.genreSelect}
+                      value={selectedGenre}
+                      onChange={(e) => setSelectedGenre(e.target.value)}
+                    >
+                      <option value="">Оберіть жанр</option>
+                      {genres.map((genre, id) => (
+                        <option key={id} value={genreNames[id]}>
+                          {genre.label}
+                        </option>
+                      ))}
+                    </select>
+                    <svg className={styles.arrow} width="25" height="13" viewBox="0 0 25 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div className={styles.moodField}>
+                    <select
+                      className={styles.genreSelect}
+                      value={selectedMood}
+                      onChange={(e) => setSelectedMood(e.target.value)}
+                    >
+                      <option value="">Оберіть настрій</option>
+                      {moods.map((mood, id) => (
+                        <option key={id} value={moodNames[id]}>
+                          {mood.label}
+                        </option>
+                      ))}
+                    </select>
+                    <svg className={styles.arrow} width="25" height="13" viewBox="0 0 25 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
                 </div>
 
                 <button className={styles.btnUpload} onClick={handleUploadTrack}>Опублікувати</button>
