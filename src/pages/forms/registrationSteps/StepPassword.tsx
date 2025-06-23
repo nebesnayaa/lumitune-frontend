@@ -14,7 +14,7 @@ const StepPassword: React.FC<StepEmailProps> = ({ nextStep, prevStep, formData, 
   
   const password = formData.password;
 
-  const hasLetter = /[A-Za-zА-Яа-яЁёЇїІіЄєҐґ]/.test(password);
+  const hasLetter = /[A-Za-zА-Яа-яЁёЇїІіЄєҐґ]/.test(password);   // валідація пароля за регулярними виразами
   const hasDigitOrSpecial = /[0-9_!?&#]/.test(password);
   const hasMinLength = password.length >= 8;
   const isValid = hasLetter && hasDigitOrSpecial && hasMinLength;

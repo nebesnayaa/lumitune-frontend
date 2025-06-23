@@ -6,7 +6,7 @@ import { Album, Track } from "../types/HomeContentData";
 
 import { getCurrentUser, editUser, isUsernameUnique } from "../api/userService";
 import { editArtistById, getArtistByUserId } from "../api/artistService";
-import { deleteImage, getGenres, getMoods, uploadImage } from "../api/contentService";
+import { deleteImage, uploadImage } from "../api/contentService";
 import { createTrack, setTrackGenre, setTrackMood } from "../api/trackService";
 import { getPlaylistFavorites } from "../api/playlistService";
 import { createAlbum, getAlbumById, getAlbums } from "../api/albumService";
@@ -55,25 +55,23 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
   const [ selectedMood, setSelectedMood ] = useState<string>();
 
   const moods = [
-    { label: "Хеппі" },
-    { label: "Меланхолія" },
-    { label: "Романтика" },
-    { label: "Драйв" },
-    { label: "Туса" },
-    { label: "Чілл" },
-    { label: "Фан" },
+    { label: "Хеппі",      value: "HAPPY" },
+    { label: "Меланхолія", value: "MELANCHOLY" },
+    { label: "Романтика",  value: "ROMANTIC" },
+    { label: "Драйв",      value: "DRIVE" },
+    { label: "Туса",       value: "PARTY" },
+    { label: "Чілл",       value: "CHILL" },
+    { label: "Фан",        value: "FAN" },
   ];
   const genres = [
-    { label: "Новинки" },
-    { label: "Поп" },
-    { label: "K-pop" },
-    { label: "Рок" },
-    { label: "Метал" },
-    { label: "Реп" },
-    { label: "Класика" },
+    { label: "Новинки", value: "NEW" },
+    { label: "Поп",     value: "POP" },
+    { label: "K-pop",   value: "KPOP" },
+    { label: "Рок",     value: "ROCK" },
+    { label: "Метал",   value: "METAL" },
+    { label: "Реп",     value: "RAP" },
+    { label: "Класика", value: "CLASSIC" },
   ];
-  const [ moodNames, setMoodNames ] = useState<string[]>([]);
-  const [ genreNames, setGenreNames ] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -221,7 +219,6 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
   const handleUploadTrack = async () => {
     if(!selectedAudio || !selectedTrackName || !selectedAlbumId || !artist) return;
     
-    fetchgenres();
     try{
       const formData = new FormData();
       formData.append("file", selectedAudio);
@@ -235,14 +232,13 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
       formData.append("track", new Blob([JSON.stringify(trackPayload)], { type: "application/json" }));
 
       const created = await createTrack(formData);
-      console.log(created);
+      
       if(created){
         setAllTracks(prev => prev ? [...prev, created] : [created]);
         const user = await getCurrentUser();
         const artist = await getArtistByUserId(user.id);
         const updatedAlbums = await getAlbums(artist.id);
         setAlbums(updatedAlbums);
-        
         if(selectedGenre)
           await setTrackGenre(created.id, selectedGenre);
   
@@ -255,13 +251,6 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
     } catch (error) {
       console.error("Помилка публікування треку:", error);
     }
-  }
-
-  const fetchgenres = async() => {
-    const moods = await getMoods();
-    const genres = await getGenres();
-    setMoodNames(moods);
-    setGenreNames(genres);
   }
 
   const handleTrackDeleted = async (deletedId: string) => {
@@ -500,7 +489,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                     >
                       <option value="">Оберіть жанр</option>
                       {genres.map((genre, id) => (
-                        <option key={id} value={genreNames[id]}>
+                        <option key={id} value={genre.value}>
                           {genre.label}
                         </option>
                       ))}
@@ -517,7 +506,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                     >
                       <option value="">Оберіть настрій</option>
                       {moods.map((mood, id) => (
-                        <option key={id} value={moodNames[id]}>
+                        <option key={id} value={mood.value}>
                           {mood.label}
                         </option>
                       ))}
