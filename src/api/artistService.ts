@@ -7,7 +7,7 @@ export const getArtistById = async (id: string) => {
     const response = await axiosInstance.get(`/artists/${id}`);
     return response.data;
   } catch (error) {
-    console.error("Помилка при отриманні артиста:", error);
+    console.error("Помилка при отриманні артиста за id:", error);
     throw error;
   }
 };
@@ -17,7 +17,7 @@ export const getArtistByUserId = async (id: string) => {
     const response = await axiosInstance.get(`/artists/user/${id}`);
     return response.data;
   } catch (error) {
-    console.error("Помилка при отриманні артиста:", error);
+    console.error("Помилка при отриманні артиста за UserId:", error);
     throw error;
   }
 };
@@ -28,7 +28,7 @@ export const editArtistById = async (id: string, data: Artist): Promise<Artist> 
     const response = await axiosInstance.put(`/artists/${id}`, data);
     return response.data;
   } catch (error) {
-    console.error("Помилка при редагуванні  артиста:", error);
+    console.error("Помилка при редагуванні артиста:", error);
     throw error;
   }
 };

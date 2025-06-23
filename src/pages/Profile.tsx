@@ -209,8 +209,6 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
       }
 
       const created = await createAlbum(AlbumPayload);
-      
-      // console.log(created);
       if(created){
         setAlbums((prev) => (prev ? [...prev, created] : [created]));
         setIsCreateAlbumModalOpen(false);
@@ -221,7 +219,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
   }
 
   const handleUploadTrack = async () => {
-    if(!selectedAudio || !selectedTrackName || !artist) return;
+    if(!selectedAudio || !selectedTrackName || !selectedAlbumId || !artist) return;
     
     fetchgenres();
     try{
@@ -240,9 +238,17 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
       console.log(created);
       if(created){
         setAllTracks(prev => prev ? [...prev, created] : [created]);
-
-        await setTrackGenre(created.id, selectedGenre || "");
-        await setTrackMood(created.id, selectedMood || "");
+        const user = await getCurrentUser();
+        const artist = await getArtistByUserId(user.id);
+        const updatedAlbums = await getAlbums(artist.id);
+        setAlbums(updatedAlbums);
+        
+        if(selectedGenre)
+          await setTrackGenre(created.id, selectedGenre);
+  
+        if(selectedMood)
+          await setTrackMood(created.id, selectedMood);
+        
         setIsCreateTrackModalOpen(false);
       }
 
@@ -258,8 +264,12 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
     setGenreNames(genres);
   }
 
-  const handleTrackDeleted = (deletedId: string) => {
+  const handleTrackDeleted = async (deletedId: string) => {
     setAllTracks(prev => (prev ? prev.filter(track => track.id !== deletedId) : null));
+    const user = await getCurrentUser();
+    const artist = await getArtistByUserId(user.id);
+    const updatedAlbums = await getAlbums(artist.id);
+    setAlbums(updatedAlbums);
   };
 
   const handleAlbumDeleted = (deletedId: string) => {
@@ -456,7 +466,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                       ))}
                     </select>
                     <svg className={styles.arrow} width="25" height="13" viewBox="0 0 25 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                   </div>
                   }
@@ -496,7 +506,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                       ))}
                     </select>
                     <svg className={styles.arrow} width="25" height="13" viewBox="0 0 25 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                   </div>
                   <div className={styles.moodField}>
@@ -513,7 +523,7 @@ const Profile: React.FC<ProfileProps> = ({ onOpen }) => {
                       ))}
                     </select>
                     <svg className={styles.arrow} width="25" height="13" viewBox="0 0 25 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M1.5 1.5L11.0858 11.0858C11.8668 11.8668 13.1332 11.8668 13.9142 11.0858L23.5 1.5" stroke="#52869F" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                   </div>
                 </div>
