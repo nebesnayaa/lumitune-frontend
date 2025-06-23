@@ -23,6 +23,7 @@
 }
 
 .poster{
+  position: absolute;
   height: 100%;
 }
 
