@@ -21,6 +21,7 @@ import SideInfoBox from "./components/layout/SideInfoBox";
 import Footer from "./components/layout/Footer";
 import MoodPage from "./pages/MoodPage";
 import Notifications from "./pages/Notifications";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const App: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -54,6 +55,7 @@ const App: React.FC = () => {
                     <Route path="/artist/:id" element={<ArtistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/playlist/:id" element={<PlaylistPage onOpen={() => setIsSideBoxOpen(false)}/>} />
                     <Route path="/mood/:name" element={<MoodPage onOpen={() => setIsSideBoxOpen(false)}/>} />
+                    <Route path="*" element={<NotFoundPage />} />
                   </Routes>
                 </main>
                 {isSideBoxOpen && <SideInfoBox onClose={() => setIsSideBoxOpen(false)} />}
