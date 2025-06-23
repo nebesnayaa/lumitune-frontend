@@ -1,10 +1,10 @@
 import React, { useRef} from "react";
+import { useNavigate } from "react-router";
 import { useDragScroll } from "../../hooks/useDragScroll";
 import { Playlist } from "../../types/HomeContentData";
 
 import defaultCover from "/images/defaultPlaylist.png";
-import styles from "../../styles/home/MusicContent.module.css";
-import { useNavigate } from "react-router";
+import styles from "../../styles/content/MusicContent.module.css";
 
 interface PlaylistCardsProps {
   playlists: Playlist[];

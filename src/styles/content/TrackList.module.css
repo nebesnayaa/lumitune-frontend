@@ -23,10 +23,14 @@
 }
 
 .poster{
-  display: flex;
-  position: absolute;
-  left: 0;
   height: 100%;
+}
+
+.poster img{
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;         /* Обрізає зайве, без спотворень */
+  object-position: center;   /* Центрує зображення */
 }
 
 .trackName{

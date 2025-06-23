@@ -57,6 +57,9 @@
   width: 110px;
   margin: 5px 0 5px;
   border-radius: 7px;
+
+  object-fit: cover;          /* Обрізає зображення, зберігаючи пропорції */
+  object-position: center;    /* Центрує зображення */
 }
 
 .trackNameWrapper {

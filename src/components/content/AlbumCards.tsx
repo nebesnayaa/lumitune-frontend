@@ -6,7 +6,7 @@ import { deleteAlbum, getAlbumById } from "../../api/albumService";
 import { getArtistById } from "../../api/artistService";
 
 import defaultCover from "/images/defaultPlaylist.png";
-import styles from "../../styles/home/MusicContent.module.css";
+import styles from "../../styles/content/MusicContent.module.css";
 
 interface AlbumCardsProps {
   albums: Album[];

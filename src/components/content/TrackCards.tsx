@@ -5,10 +5,10 @@ import { Track } from "../../types/HomeContentData";
 
 import { getArtistById } from "../../api/artistService";
 import { getAlbumById } from "../../api/albumService";
+import { deleteTrack } from "../../api/trackService";
 
 import defaultCover from "/images/defaultPlaylist.png";
-import styles from "../../styles/home/MusicContent.module.css";
-import { deleteTrack } from "../../api/trackService";
+import styles from "../../styles/content/MusicContent.module.css";
 
 interface TrackCardsProps {
   songs: Track[];
